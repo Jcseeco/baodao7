@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <title>寶島奇蹟</title>
+  <link rel="icon" href="img/logo_cut.png">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/gradient-tracking.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" integrity="sha384-IT8OQ5/IfeLGe8ZMxjj3QQNqT0zhBJSiFCL3uolrGgKRuenIU+mMS94kck/AHZWu" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="body-bg"></div>
+
+  <header>
+    <nav id="nav-bar" class="navbar navbar-expand-lg fixed-top gradient-tracking">
+      <a id="home-logo" class="navbar-brand" href="index.html"><img src="img/logo-white-long.png" alt="寶島奇蹟" style="height:37px;"></a>
+      <button id="menu-btn" class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#nav-list" aria-expanded="false" aria-controls="nav-list">
+        <div class="menu-inner">
+          <div class="burger">
+          </div>
+        </div>
+      </button>
+      <div id="nav-list" class="navbar-collapse collapse justify-content-end pr-4">
+        <ul class="navbar-nav align-items-stretch">
+          <li class="nav-item"><a class="nav-link" href="#main-sec" tab-target="main-sec" onclick="showSec('main-sec')">首頁</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about-sec" tab-target="about-sec" onclick="showSec('about-sec')">關於我們</a></li>
+          <li class="nav-item"><a class="nav-link" href="#service-sec" tab-target="service-sec" onclick="showSec('service-sec')">商業模式</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact-sec" tab-target="contact-sec" onclick="showSec('contact-sec')">聯絡我們</a></li>
+          <li class="nav-item"><a class="nav-link" href="#info-sec" tab-target="info-sec" onclick="showSec('info-sec')">寶島公告</a></li>
+          <li class="nav-item"><a class="nav-link" href="course.html">課程資訊</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://user.baodao7.com/login">登入/註冊</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- main section, title and slogan of corp -->
+  <section id="main-sec" class="fixed-bg jumbotron jumbotron-fluid active" style="background-image: url(' img/background/101bright-min.png');" sec-order="0">
+    <div id="main-sec-content">
+      <div id="main-text-content" class="pb-2">
+        <div class="title-box" style="width: fit-content;">
+          <h1 id="head-title" class="display-1 pb-2 text">寶島奇蹟</h1>
+          <h6 class="text" style="color:#1a1a1a;">A MIRACLE BAODAO</h6>
+          <h2 class="display-4 text">粉絲工廠</h2>
+        </div>
+      </div>
+      <img id="phone-btn" alt="關於我們" onclick="swipeRight(0,1)">
+    </div>
+  </section>
+  <!-- end of main section -->
+
+  <section id="about-sec" class="inactive right" style="overflow-y:auto;" sec-order="1">
+    <div id="about-content" class="sec-content has-text ml-lg-5 mr-lg-5 mt-lg-4 mb-lg-4 m-3 p-3" style="background-color:#f6feff;background-image: url('img/background/diamond-light.png');">
+      <div class="has-reveal reveal-rtl">
+        <h1 class="sec-title mb-3 display-4" style="border:none;text-align:center;">關於我們</h1>
+      </div>
+
+      <div class="col-12 row mt-4 m-0 p-0">
+        <div class="col-12 col-lg-7" style="display:flex;align-items:center;">
+          <video id="intro_vid" width="100%" src="img/intro_vid.mp4" controls preload="metadata">
+            影片無法播放
+          </video>
+        </div>
+        <div id="about-text" class="col-12 col-lg-5">
+          <div class="has-reveal reveal-rtl">
+            <h1 class="sec-title" style="text-align:center;">創辦理念</h1>
+          </div>
+          <h6 style="line-height: 1.4em;letter-spacing:1px;">現在各行業，無論是科技業、傳統產業、服務業、傳直銷業…等。都圍繞在以下六點：<br />
+            <span class="text-shade" style="color:#0004ff;">&nbsp&nbsp「找人」、「拉人」、「推銷」、「屯貨」、「售後服務」、「帶團隊」</span><br /><br />
+            且高達90~95%的人不喜歡以上六點，只想安逸工作，然而收入增加的速度比不上物價或房價上漲的速度，若想增加收入，
+            就是投資(傳統投資，投資金額大，又有一定風險)或兼職其他工作，用勞力換取金錢，沒有好的生活品質。<br />
+            <span class="text-shade" style="color:#0004ff;">&nbsp&nbsp「寶島奇蹟-粉絲工廠」</span>的成立就是要<span class="text-shade" style="color:#0004ff;">打破傳統模式</span>，透過自行開發軟體，使一般上班族及退休族也能輕鬆增加收入。</h6>
+        </div>
+
+      </div>
+      <div class="col-12 row mt-4 m-0 p-0">
+        <div id="about-text" class="col-12 col-lg-5" style="display:flex;align-items:center;">
+          <div class="">
+            <div class="has-reveal reveal-ltr">
+              <h1 class="sec-title" style="text-align:center;">創辦人簡介</h1>
+            </div>
+            <ul style="line-height: 1.4em;letter-spacing:1px;">
+              <p style="color:#6f87b2;">經歷:</p>
+              <li>
+                <h6>寶島奇蹟-粉絲工廠 創辦人</h6>
+              </li>
+              <li>
+                <h6>亞洲服務成交天王</h6>
+              </li>
+              <li>
+                <h6>皮指紋分析諮詢師</h6>
+              </li>
+              <li>
+                <h6>NAC神經練調整師</h6>
+              </li>
+              <li>
+                <h6>SID財富系統講師</h6>
+              </li>
+              <li>
+                <h6>兩性關係幸福講師</h6>
+              </li>
+              <li>
+                <h6>青少年兒童發展培訓講師</h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4" style="text-align:center;">
+          <img src="img/feature/founder.jpg" alt="founder" width="100%">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- service section -->
+  <section id="service-sec" class="fixed-bg inactive right" style="background-image:url('img/background/lukas-cold-min.png');" sec-order="2">
+    <div class="sec-content pl-lg-5 pr-lg-5 pt-lg-4 pb-lg-4 p-3" style="margin:auto;background-color:rgba(238, 245, 255, 0.5);">
+      <div class="col-lg-8">
+        <div class="has-reveal reveal-ltr">
+          <h1 class="sec-title col-sm-5">商業模式</h1>
+          <picture>
+            <source media="(max-width:600px)" srcset="img/feature/model-cube.png">
+            <img src="img/feature/model-long.png" alt="自動化系統 -> 累積粉絲 -> 知識付費 -> 被動收入" style="width:100%;">
+          </picture>
+        </div>
+      </div>
+      <div class="col-lg-8 mt-3 float-right">
+        <div class="has-reveal reveal-rtl">
+          <h1 class="sec-title float-right col-sm-5" style="text-align:right">特點價值</h1>
+          <img src="img/feature/merit.png" alt="免: 找人、拉人、推銷、囤貨、帶團隊、售後服務" style="width:100%;">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end of service section -->
+
+  <!-- contact us -->
+  <section id="contact-sec" class="fixed-bg inactive right" style="background-image: url('img/background/envelope.jpg');" sec-order="3">
+    <div class="sec-content pl-lg-5 pr-lg-5 pt-lg-4 pb-lg-4 p-3" style="background:rgba(238, 245, 255, 0.5);">
+      <div class="has-reveal reveal-ltr col-md-4 p-0">
+        <h1 class="sec-title pl-0">聯絡我們</h1>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4 ">
+          <div class="pt-30" style="	text-align: center;height: 90%;">
+            <h4 class="p-cw">想進一步了解寶島奇蹟的服務，或是對寶島奇蹟有任何寶貴意見，都歡迎您與我們聯繫，我們竭誠為您服務！</h4>
+            <img src="img/feature/contact.png" alt="contact" style="width:100%;">
+          </div>
+        </div>
+        <div class="col-12 col-md-7 ">
+          <div class="pt-30" style="text-align:center;">
+            <div class="form-group row has-success">
+              <label class="col-md-2 form-control-label">暱稱</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control referrer_id focus" name="referrer" data-fv-stringlength="true" placeholder="暱稱" data-fv-field="referrer" required="required">
+              </div>
+            </div>
+            <div class="form-group row has-success">
+              <label class="col-md-2 form-control-label">信箱</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control referrer_id focus" name="referrer" data-fv-stringlength="true" placeholder="信箱" data-fv-field="referrer" required="required">
+              </div>
+            </div>
+            <div class="form-group row has-success">
+              <label class="col-md-2 form-control-label">連絡電話</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control referrer_id focus" name="referrer" data-fv-stringlength="true" placeholder="連絡電話" data-fv-field="referrer" required="required">
+              </div>
+            </div>
+            <div class="form-group row has-success">
+              <label class="col-md-2 form-control-label">訊息</label>
+              <div class="col-md-9">
+                <textarea style="width:100%;">
+                            </textarea>
+              </div>
+            </div>
+            <button type="submit" value="submit" class="btn form-control col-md-3">送出</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="has-reveal reveal-rtl col-md-4 float-right">
+        <h1 class="sec-title mt-3 mb-0" style="text-align:right;margin-left:auto;">公司位置</h1>
+      </div>
+      <div class="row col-12 col-md-10 float-lg-right m-0">
+        <div class="col-12 col-md-6" style="margin-left:auto;display:flex;align-items:center;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7281.210925893422!2d120.62899700000001!3d24.15049!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693ddce1091e47%3A0xd618fc32db2d67b2!2zNDA45Y-w54Gj5Y-w5Lit5biC5Y2X5bGv5Y2A55uK6LGQ5p2x6KGXMTg26Jmf!5e0!3m2!1szh-TW!2sus!4v1583216722910!5m2!1szh-TW!2sus"
+            frameborder="0" style="border:0;min-height:250px;" width="100%" height="80%" allowfullscreen=""></iframe>
+        </div>
+        <div class="col-12 col-md-6 float-right pr-0 mt-3" align="center" style="margin-left:auto;">
+          <h4>台中市南屯區益豐東街186號2樓</h4>
+          <h4>04-23890131</h4>
+          <img src="img/feature/contact-phone.png" alt="contact-us" style="width:80%;">
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- end of contact us -->
+
+  <!-- 公告頁 -->
+  <section id="info-sec" class="inactive right" sec-order="4" style="overflow-y:auto;">
+    <div class="sec-content has-text ml-lg-5 mr-lg-5 mt-lg-4 mb-lg-4 m-3 p-3" style="background-color:#f6feff;background-image:url('img/background/diamond-light.png');width:-webkit-fill-available;">
+      <div class="has-reveal reveal-ltr col-md-4 p-0">
+        <h1 class=" sec-title pl-0">寶島公告</h1>
+      </div>
+      <h3 class=""><i class="fas fa-info pr-3"></i>說明會資訊</h3>
+      <div class="row col-12 pb-2 p-0 m-0">
+        <div class="col-md-6 pt-2 p-0 m-0">
+          <h4 class="text-center font-weight-bold">台中場</h4>
+          <h4 class="row"><span class="col-12 col-sm-3 text-center p-0">時間:</span><span class="col-12 col-sm-7 text-center">每周日 14:00 ~ 16:00</span></h4>
+          <h4 class="row"><span class="col-12 col-sm-3 text-center p-0">地點:</span><span href="https://reurl.cc/Gk7m5y" target="_blank" class="col-12 col-sm-7 text-center">台中市南屯區益豐東街186號2樓</span></h4>
+          <div class="location-frame col-12 text-center">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7281.210925893422!2d120.62899700000001!3d24.15049!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693ddce1091e47%3A0xd618fc32db2d67b2!2zNDA45Y-w54Gj5Y-w5Lit5biC5Y2X5bGv5Y2A55uK6LGQ5p2x6KGXMTg26Jmf!5e0!3m2!1szh-TW!2sus!4v1581864257996!5m2!1szh-TW!2sus"
+              height="300" frameborder="1" style="border:0;max-width:100%;" width="auto" allowfullscreen=""></iframe>
+          </div>
+        </div>
+        <div class="col-md-6 pt-2 p-0 m-0">
+          <h4 class="text-center font-weight-bold">台北場</h4>
+          <h4 class="row"><span class="col-12 col-sm-3 text-center p-0">時間:</span><span class="col-12 col-sm-7 text-center">每周六 14:00 ~ 16:00</span></h4>
+          <h4 class="row"><span class="col-12 col-sm-3 text-center p-0">地點:</span><span href="https://reurl.cc/Gk7m5y" target="_blank" class="col-12 col-sm-7 text-center">台北市松山區復興北路99號15樓</span></h4>
+          <div class="location-frame col-12 text-center">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.444777362182!2d121.54209081484225!3d25.052909783963425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abe7665bbd4f%3A0x33f7f41ed43152ba!2zMTA0OTHlj7DljJfluILmnb7lsbHljYDlvqnoiIjljJfot685OeiZnw!5e0!3m2!1szh-TW!2stw!4v1581867377324!5m2!1szh-TW!2stw"
+              height="300" frameborder="1" style="border:0;max-width:100%;" width="auto" allowfullscreen=""></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end of 公告 -->
+
+  <!-- <footer class="container-fluid" style="background-color:#404040;">
+    <style type="text/css">
+      li a {
+        color: #e6e6e6;
+      }
+
+      ul {
+        list-style: none;
+        display: inline-block;
+      }
+
+      li {
+        padding-right: 10px;
+        font-size: 1rem;
+        color: #e6e6e6;
+      }
+    </style>
+    <div class="logo text-center p-2">
+      <a class="pr-4" href="index.html"><img src="img/logo-long.png" alt="寶島奇蹟" style="width:40%;"></a>
+    </div>
+    <ul class="d-flex col-md-4 justify-content-center" style="margin:auto;">
+      <li><a href="#">常見問題</a></li>
+      <li><a href="#">隱私權政策</a></li>
+      <li><a href="#">使用條款</a></li>
+    </ul>
+    <div class="row p-2">
+      <h6 class="m-0 align-self-center col-md-6 text-center">
+        Copyright © <script>
+          document.write(new Date().getFullYear());
+        </script>
+        寶島奇蹟 . 版權所有
+      </h6>
+      <ul class="d-flex m-0 col-md-6 justify-content-center">
+        <li class=""><a href="https://www.facebook.com/Fanfactory2019/" target="_blank"><i class="fab fa-facebook-square"></i></a></li>
+        <li class=""><a href="#"><i class="fab fa-line"></i></a></li>
+        <li>電話:&nbsp04-23890131</li>
+        <li>地址:<a href="https://reurl.cc/ObdN5g">408台中市南屯區益豐東街186號2樓</a></li>
+      </ul>
+    </div>
+  </footer> -->
+
+  <!-- page animation -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var targetId = $(location).attr('href').split("#")[1];
+      showSec(targetId);
+
+      $(".nav-link").click(function() {
+        $(".navbar-collapse").collapse('hide');
+      });
+
+    });
+
+    //show the target section
+    // param targetId: the id of the section that want showing
+    function showSec(targetId) {
+      var targetSec = Number($("#" + targetId).attr("sec-order"));
+      var activeSec = Number($("section[class~='active']").attr("sec-order"));
+      if (activeSec - targetSec < 0) {
+        swipeRight(activeSec, targetSec);
+      } else if (activeSec - targetSec > 0) {
+        swipeLeft(activeSec, targetSec);
+      }
+    }
+
+    //create swipe right effect on sections, iterates with a delay of 200ms
+    // param start, end: the order of the starting section, and the order of the ending section
+    function swipeRight(start, end) {
+
+      if (start < end) {
+        //parellax background
+        $('#body-bg').animate({
+          left: '-=50px'
+        }, 200);
+
+        //section swipe start
+        var curNode = $("section[sec-order=" + start + "]");
+        var next = start + 1;
+        var nextNode = $("section[sec-order=" + next + "]");
+        //scale down
+        curNode.removeClass("active");
+        curNode.addClass("inactive");
+        //hide current section after 100ms
+        setTimeout(function() {
+          curNode.addClass("left");
+        }, 100);
+        //timing for calling in the next section
+        setTimeout(function() {
+          nextNode.removeClass("right");
+        }, 100);
+        //timing for next iteration to start
+        setTimeout(function() {
+          swipeRight(next, end);
+        }, 300);
+      } else if (start == end) {
+        //timing for the last section to start scaling back to 1
+        var curNode = $("section[sec-order=" + start + "]");
+        setTimeout(function() {
+          curNode.removeClass("inactive");
+        }, 200);
+        curNode.addClass("active");
+        //reveal all titles in the section
+        revealTitles(curNode);
+      }
+    }
+
+    //swipe left effect, iterates with a delay of 200ms
+    // param start, end: the order of the starting section, and the order of the ending section
+    function swipeLeft(start, end) {
+
+      if (start > end) {
+        //parellax background
+        $('#body-bg').animate({
+          left: '+=50px'
+        }, 200);
+
+        //section swipe start
+        var curNode = $("section[sec-order=" + start + "]");
+        var next = start - 1;
+        var nextNode = $("section[sec-order=" + next + "]");
+        //scale down
+        curNode.removeClass("active");
+        curNode.addClass("inactive");
+        //hide current section after 100ms
+        setTimeout(function() {
+          curNode.addClass("right");
+          curNode.css('z-index', 0);
+        }, 100);
+        //timing for calling in the next section
+        setTimeout(function() {
+          nextNode.removeClass("left");
+          nextNode.css('z-index', 1); // lay over previous section
+        }, 100);
+        //timing for next iteration to start
+        setTimeout(function() {
+          swipeLeft(next, end);
+        }, 300);
+      } else if (start == end) {
+        //scale back to 1 after sliding animation of the end section finishes (200ms)
+        var curNode = $("section[sec-order=" + start + "]");
+        setTimeout(function() {
+          curNode.removeClass("inactive");
+        }, 200);
+        curNode.addClass("active");
+        //reveal all titles in the section
+        revealTitles(curNode);
+      }
+    }
+
+    function revealTitles(sec) {
+      sec.find(".has-reveal").addClass("animate-in");
+    }
+  </script>
+</body>
+
+</html>

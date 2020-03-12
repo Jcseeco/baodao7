@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <title>寶島奇蹟-課程</title>
+  <link rel="icon" href="img/logo_cut.png">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/gradient-tracking.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" integrity="sha384-IT8OQ5/IfeLGe8ZMxjj3QQNqT0zhBJSiFCL3uolrGgKRuenIU+mMS94kck/AHZWu" crossorigin="anonymous">
+  <style>
+    :root {
+      --profile-width: 50px;
+      --main-text-color: #283856;
+    }
+
+    .course-cat {
+      display: grid;
+      grid-template-columns: repeat(8, auto);
+      justify-content: center;
+      grid-gap: 3rem;
+    }
+
+    .course-cat-item {
+      position: relative;
+      justify-self: center;
+      border-radius: 5px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .course-cat-item p {
+      font-weight: bold;
+    }
+
+    .course-cat-item:hover {
+      cursor: pointer;
+      animation: selected 0.2s;
+    }
+
+    .course-cat-item::before {
+      position: absolute;
+      width: 0px;
+      height: 0px;
+      left: 0;
+      bottom: 0;
+      background: rgba(95, 230, 255, 0.5);
+      transition: all .5s;
+      margin: auto;
+      content: '.';
+      color: transparent;
+      z-index: -1;
+      opacity: 0.5;
+      border-radius: 50%;
+    }
+
+    .course-cat-item:hover::before {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+
+    .course-cat-item img {
+      max-width: 60px;
+    }
+
+    .course-cat-item p {
+      text-align: center;
+    }
+
+    .boxes {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      grid-column-gap: 2rem;
+      grid-row-gap: 1rem;
+    }
+
+    .box {
+      position: relative;
+      /* max-width: 270px; */
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 0px;
+      margin: 0px;
+      box-shadow: 0px 2px 6px 1px #394145;
+      justify-self: center;
+    }
+
+    .box a::before {
+      position: absolute;
+      display: flex;
+      white-space: nowrap;
+      content: '進入課程內容';
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+      color: white;
+      background-color: #1e223952;
+      opacity: 0;
+      height: 100%;
+      width: 0;
+      left: 0;
+      transition: all 0.5s ease;
+      border-radius: inherit;
+    }
+
+    .box a:hover {
+      text-decoration: none;
+    }
+
+    .box a:hover::before {
+      width: 100%;
+      opacity: 1;
+    }
+
+    .box-body {
+      padding: 0.7rem;
+      background-color: #f7f8ff;
+    }
+
+    .box img {
+      max-width: 100%;
+    }
+
+    .box .profile {
+      width: var(--profile-width);
+      min-width: var(--profile-width);
+      height: var(--profile-width);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .box .profile-pic {
+      height: var(--profile-width);
+    }
+
+    .box .vid-text {
+      padding-left: 0.5rem;
+    }
+
+    .box .title {
+      color: var(--main-text-color);
+    }
+
+    .box .ep-text {
+      color: #626975;
+      float: right;
+    }
+
+    .box .ep-text span {
+      color: #0b57da;
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+    }
+
+    @keyframes selected {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .boxes {
+        grid-template-columns: auto auto auto;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .boxes {
+        grid-template-columns: auto auto;
+      }
+    }
+
+    @media (max-width: 830px) {
+      .course-cat {
+        grid-template-columns: repeat(4, auto);
+        justify-content: space-evenly;
+        grid-gap: 0;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+      .boxes {
+        grid-template-columns: auto;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <nav id="nav-bar" class="navbar navbar-expand-lg fixed-top gradient-tracking">
+      <a id="home-logo" class="navbar-brand" href="index.html"><img src="img/logo-white-long.png" alt="寶島奇蹟" style="height:37px;"></a>
+      <button id="menu-btn" class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#nav-list" aria-expanded="false" aria-controls="nav-list">
+        <div class="menu-inner">
+          <div class="burger">
+          </div>
+        </div>
+      </button>
+      <div id="nav-list" class="navbar-collapse collapse justify-content-end pr-4">
+        <ul class="navbar-nav align-items-stretch">
+          <li class="nav-item"><a class="nav-link" href="index.html#main-sec" tab-target="main-sec" onclick="showSec('main-sec')">首頁</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about-sec" tab-target="about-sec" onclick="showSec('about-sec')">關於我們</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#service-sec" tab-target="service-sec" onclick="showSec('service-sec')">商業模式</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact-sec" tab-target="contact-sec" onclick="showSec('contact-sec')">聯絡我們</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#info-sec" tab-target="info-sec" onclick="showSec('info-sec')">寶島公告</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://baodao7.com/course">課程資訊</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://user.baodao7.com/login">登入/註冊</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <section id="course-sec" style="overflow-y: auto;background: #e4e9ff;background-image: url('img/background/shattered-dark.png');">
+    <div class="sec-content ml-lg-5 mr-lg-5 mt-lg-4 mb-lg-4 m-3" style="width:-webkit-fill-available;height:auto;">
+      <div class="p-2" style="background-color: floralwhite;border-radius: 10px;">
+        <div class="has-reveal reveal-ltr">
+          <h1 align="center" class="sec-title">寶島課程</h1>
+        </div>
+        <div class="course-cat">
+          <div class="course-cat-item">
+            <img src="img/catagory/大健康.png" alt="大健康">
+            <p>大健康</p>
+          </div>
+          <div class="course-cat-item">
+            <img src="img/catagory/兒童教育.png" alt="兒童教育">
+            <p>兒童教育</p>
+          </div>
+          <div class="course-cat-item">
+            <img src="img/catagory/風水命理.png" alt="風水命理">
+            <p>風水命理</p>
+          </div>
+          <div class="course-cat-item">
+            <img src="img/catagory/全球旅遊.png" alt="全球旅遊">
+            <p>全球旅遊</p>
+          </div>
+          <div class="course-cat-item">
+            <img src="img/catagory/成功學.png" alt="成功學">
+            <p>成功學</p>
+          </div>
+          <div class="course-cat-item">
+            <img src="img/catagory/身心靈.png" alt="身心靈">
+            <p>身心靈</p>
+          </div>
+          <div class="course-cat-item">
+            <img src="img/catagory/美業.png" alt="美業">
+            <p>美業</p>
+          </div>
+          <div class="course-cat-item">
+            <img src="img/catagory/理財.png" alt="理財">
+            <p>理財</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3">
+        <!-- 最新影片區 -->
+        <div class="newest">
+          <h2 class="sec-title" style="border:none;">最新課程!</h2>
+          <div class="boxes">
+            <!-- 課程方框 -->
+            <div class="box">
+              <a href="#">
+                <img class="thumbnail" src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80" alt="">
+                <!-- box -->
+                <div class="box-body">
+                  <div style="display: flex;">
+                    <div class="profile">
+                      <img class="profile-pic" src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80" alt="">
+                    </div>
+                    <!-- text area -->
+                    <div class="vid-text" style="margin: auto;">
+                      <div class="title">
+                        <h5 class="title-text">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
+                      </div>
+                      <div class="ep">
+                        <h5 class="ep-text">共<span class="ep-tag">9487</span>集</h5>
+                      </div>
+                    </div>
+                    <!-- end text area -->
+                  </div>
+                </div>
+                <!-- end box -->
+              </a>
+            </div>
+            <div class="box">
+              <a href="#">
+                <img class="thumbnail" src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80" alt="">
+                <!-- box -->
+                <div class="box-body">
+                  <div style="display: flex;">
+                    <div class="profile">
+                      <img class="profile-pic" src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80" alt="">
+                    </div>
+                    <!-- text area -->
+                    <div class="vid-text" style="margin: auto;">
+                      <div class="title">
+                        <h5 class="title-text">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
+                      </div>
+                      <div class="ep">
+                        <h5 class="ep-text">共<span class="ep-tag">9487</span>集</h5>
+                      </div>
+                    </div>
+                    <!-- end text area -->
+                  </div>
+                </div>
+                <!-- end box -->
+              </a>
+            </div>
+            <div class="box">
+              <a href="#">
+                <img class="thumbnail" src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80" alt="">
+                <!-- box -->
+                <div class="box-body">
+                  <div style="display: flex;">
+                    <div class="profile">
+                      <img class="profile-pic" src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80" alt="">
+                    </div>
+                    <!-- text area -->
+                    <div class="vid-text" style="margin: auto;">
+                      <div class="title">
+                        <h5 class="title-text">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
+                      </div>
+                      <div class="ep">
+                        <h5 class="ep-text">共<span class="ep-tag">9487</span>集</h5>
+                      </div>
+                    </div>
+                    <!-- end text area -->
+                  </div>
+                </div>
+                <!-- end box -->
+              </a>
+            </div>
+            <div class="box">
+              <a href="#">
+                <img class="thumbnail" src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80" alt="">
+                <!-- box -->
+                <div class="box-body">
+                  <div style="display: flex;">
+                    <div class="profile">
+                      <img class="profile-pic" src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80" alt="">
+                    </div>
+                    <!-- text area -->
+                    <div class="vid-text" style="margin: auto;">
+                      <div class="title">
+                        <h5 class="title-text">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
+                      </div>
+                      <div class="ep">
+                        <h5 class="ep-text">共<span class="ep-tag">9487</span>集</h5>
+                      </div>
+                    </div>
+                    <!-- end text area -->
+                  </div>
+                </div>
+                <!-- end box -->
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 推薦影片區 -->
+        <!-- <div class="recommend">
+          <h2 class="sec-title" style="border:none;">寶島推薦</h2>
+          <div class="boxes">
+
+          </div>
+        </div> -->
+        <!-- 點選分類後顯示 -->
+        <!-- <div class="catagory" cat-name="">
+          <h2 class="sec-title" style="border:none;">課件名稱</h2>
+          <div class="boxes">
+
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+    $(document).ready(function() {
+      $(".has-reveal").addClass("animate-in");
+    });
+  </script>
+
+</body>
+
+</html>
