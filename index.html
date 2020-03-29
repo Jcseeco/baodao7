@@ -5,13 +5,200 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta charset="utf-8">
   <title>寶島奇蹟</title>
-  <link rel="icon" href="img/logo_cut.png">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/gradient-tracking.js?ver1.0"></script>
-  <link rel="stylesheet" href="css/main.css?ver1.0">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" integrity="sha384-IT8OQ5/IfeLGe8ZMxjj3QQNqT0zhBJSiFCL3uolrGgKRuenIU+mMS94kck/AHZWu" crossorigin="anonymous">
+  <link rel="icon" href="/img/logo_cut.png">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script src="/js/jquery-3.4.1.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/gradient-tracking.js?ver1.0"></script>
+  <link rel="stylesheet" href="/css/main.css?ver1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css">
+  <style>
+    :root {
+      --profile-width: 50px;
+      --main-text-color: #283856;
+    }
+
+    .course-cat {
+      display: grid;
+      grid-template-columns: repeat(8, auto);
+      justify-content: center;
+      grid-gap: 3rem;
+    }
+
+    .course-cat-item {
+      position: relative;
+      justify-self: center;
+      border-radius: 5px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .course-cat-item p {
+      font-weight: bold;
+    }
+
+    .course-cat-item:hover {
+      cursor: pointer;
+      animation: selected 0.2s;
+    }
+
+    .course-cat-item::before {
+      position: absolute;
+      width: 0px;
+      height: 0px;
+      left: 0;
+      bottom: 0;
+      background: rgba(95, 230, 255, 0.5);
+      transition: all .5s;
+      margin: auto;
+      content: '.';
+      color: transparent;
+      z-index: -1;
+      opacity: 0.5;
+      border-radius: 50%;
+    }
+
+    .course-cat-item:hover::before {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+
+    .course-cat-item img {
+      max-width: 60px;
+    }
+
+    .course-cat-item p {
+      text-align: center;
+    }
+
+    .boxes {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      grid-column-gap: 2rem;
+      grid-row-gap: 1rem;
+    }
+
+    .box {
+      position: relative;
+      /* max-width: 270px; */
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 0px;
+      margin: 0px;
+      box-shadow: 0px 2px 6px 1px #394145;
+      justify-self: center;
+    }
+
+    .box a::before {
+      position: absolute;
+      display: flex;
+      white-space: nowrap;
+      content: '進入課程內容';
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+      color: white;
+      background-color: #1e223952;
+      opacity: 0;
+      height: 100%;
+      width: 0;
+      left: 0;
+      transition: all 0.5s ease;
+      border-radius: inherit;
+    }
+
+    .box a:hover {
+      text-decoration: none;
+    }
+
+    .box a:hover::before {
+      width: 100%;
+      opacity: 1;
+    }
+
+    .box-body {
+      padding: 0.7rem;
+      background-color: #f7f8ff;
+    }
+
+    .box img {
+      max-width: 100%;
+    }
+
+    .box .profile {
+      width: var(--profile-width);
+      min-width: var(--profile-width);
+      height: var(--profile-width);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .box .profile-pic {
+      height: var(--profile-width);
+    }
+
+    .box .vid-text {
+      padding-left: 0.5rem;
+    }
+
+    .box .title {
+      color: var(--main-text-color);
+    }
+
+    .box .ep-text {
+      color: #626975;
+      float: right;
+    }
+
+    .box .ep-text span {
+      color: #0b57da;
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+    }
+
+    @keyframes selected {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .boxes {
+        grid-template-columns: auto auto auto;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .boxes {
+        grid-template-columns: auto auto;
+      }
+    }
+
+    @media (max-width: 830px) {
+      .course-cat {
+        grid-template-columns: repeat(4, auto);
+        justify-content: space-evenly;
+        grid-gap: 0;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+      .boxes {
+        grid-template-columns: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -19,7 +206,7 @@
 
   <header>
     <nav id="nav-bar" class="navbar navbar-expand-lg fixed-top gradient-tracking">
-      <a id="home-logo" class="navbar-brand" href="index.html"><img src="img/logo-white-long.png" alt="寶島奇蹟" style="height:37px;"></a>
+      <a id="home-logo" class="navbar-brand" href="/"><img src="/img/logo-white-long.png" alt="寶島奇蹟" style="height:37px;"></a>
       <button id="menu-btn" class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#nav-list" aria-expanded="false" aria-controls="nav-list">
         <div class="menu-inner">
           <div class="burger">
@@ -33,7 +220,8 @@
           <li class="nav-item"><a class="nav-link" href="#service-sec" tab-target="service-sec" onclick="showSec('service-sec')">商業模式</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact-sec" tab-target="contact-sec" onclick="showSec('contact-sec')">聯絡我們</a></li>
           <li class="nav-item"><a class="nav-link" href="#info-sec" tab-target="info-sec" onclick="showSec('info-sec')">寶島公告</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://baodao7.com/course/catalog">課程資訊</a></li>
+          <li class="nav-item"><a class="nav-link" href="#course-sec" tab-target="course-sec" onclick="showSec('course-sec')">課程資訊</a></li>
+          {{-- <li class="nav-item"><a class="nav-link" href="https://baodao7.com/course/catalog">課程資訊</a></li> --}}
           <li class="nav-item"><a class="nav-link" href="https://user.baodao7.com/login">登入/註冊</a></li>
         </ul>
       </div>
@@ -56,14 +244,14 @@
   <!-- end of main section -->
 
   <section id="about-sec" class="inactive right" style="overflow-y:auto;" sec-order="1">
-    <div id="about-content" class="sec-content has-text ml-lg-5 mr-lg-5 mt-lg-4 mb-lg-4 m-3 p-3" style="background-color:#f6feff;background-image: url('img/background/diamond-light.png');">
+    <div id="about-content" class="sec-content has-text ml-lg-5 mr-lg-5 mt-lg-4 mb-lg-4 m-3 p-3" style="background-color:#f6feff;background-image: url('/img/background/diamond-light.png');">
       <div class="has-reveal reveal-rtl">
         <h1 class="sec-title mb-3 display-4" style="border:none;text-align:center;">關於我們</h1>
       </div>
 
       <div class="col-12 row mt-4 m-0 p-0">
         <div class="col-12 col-lg-7" style="display:flex;align-items:center;">
-          <video id="intro_vid" width="100%" src="img/intro_vid.mp4" controls preload="metadata">
+          <video id="intro_vid" width="100%" src="/img/intro_vid.mp4" controls preload="metadata">
             影片無法播放
           </video>
         </div>
@@ -112,7 +300,7 @@
           </div>
         </div>
         <div class="col-12 col-lg-4" style="text-align:center;">
-          <img src="img/feature/founder.jpg" alt="founder" width="100%">
+          <img src="/img/feature/founder.jpg" alt="founder" width="100%">
         </div>
       </div>
     </div>
@@ -126,14 +314,14 @@
           <h1 class="sec-title col-sm-5">商業模式</h1>
           <picture>
             <source media="(max-width:600px)" srcset="img/feature/model-cube.png">
-            <img src="img/feature/model-long.png" alt="自動化系統 -> 累積粉絲 -> 知識付費 -> 被動收入" style="width:100%;">
+            <img src="/img/feature/model-long.png" alt="自動化系統 -> 累積粉絲 -> 知識付費 -> 被動收入" style="width:100%;">
           </picture>
         </div>
       </div>
       <div class="col-lg-8 mt-3 float-right">
         <div class="has-reveal reveal-rtl">
           <h1 class="sec-title float-right col-sm-5" style="text-align:right">特點價值</h1>
-          <img src="img/feature/merit.png" alt="免: 找人、拉人、推銷、囤貨、帶團隊、售後服務" style="width:100%;">
+          <img src="/img/feature/merit.png" alt="免: 找人、拉人、推銷、囤貨、帶團隊、售後服務" style="width:100%;">
         </div>
       </div>
     </div>
@@ -148,9 +336,9 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-4 ">
-          <div class="pt-30" style="	text-align: center;height: 90%;">
+          <div class="pt-30" style="  text-align: center;height: 90%;">
             <h4 class="p-cw">想進一步了解寶島奇蹟的服務，或是對寶島奇蹟有任何寶貴意見，都歡迎您與我們聯繫，我們竭誠為您服務！</h4>
-            <img src="img/feature/contact.png" alt="contact" style="width:100%;">
+            <img src="/img/feature/contact.png" alt="contact" style="width:100%;">
           </div>
         </div>
         <div class="col-12 col-md-7 ">
@@ -197,7 +385,7 @@
         <div class="col-12 col-md-6 float-right pr-0 mt-3" align="center" style="margin-left:auto;">
           <h4>台中市南屯區益豐東街186號2樓</h4>
           <h4>04-23890131</h4>
-          <img src="img/feature/contact-phone.png" alt="contact-us" style="width:80%;">
+          <img src="/img/feature/contact-phone.png" alt="contact-us" style="width:80%;">
         </div>
       </div>
 
@@ -237,6 +425,85 @@
     </div>
   </section>
   <!-- end of 公告 -->
+
+  {{-- 課程資訊 --}}
+  <section id="course-sec" class="inactive right" sec-order="5" style="overflow-y:auto;">
+    <div class="sec-content ml-lg-5 mr-lg-5 mt-lg-4 mb-lg-4 m-3" style="width:-webkit-fill-available;height:auto;">
+      <div class="p-2" style="background-color: floralwhite;border-radius: 10px;">
+        <div class="has-reveal reveal-ltr">
+          <h1 align="center" class="sec-title">寶島課程</h1>
+        </div>
+        <div class="course-cat">
+
+          {{-- 迴圈 --}}
+          <div id="demo-course-cat-item" class="course-cat-item d-none text-dark" style="text-decoration: none;">
+            <img src="" alt="">
+            <p></p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="p-3">
+        <div class="classList mt-3">
+          {{-- <h2 class="sec-title text-white my-1" style="border:none;"></h2> --}}
+          <div class="boxes">
+            <!-- 分類底下課程方框 -->
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3">
+        <!-- 最新影片區 -->
+        <div class="newest mt-3">
+          <h2 class="sec-title text-white my-1" style="border:none;">最新課程</h2>
+          <div class="boxes">
+            <!-- 最新課程方框 -->
+          </div>
+        </div>
+
+        <!-- 推薦影片區 -->
+        <!-- <div class="recommend">
+          <h2 class="sec-title" style="border:none;">寶島推薦</h2>
+          <div class="boxes">
+
+          </div>
+        </div> -->
+        <!-- 點選分類後顯示 -->
+        <!-- <div class="catagory" cat-name="">
+          <h2 class="sec-title" style="border:none;">課件名稱</h2>
+          <div class="boxes">
+
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+    <div id="demoClassBox" class="box d-none">
+      <a href="#">
+        <img class="thumbnail" src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80" alt="">
+        <!-- box -->
+        <div class="box-body">
+          <div style="display: flex;">
+            <div class="profile">
+              <img class="profile-pic">
+            </div>
+            <!-- text area -->
+            <div class="vid-text" style="margin: auto;">
+              <div class="title">
+                <h5 class="title-text">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
+              </div>
+              <div class="ep">
+                <h5 class="ep-text">共<span class="ep-tag">9487</span>集</h5>
+              </div>
+            </div>
+            <!-- end text area -->
+          </div>
+        </div>
+        <!-- end box -->
+      </a>
+    </div>
+  </section>
 
   <!-- <footer class="container-fluid" style="background-color:#404040;">
     <style type="text/css">
@@ -281,6 +548,11 @@
 
   <!-- page animation -->
   <script type="text/javascript">
+
+    // 這邊用 blade 放入網域
+    var classApiUrl = '{{ env('APP_URL') }}/api/class';
+    var catalogApiUrl = '{{ env('APP_URL') }}/api/classCatalog';
+
     $(document).ready(function() {
       var targetId = $(location).attr('href').split("#")[1];
       showSec(targetId);
@@ -288,12 +560,21 @@
       $(".nav-link").click(function() {
         $(".navbar-collapse").collapse('hide');
       });
+      setTimeout(getLatestClass, 350);
 
+    });
+
+    // 課程點擊監聽
+    $(".course-cat").on('click', '.course-cat-item', function() {
+      getClassByCatalog($(this).attr('classCatalogId'));
     });
 
     //show the target section
     // param targetId: the id of the section that want showing
     function showSec(targetId) {
+      if (targetId === 'course-sec') {
+        getCatalog();
+      }
       var targetSec = Number($("#" + targetId).attr("sec-order"));
       var activeSec = Number($("section[class~='active']").attr("sec-order"));
       if (activeSec - targetSec < 0) {
@@ -389,6 +670,92 @@
 
     function revealTitles(sec) {
       sec.find(".has-reveal").addClass("animate-in");
+    }
+
+    // 複製分類樣本
+    var classCatalogItemDemo = $("#demo-course-cat-item").clone();
+
+    // getCatalog
+    function getCatalog() {
+      $.ajax({
+        url: catalogApiUrl,
+        type: 'GET',
+      })
+      .done(function(msg) {
+        $(".course-cat").html("");
+        // 更新屬性
+        for (var i = 0; i < msg.length; i++) {
+          item = classCatalogItemDemo.clone();
+          item.find('img').attr('alt', msg[i].name);
+          item.find('img').attr('src', msg[i].file.url);
+          item.attr('classCatalogId', msg[i].id);
+          item.find('p').text(msg[i].name);
+          item.removeClass('d-none').removeAttr('id');
+          $(".course-cat").append(item);
+        }
+      })
+      .fail(function(msg) {
+        console.log(msg);
+      });
+    }
+
+    // 複製課程樣本
+    var classItemDemo = $("#demoClassBox").clone();
+
+    // 獲得最新課程
+    function getLatestClass() {
+      $.ajax({
+        url: classApiUrl,
+        type: 'GET',
+      })
+      .done(function(msg) {
+        console.log(msg);
+        $(".newest .boxes").html("");
+        // 更新屬性
+        for (var i = 0; i < msg.length; i++) {
+          item = classItemDemo.clone();
+          item.find('.thumbnail').attr('alt', msg[i].name);
+          item.find('.vid-text .title').text(msg[i].name);
+          item.find('.ep-tag').text(msg[i].class_detail_count);
+          item.find('.thumbnail').attr('src', msg[i].file.url);
+          item.find('.profile-pic').attr('src', msg[i].teacher.file.url);
+          item.attr('classId', msg[i].id);
+          item.find('p').text(msg[i].name);
+          item.removeClass('d-none').removeAttr('id');
+          $(".newest .boxes").append(item);
+        }
+      })
+      .fail(function(msg) {
+        console.log(msg);
+      });
+    }
+
+    // 獲得分類課程
+    function getClassByCatalog(catalogId) {
+      $.ajax({
+        url: classApiUrl + "?catalog=" + catalogId,
+        type: 'GET',
+      })
+      .done(function(msg) {
+        console.log(msg);
+        $(".classList .boxes").html("");
+        // 更新屬性
+        for (var i = 0; i < msg.length; i++) {
+          item = classItemDemo.clone();
+          item.find('.thumbnail').attr('alt', msg[i].name);
+          item.find('.vid-text .title').text(msg[i].name);
+          item.find('.ep-tag').text(msg[i].class_detail_count);
+          item.find('.thumbnail').attr('src', msg[i].file.url);
+          item.find('.profile-pic').attr('src', msg[i].teacher.file.url);
+          item.attr('classId', msg[i].id);
+          item.find('p').text(msg[i].name);
+          item.removeClass('d-none').removeAttr('id');
+          $(".classList .boxes").append(item);
+        }
+      })
+      .fail(function(msg) {
+        console.log(msg);
+      });
     }
   </script>
 </body>
