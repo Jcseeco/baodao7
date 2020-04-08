@@ -10,6 +10,7 @@
 ### TODO
 * api串接
 * 登入與購買驗證
+* 公告頁
 * 換頁標題顯示
 * 換頁轉場微調
 * 將section分檔成view管理，改為使用php template方式
