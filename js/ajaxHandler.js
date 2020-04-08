@@ -53,7 +53,7 @@ class AjaxHandler {
   }
 
   // request to api
-  private postRequest(url, data) {
+  postRequest(url, data) {
     return fetch(url, {
       body: Json.stringify(data),
       cache: 'no-cache',
