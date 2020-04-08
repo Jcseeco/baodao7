@@ -1,0 +1,52 @@
+@tailwind base;
+
+@tailwind components;
+:root {
+  --main-blue: #2943df;
+  --text-blue: #192045;
+  --bg-white: #E9E9ED;
+  --orange: #ff9d33;
+  --main-gradient: linear-gradient(to right top, #2943df, #1e3ec1, #1938a4, #183187, #192a6a, #3b2b69, #512d67, #633064, #9c3a6a, #ce4c61, #f16f4e, #ff9d33);
+  --dark-gradient: linear-gradient(to right top, #02101f, #031529, #021934, #021c3f, #071f49, #292356, #46265f, #632664, #932960, #b93851, #cf573a, #d57e1f);
+}
+
+body {
+  color: var(--text-blue);
+  font-family: "Microsoft JhengHei";
+}
+
+section {
+  position: fixed;
+}
+
+::selection {
+  @apply text-text-blue bg-main-orange;
+}
+
+.sec-height {
+  height: calc(100vh - 64px);
+  top: 64px;
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.gradient-text {
+  background: var(--main-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.border-o {
+  border-color: var(--orange);
+}
+
+.form-input {
+  @apply flex-grow border-2 border-text-blue px-2;
+}
+.form-input:focus {
+  @apply border-main-orange;
+  outline: none;
+}
+@tailwind utilities;

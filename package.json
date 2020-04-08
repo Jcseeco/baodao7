@@ -1,0 +1,15 @@
+{
+  "name": "baodao7",
+  "version": "1.0.0",
+  "description": "link to website: [寶島奇蹟AMB](http://baodao7.com)",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwind build src/style.css -o css/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^1.2.0"
+  }
+}

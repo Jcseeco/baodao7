@@ -104,7 +104,7 @@ section.inactive.right {
 
 #nav-bar {
   height: 50px;
-  background: linear-gradient(45deg, #010a36, #25368ecc);
+  background-color: #3b4581;
   transition: all 0.3s ease;
 }
 
@@ -501,6 +501,7 @@ section.inactive.right {
     width: auto;
     padding-right: 0px !important;
     right: 0px;
+    top: 50px;
     position: fixed;
     background-color: #0a1c54;
   }
