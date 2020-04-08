@@ -3,10 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
   <title>寶島奇蹟</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css">
+  <link rel="stylesheet"
+        href="css/style.css">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.11.1/css/all.css">
   <style>
     input:focus {
       outline: none;
@@ -40,7 +43,7 @@
     #nav {
       opacity: 1;
       visibility: visible;
-      transition: width ease .3s, height ease .5s .3s;
+      transition: width ease .3s, height ease .5s .2s;
       overflow: hidden;
     }
 
@@ -51,7 +54,7 @@
 
     #nav .nav-list {
       opacity: 1;
-      transition: opacity ease .3s .8s;
+      transition: opacity ease .3s .6s;
     }
 
     .navbar {
@@ -327,71 +330,129 @@
   </style>
 </head>
 
-<body class="w-screen h-screen bg-text-blue p-0 m-0 overflow-hidden" style="background-image:url('img/background/stardust.png');">
+<body class="w-screen h-screen bg-text-blue p-0 m-0 overflow-hidden"
+      style="background-image:url('img/background/stardust.png');">
 
   <header class="fixed z-10">
-    <div class="navbar inactive flex items-center w-screen h-16 bg-text-blue text-main-white px-3">
+    <div class="navbar flex items-center w-screen h-16 bg-text-blue text-main-white px-3">
       <h1 class="text-2xl italic"> <a href="newindex.html">寶島奇蹟AMB</a></h1>
       <div class="flex justify-end flex-grow">
-        <a class="mx-2 border-2 border-main-white rounded-lg text-xl font-semibold hover:bg-main-white hover:text-text-blue transitions-colors duration-500  px-3 py-1" href="">登入／註冊</a>
-        <button class="mx-2 nav-toggler z-30" toggle-target="#nav">menu</button>
+        <a class="mx-2 border-2 border-main-white rounded-lg text-xl font-semibold hover:bg-main-white hover:text-text-blue transitions-colors duration-500  px-3 py-1"
+           href="">登入／註冊</a>
+        <button class="mx-2 nav-toggler z-30"
+                toggle-target="#nav">menu</button>
       </div>
     </div>
-    <div id="nav" class="collapse top-0 right-0 w-screen h-screen fixed z-20" onclick="collapseNav()">
-      <div class="w-1/2 sm:w-1/4 h-full flex-center bg-text-blue ml-auto whitespace-no-wrap shadow-lg" style="box-shadow:-12px 0px 12px 8px rgba(0, 0, 0, 0.2), -6px 0px 12px 2px rgba(0, 0, 0, 0.3);">
+    <div id="nav"
+         class="collapse top-0 right-0 w-screen h-screen fixed z-20"
+         onclick="collapseNav()">
+      <div class="w-1/2 sm:w-1/4 h-full flex-center bg-text-blue ml-auto whitespace-no-wrap shadow-lg"
+           style="box-shadow:-12px 0px 12px 8px rgba(0, 0, 0, 0.2), -6px 0px 12px 2px rgba(0, 0, 0, 0.3);">
         <ul class="nav-list w-fit flex-center flex-col text-main-white p-3">
-          <li class="text-2xl py-4 w-full"><a class="flex-center" href="#about-sec" tab-target="about-sec" onclick="showSec('#about-sec')">關於我們</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center" href="#service-sec" tab-target="service-sec" onclick="showSec('#service-sec')">商業模式</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center" href="#contact-sec" tab-target="contact-sec" onclick="showSec('#contact-sec')">聯絡我們</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center" href="#info-sec" tab-target="info-sec" onclick="showSec('#info-sec')">寶島公告</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center" href="#course-sec" onclick="showSec('#course-sec')">拿樂趣</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center" href="course.html" onclick="showSec('#course-sec')">登入</a></li>
+          <li class="text-2xl py-4 w-full"><a class="flex-center"
+               href="#about-sec"
+               tab-target="about-sec"
+               onclick="showSec('#about-sec')">關於我們</a></li>
+          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+               href="#service-sec"
+               tab-target="service-sec"
+               onclick="showSec('#service-sec')">商業模式</a></li>
+          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+               href="#contact-sec"
+               tab-target="contact-sec"
+               onclick="showSec('#contact-sec')">聯絡我們</a></li>
+          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+               href="#info-sec"
+               tab-target="info-sec"
+               onclick="showSec('#info-sec')">寶島公告</a></li>
+          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+               href="#course-sec"
+               onclick="showSec('#course-sec')">拿樂趣</a></li>
+          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+               href="course.html"
+               onclick="showSec('#course-sec')">登入</a></li>
         </ul>
       </div>
     </div>
   </header>
   <!-- menu display on home page -->
-  <div class="center-menu flex-center w-screen h-screen" onclick="toggleMenu()">
+  <div class="center-menu flex-center w-screen h-screen"
+       onclick="toggleMenu()">
     <ul class="menu-list flex-center">
-      <li class="menu-item flex-center"><a class="flex-center" href="#about-sec" tab-target="about-sec" onclick="showSec('#about-sec')">關於我們</a></li>
-      <li class="menu-item flex-center"><a class="flex-center" href="#service-sec" tab-target="service-sec" onclick="showSec('#service-sec')">商業模式</a></li>
-      <li class="menu-item flex-center"><a class="flex-center" href="#contact-sec" tab-target="contact-sec" onclick="showSec('#contact-sec')">聯絡我們</a></li>
-      <li class="menu-item flex-center"><a class="flex-center" href="#info-sec" tab-target="info-sec" onclick="showSec('#info-sec')">寶島公告</a></li>
-      <li class="menu-item flex-center"><a class="flex-center" href="#course-sec" onclick="showSec('#course-sec')">拿樂趣</a></li>
-      <li class="menu-item flex-center"><a class="flex-center" href="https://user.baodao7.com/login">登入/註冊</a></li>
+      <li class="menu-item flex-center"><a class="flex-center"
+           href="#about-sec"
+           tab-target="about-sec"
+           onclick="showSec('#about-sec')">關於我們</a></li>
+      <li class="menu-item flex-center"><a class="flex-center"
+           href="#service-sec"
+           tab-target="service-sec"
+           onclick="showSec('#service-sec')">商業模式</a></li>
+      <li class="menu-item flex-center"><a class="flex-center"
+           href="#contact-sec"
+           tab-target="contact-sec"
+           onclick="showSec('#contact-sec')">聯絡我們</a></li>
+      <li class="menu-item flex-center"><a class="flex-center"
+           href="#info-sec"
+           tab-target="info-sec"
+           onclick="showSec('#info-sec')">寶島公告</a></li>
+      <li class="menu-item flex-center"><a class="flex-center"
+           href="#course-sec"
+           onclick="showSec('#course-sec')">拿樂趣</a></li>
+      <li class="menu-item flex-center"><a class="flex-center"
+           href="https://user.baodao7.com/login">登入/註冊</a></li>
     </ul>
   </div>
   <!-- 首頁 -->
-  <section id="main-sec" class="active h-full w-full bg-cover" style="background-image: url(' img/background/101bright-min.png');" sec-order="0">
-    <div id="main-sec-content" class="h-full w-full p-8 flex flex-col items-center"
-      style="background: linear-gradient(to right top, #0079ff26, #286ee626, #3464ce26, #3a5ab626, #3c519f26, #5e4e9b26, #774c9426, #8a4a8c26, #c795ad26, #e15b6f26, #f5765526, #f69b3a26);">
-      <div id="main-text-content" class="relative mt-24 flex flex-col items-center">
+  <section id="main-sec"
+           class="active h-full w-full bg-cover"
+           style="background-image: url(' img/background/101bright-min.png');"
+           sec-order="0">
+    <div id="main-sec-content"
+         class="h-full w-full p-8 flex flex-col items-center"
+         style="background: linear-gradient(to right top, #0079ff26, #286ee626, #3464ce26, #3a5ab626, #3c519f26, #5e4e9b26, #774c9426, #8a4a8c26, #c795ad26, #e15b6f26, #f5765526, #f69b3a26);">
+      <div id="main-text-content"
+           class="relative mt-24 flex flex-col items-center">
         <div class="content-box">
-          <h1 id="head-title" class="gradient-text text-center text-6.5xl sm:text-8xl font-medium">寶島奇蹟</h1>
-          <h6 class="gradient-text text-lg text-center" style="color:#1a1a1a;">A MIRACLE BAODAO</h6>
+          <h1 id="head-title"
+              class="gradient-text text-center text-6.5xl sm:text-8xl font-medium">寶島奇蹟</h1>
+          <h6 class="gradient-text text-lg text-center"
+              style="color:#1a1a1a;">A MIRACLE BAODAO</h6>
           <h2 class="gradient-text text-center text-5xl">粉絲工廠</h2>
         </div>
       </div>
-      <img id="phone-menu" class="mt-4" src="img/feature/phone-static.png" alt="" style="max-width: 100px;" onclick='toggleMenu()'>
+      <img id="phone-menu"
+           class="mt-4"
+           src="img/feature/phone-static.png"
+           alt=""
+           style="max-width: 100px;"
+           onclick='toggleMenu()'>
     </div>
   </section>
   <!-- 首頁 end -->
 
   <!-- 關於我們 -->
-  <section id="about-sec" class="inactive w-full sec-height bg-main-white p-6 pt-3 overflow-auto" sec-order="1">
+  <section id="about-sec"
+           class="inactive w-full sec-height bg-main-white p-6 pt-3 overflow-auto"
+           sec-order="1">
     <div class="has-reveal reveal-rtl w-full sm:w-3/5 mx-auto">
-      <h1 class="text-5xl gradient-text text-center mx-auto" style="width:fit-content;">關於我們</h1>
+      <h1 class="text-5xl gradient-text text-center mx-auto"
+          style="width:fit-content;">關於我們</h1>
     </div>
 
-    <div class="block bg-text-blue rounded-b-2rem md:flex -mx-6" style="color: var(--bg-white);border-bottom: .5rem solid var(--orange);">
+    <div class="block bg-text-blue rounded-b-2rem md:flex -mx-6"
+         style="color: var(--bg-white);border-bottom: .5rem solid var(--orange);">
       <div class="md:w-1/2 flex-center p-3">
-        <video id="intro_vid" src="img/intro_vid.mp4" controls preload="metadata">
+        <video id="intro_vid"
+               src="img/intro_vid.mp4"
+               controls
+               preload="metadata">
           影片無法播放
         </video>
       </div>
       <div class="md:w-1/2 p-6">
         <div class="has-reveal reveal-rtl">
-          <h1 class="text-4xl" style="text-align:center;">創辦理念</h1>
+          <h1 class="text-4xl"
+              style="text-align:center;">創辦理念</h1>
         </div>
         <h6 class="text-lg">現在各行業，無論是科技業、傳統產業、服務業、傳直銷業…等。都圍繞在以下六點：<br />
           <span class="">&nbsp&nbsp「找人」、「拉人」、「推銷」、「囤貨」、「售後服務」、「帶團隊」</span><br /><br />
@@ -433,7 +494,9 @@
         </ul>
       </div>
       <div class="w-1/2 md:w-2/5 overflow-hidden rounded-full md:rounded-lg md:mx-10 mt-auto">
-        <img src="img/feature/founder.jpg" alt="founder" width="100%">
+        <img src="img/feature/founder.jpg"
+             alt="founder"
+             width="100%">
       </div>
     </div>
 
@@ -441,26 +504,36 @@
   <!-- 關於我們 end -->
 
   <!-- 商業模式 -->
-  <section id="service-sec" class="inactive sec-height w-full bg-fixed bg-cover bg-center bg-text-blue overflow-auto" style="background-image:url('img/background/lukas-cold-min.png');" sec-order="2">
+  <section id="service-sec"
+           class="inactive sec-height w-full bg-fixed bg-cover bg-center bg-text-blue overflow-auto"
+           style="background-image:url('img/background/lukas-cold-min.png');"
+           sec-order="2">
     <!-- overlay of fixed background -->
     <div class="min-h-screen w-full bg-main-white-2 flex flex-col">
       <!-- main content -->
       <!-- top -->
-      <div class="w-full h-1/2 lg:w-11/12 rounded-br-7rem sm:rounded-br-full p-6 pb-8 md:px-10" style="background-color: #D1D2D9e6;box-shadow: 2px 2px 8px #00000066;">
+      <div class="w-full h-1/2 lg:w-11/12 rounded-br-7rem sm:rounded-br-full p-6 pb-8 md:px-10"
+           style="background-color: #D1D2D9e6;box-shadow: 2px 2px 8px #00000066;">
         <div class="has-reveal reveal-ltr w-3/5">
           <h1 class="text-5xl">商業模式</h1>
         </div>
         <picture class="">
-          <source media="(max-width:800px)" srcset="img/feature/model-cube.png">
-          <img class="md:w-10/12 mt-2" src="img/feature/model-long.png" alt="自動化系統 -> 累積粉絲 -> 知識付費 -> 被動收入">
+          <source media="(max-width:800px)"
+                  srcset="img/feature/model-cube.png">
+          <img class="md:w-10/12 mt-2"
+               src="img/feature/model-long.png"
+               alt="自動化系統 -> 累積粉絲 -> 知識付費 -> 被動收入">
         </picture>
       </div>
       <!-- bot -->
-      <div class="w-full h-1/2 bg-text-blue-9 lg:w-11/12 flex-grow rounded-tl-7rem sm:rounded-tl-full ml-auto p-6 md:px-10" style="box-shadow: -2px -2px 8px #00000066;">
+      <div class="w-full h-1/2 bg-text-blue-9 lg:w-11/12 flex-grow rounded-tl-7rem sm:rounded-tl-full ml-auto p-6 md:px-10"
+           style="box-shadow: -2px -2px 8px #00000066;">
         <div class="has-reveal reveal-rtl w-3/5 ml-auto">
           <h1 class="text-5xl text-right text-gray-200">特點價值</h1>
         </div>
-        <img class="ml-auto mt-6" src=" img/feature/merit.png" alt="免: 找人、拉人、推銷、囤貨、帶團隊、售後服務">
+        <img class="ml-auto mt-6"
+             src=" img/feature/merit.png"
+             alt="免: 找人、拉人、推銷、囤貨、帶團隊、售後服務">
       </div>
       <!-- end main content -->
     </div>
@@ -468,12 +541,18 @@
   <!-- 商業模式 end -->
 
   <!-- 聯絡我們 -->
-  <section id="contact-sec" class="inactive sec-height w-full overflow-auto bg-text-blue" sec-order="3">
+  <section id="contact-sec"
+           class="inactive sec-height w-full overflow-auto bg-text-blue"
+           sec-order="3">
     <div class="lg:flex min-h-full p-3 pt-0">
       <!-- left -->
       <div class="min-h-full block relative lg:w-1/2 lg:mr-2 overflow-hidden">
         <!-- parallax background -->
-        <img class='rellax absolute bottom-0' src="img/background/milkovi.jpg" alt="background" style="z-index:-1;" data-rellax-speed="-6">
+        <img class='rellax absolute bottom-0'
+             src="img/background/milkovi.jpg"
+             alt="background"
+             style="z-index:-1;"
+             data-rellax-speed="-6">
         <!-- white overlay -->
         <div class="h-full bg-main-white-4 px-4 pb-4">
           <!-- main content -->
@@ -486,20 +565,34 @@
 
           <div class="form text-lg">
             <div class="flex w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-l px-4 py-1" for="">暱稱</span>
-              <input class="form-input rounded-r" type="text" name="name" placeholder="ex. 小明">
+              <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
+                    for="">暱稱</span>
+              <input class="form-input rounded-r"
+                     type="text"
+                     name="name"
+                     placeholder="ex. 小明">
             </div>
             <div class="flex w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-l px-4 py-1" for="">信箱</span>
-              <input class="form-input rounded-r" type="text" name="mail" placeholder="ex. ****@**mail.com">
+              <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
+                    for="">信箱</span>
+              <input class="form-input rounded-r"
+                     type="text"
+                     name="mail"
+                     placeholder="ex. ****@**mail.com">
             </div>
             <div class="flex w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-l px-4 py-1" for="">手機</span>
-              <input class="form-input rounded-r" type="text" name="phone" placeholder="ex. 0912345678">
+              <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
+                    for="">手機</span>
+              <input class="form-input rounded-r"
+                     type="text"
+                     name="phone"
+                     placeholder="ex. 0912345678">
             </div>
             <div class="flex flex-col w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-t text-center px-4 py-1" for="">訊息</span>
-              <textarea class="form-input border-t-0 rounded-b" name="message"></textarea>
+              <span class="bg-text-blue text-main-white rounded-t text-center px-4 py-1"
+                    for="">訊息</span>
+              <textarea class="form-input border-t-0 rounded-b"
+                        name="message"></textarea>
             </div>
             <div class="text-center">
               <button class="bg-text-blue hover:bg-main-blue text-main-white text-lg rounded py-2 px-6">送出</button>
@@ -512,7 +605,11 @@
       <!-- right -->
       <div class="min-h-full block relative lg:w-1/2 mt-2 lg:mt-0 lg:ml-2 overflow-hidden">
         <!-- parallax background -->
-        <img class='rellax absolute object-cover bottom-0' src="img/background/joyce.jpg" alt="background" style="z-index:-1;" data-rellax-speed="-6">
+        <img class='rellax absolute object-cover bottom-0'
+             src="img/background/joyce.jpg"
+             alt="background"
+             style="z-index:-1;"
+             data-rellax-speed="-6">
         <!-- white overlay -->
         <div class="h-full bg-main-white-4 px-4 pb-4">
           <!-- main content -->
@@ -529,11 +626,16 @@
                 <h1 class="bg-text-blue text-main-white rounded-l px-4 py-1">連絡電話</h1>
                 <h1 class="form-input bg-white rounded-r align-text-bottom">04-23890131</h1>
               </div>
-              <div class="w-3/5 ml-auto mr-auto" style="max-width:350px;">
+              <div class="w-3/5 ml-auto mr-auto"
+                   style="max-width:350px;">
                 <div class="pt-full relative">
                   <iframe class="h-full w-full absolute top-0"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.605451995225!2d120.62680781482341!3d24.150490384393713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693ddce1091e47%3A0xd618fc32db2d67b2!2zNDA45Y-w5Lit5biC5Y2X5bGv5Y2A55uK6LGQ5p2x6KGXMTg26Jmf!5e0!3m2!1szh-TW!2stw!4v1585731004475!5m2!1szh-TW!2stw"
-                    frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.605451995225!2d120.62680781482341!3d24.150490384393713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693ddce1091e47%3A0xd618fc32db2d67b2!2zNDA45Y-w5Lit5biC5Y2X5bGv5Y2A55uK6LGQ5p2x6KGXMTg26Jmf!5e0!3m2!1szh-TW!2stw!4v1585731004475!5m2!1szh-TW!2stw"
+                          frameborder="0"
+                          style="border:0;"
+                          allowfullscreen=""
+                          aria-hidden="false"
+                          tabindex="0"></iframe>
                 </div>
               </div>
             </div>
@@ -548,12 +650,18 @@
   <!-- 聯絡我們 end -->
 
   <!-- 課程選擇頁 -->
-  <section id="course-sec" class="inactive w-full sec-height bg-main-white overflow-auto" style="">
+  <section id="course-sec"
+           class="inactive w-full sec-height bg-main-white overflow-auto"
+           style="">
     <div class="h-auto md:h-vh-half overflow-hidden">
 
-      <div class="h-full w-full bg-cover bg-top rellax" style="background-image:url('img/background/helloquence.jpg');" data-rellax-speed="-6">
+      <div class="h-full w-full bg-cover bg-top rellax"
+           style="background-image:url('img/background/helloquence.jpg');"
+           data-rellax-speed="-6">
         <!-- overlay -->
-        <div class="h-full w-full bg-main-white-4 p-6 rellax" style="box-shadow:inset 0px -9px 5px rgba(70,70,70,0.3);" data-rellax-speed="-2">
+        <div class="h-full w-full bg-main-white-4 p-6 rellax"
+             style="box-shadow:inset 0px -9px 5px rgba(70,70,70,0.3);"
+             data-rellax-speed="-2">
           <div class="mt-12">
             <div class="has-reveal reveal-ltr">
               <h1 class="text-6xl text-center font-medium">寶島拿樂趣</h1>
@@ -572,54 +680,63 @@
     </div>
 
     <!-- 分類欄 -->
-    <div id="course-nav" class="bg-text-blue text-main-white border-main-orange border-b-8 rounded-b-2rem p-2 md:p-4 shadow-md">
+    <div id="course-nav"
+         class="bg-text-blue text-main-white border-main-orange border-b-8 rounded-b-2rem p-2 md:p-4 shadow-md">
       <h1 class="text-4xl text-center">課程分類</h1>
       <div class="course-cat flex flex-wrap">
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/大健康.png" alt="大健康">
+            <img src="img/catagory/大健康.png"
+                 alt="大健康">
             <p>大健康</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/兒童教育.png" alt="兒童教育">
+            <img src="img/catagory/兒童教育.png"
+                 alt="兒童教育">
             <p>兒童教育</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/風水命理.png" alt="風水命理">
+            <img src="img/catagory/風水命理.png"
+                 alt="風水命理">
             <p>風水命理</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/全球旅遊.png" alt="全球旅遊">
+            <img src="img/catagory/全球旅遊.png"
+                 alt="全球旅遊">
             <p>全球旅遊</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/成功學.png" alt="成功學">
+            <img src="img/catagory/成功學.png"
+                 alt="成功學">
             <p>成功學</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/身心靈.png" alt="身心靈">
+            <img src="img/catagory/身心靈.png"
+                 alt="身心靈">
             <p>身心靈</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/美業.png" alt="美業">
+            <img src="img/catagory/美業.png"
+                 alt="美業">
             <p>美業</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
           <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/理財.png" alt="理財">
+            <img src="img/catagory/理財.png"
+                 alt="理財">
             <p>理財</p>
           </div>
         </div>
@@ -631,20 +748,27 @@
     <div class="courses p-6">
       <!-- 課程分區 -->
       <div class="newest">
-        <h2 class="text-4xl" style="">最新課程</h2>
+        <h2 class="text-4xl"
+            style="">最新課程</h2>
         <!-- 分區課程列表 -->
         <div class="flex flex-wrap">
           <!-- 各別課程方框容器 -->
           <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
             <div class="bg-white rounded-1rem overflow-hidden shadow-md">
-              <a href="#watch-sec" onclick="showSec('#watch-sec')">
-                <img class="w-full" src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80" alt="">
+              <a href="#watch-sec"
+                 onclick="showSec('#watch-sec')">
+                <img class="w-full"
+                     src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80"
+                     alt="">
                 <!-- box body -->
                 <div class="box-body">
                   <div class="flex m-2">
-                    <img class="h-16 w-16 rounded-full" src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80" alt="">
+                    <img class="h-16 w-16 rounded-full"
+                         src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80"
+                         alt="">
                     <!-- text area -->
-                    <div class="" style="margin: auto;">
+                    <div class=""
+                         style="margin: auto;">
                       <div class="mx-2">
                         <h5 class="text-2xl">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
                       </div>
@@ -664,13 +788,18 @@
           <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
             <div class="bg-white rounded-1rem overflow-hidden shadow-md">
               <a href="#">
-                <img class="w-full" src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80" alt="">
+                <img class="w-full"
+                     src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80"
+                     alt="">
                 <!-- box body -->
                 <div class="box-body">
                   <div class="flex m-2">
-                    <img class="h-16 w-16 rounded-full" src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80" alt="">
+                    <img class="h-16 w-16 rounded-full"
+                         src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80"
+                         alt="">
                     <!-- text area -->
-                    <div class="" style="margin: auto;">
+                    <div class=""
+                         style="margin: auto;">
                       <div class="mx-2">
                         <h5 class="text-2xl">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
                       </div>
@@ -694,11 +823,14 @@
   <!-- 課程選擇頁 end -->
 
   <!-- 觀看課程頁 -->
-  <section id="watch-sec" class="inactive w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 sm:p-6">
+  <section id="watch-sec"
+           class="inactive w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 sm:p-6">
     <!-- left -->
     <div class="w-full lg:w-4/6">
       <div class="w-full lg:m-0">
-        <video class="w-full" src="img/intro_vid.mp4" controls></video>
+        <video class="w-full"
+               src="img/intro_vid.mp4"
+               controls></video>
       </div>
       <div class="text-box p-3">
         <div class="vid-title border-b border-main-orange pb-3">
@@ -708,8 +840,10 @@
           <p class="text-lg">此課程將帶領你前往新的旅遊世界!</p>
         </div>
         <div class="buy-btns flex py-3">
-          <button class="bg-main-orange hover:bg-orange-400 text-text-blue text-lg font-bold py-2 px-4 rounded mr-2 shadow-lg" type="button">購買當前課程<span class="cur-cost">&nbsp369點</span></button>
-          <button class="bg-main-orange hover:bg-orange-400 text-text-blue text-lg font-bold py-2 px-4 rounded shadow-lg" type="button">購買全套課程<span class="all-cost">&nbsp666點</span></button>
+          <button class="bg-main-orange hover:bg-orange-400 text-text-blue text-lg font-bold py-2 px-4 rounded mr-2 shadow-lg"
+                  type="button">購買當前課程<span class="cur-cost">&nbsp369點</span></button>
+          <button class="bg-main-orange hover:bg-orange-400 text-text-blue text-lg font-bold py-2 px-4 rounded shadow-lg"
+                  type="button">購買全套課程<span class="all-cost">&nbsp666點</span></button>
         </div>
       </div>
     </div>
@@ -733,26 +867,29 @@
   </section>
   <!-- 觀看課程頁 end -->
 
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+          defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cash/6.0.2/cash.min.js"></script>
   <!-- for parallax effect -->
   <script src="js/rellax.min.js"></script>
   <script>
-    var rellax = new Rellax('.rellax', {
+    var rellaxCourse = new Rellax('.rellax-course', {
       wrapper: '#course-sec'
+    });
+    var rellaxContact = new Rellax('.rellax-contact', {
+      wrapper: '#contact-sec'
     });
 
     $(document).ready(function() {
-      // show target section by url
-      if (location.hash != '') {
-        setTimeout(function() {
-          showSec(location.hash);
-        }, 500);
+      // show target section when loaded by url
+      var firstSec = location.hash;
+      if (firstSec == '') {
+        firstSec = '#main-sec';
+        $('.navbar').addClass('inactive');
       }
+      $(firstSec).addClass('active').removeClass('inactive');
 
-
-      $('#contact-sec').addClass('inactive');
-
+      //navbar toggler
       $('.nav-toggler').on('click', function() {
         let target = $(this).attr('toggle-target');
         $(target).toggleClass('collapse');
