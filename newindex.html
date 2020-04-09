@@ -28,7 +28,7 @@
     }
 
     .flashIn {
-      animation: flashIn 1s ease-out forwards;
+      animation: flashIn .8s ease-out forwards;
     }
 
     /* side navbar  */
@@ -77,12 +77,12 @@
       border-style: double;
       border-left: none;
       border-right: none;
-      animation: fillBorder .7s cubic-bezier(0.39, 0.58, 0.57, 1) forwards .5s;
+      animation: fillBorder .7s cubic-bezier(0.39, 0.58, 0.57, 1) forwards .9s;
     }
 
     .content-box {
       opacity: 0;
-      animation: fadeIn .5s ease forwards 1.2s;
+      animation: fadeIn .5s ease forwards 1.5s;
     }
 
     /* phone button menu toggler */
@@ -135,13 +135,6 @@
     }
 
     .menu-item a {
-      background: var(--text-blue);
-      color: var(--bg-white);
-      position: absolute;
-      width: 5rem;
-      height: 5rem;
-      border-radius: 50%;
-      transition: 0.5s;
       box-shadow: 0px 0px 4px 1px #3f3e3e;
     }
 
@@ -205,6 +198,12 @@
       transform: rotate(15deg);
     }
 
+    @media (max-width:900px) {
+      #main-sec {
+        background-position: calc(-219px + 20vw);
+      }
+    }
+
     @keyframes fillBorder {
       from {
         width: 0%;
@@ -222,12 +221,6 @@
 
       to {
         opacity: 1;
-      }
-    }
-
-    @media (max-width:900px) {
-      #main-sec {
-        background-position: calc(-219px + 20vw);
       }
     }
 
@@ -331,80 +324,79 @@
 </head>
 
 <body class="w-screen h-screen bg-text-blue p-0 m-0 overflow-hidden"
-      style="background-image:url('img/background/stardust.png');">
+      style="background-image:url('img/background/stardust.png');"
+      onhashchange="showSec()">
 
   <header class="fixed z-10">
-    <div class="navbar flex items-center w-screen h-16 bg-text-blue text-main-white px-3">
-      <h1 class="text-2xl italic"> <a href="newindex.html">寶島奇蹟AMB</a></h1>
+    <div class="navbar inactive flex items-center w-screen h-16 bg-text-blue text-main-white px-3">
+      <h1 class="text-2xl italic"> <a href="index.html">寶島奇蹟AMB</a></h1>
       <div class="flex justify-end flex-grow">
-        <a class="mx-2 border-2 border-main-white rounded-lg text-xl font-semibold hover:bg-main-white hover:text-text-blue transitions-colors duration-500  px-3 py-1"
+        <a class="mx-2 border-2 border-main-white rounded-lg text-lg sm:text-xl font-semibold hover:bg-main-white hover:text-text-blue transitions-colors duration-500  px-3 py-1"
            href="">登入／註冊</a>
-        <button class="mx-2 nav-toggler z-30"
+        <button class="mx-2 nav-toggler focus:outline-none z-40"
                 toggle-target="#nav">menu</button>
       </div>
-    </div>
-    <div id="nav"
-         class="collapse top-0 right-0 w-screen h-screen fixed z-20"
-         onclick="collapseNav()">
-      <div class="w-1/2 sm:w-1/4 h-full flex-center bg-text-blue ml-auto whitespace-no-wrap shadow-lg"
-           style="box-shadow:-12px 0px 12px 8px rgba(0, 0, 0, 0.2), -6px 0px 12px 2px rgba(0, 0, 0, 0.3);">
-        <ul class="nav-list w-fit flex-center flex-col text-main-white p-3">
-          <li class="text-2xl py-4 w-full"><a class="flex-center"
-               href="#about-sec"
-               tab-target="about-sec"
-               onclick="showSec('#about-sec')">關於我們</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-               href="#service-sec"
-               tab-target="service-sec"
-               onclick="showSec('#service-sec')">商業模式</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-               href="#contact-sec"
-               tab-target="contact-sec"
-               onclick="showSec('#contact-sec')">聯絡我們</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-               href="#info-sec"
-               tab-target="info-sec"
-               onclick="showSec('#info-sec')">寶島公告</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-               href="#course-sec"
-               onclick="showSec('#course-sec')">拿樂趣</a></li>
-          <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-               href="course.html"
-               onclick="showSec('#course-sec')">登入</a></li>
-        </ul>
+
+      <div id="nav"
+           class="collapse top-0 right-0 w-screen h-screen fixed z-20"
+           onclick="collapseNav()">
+        <div class="w-1/2 sm:w-1/4 h-full flex-center bg-text-blue ml-auto whitespace-no-wrap shadow-lg"
+             style="box-shadow:-12px 0px 12px 8px rgba(0, 0, 0, 0.2), -6px 0px 12px 2px rgba(0, 0, 0, 0.3);">
+          <ul class="nav-list w-fit flex-center flex-col text-main-white p-3">
+            <li class="text-2xl py-4 w-full"><a class="flex-center"
+                 href="#course-sec"
+                 onclick="changeHash('course-sec')">拿樂趣</a></li>
+            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+                 href="#about-sec"
+                 onclick="changeHash('about-sec')">關於我們</a></li>
+            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+                 href="#service-sec"
+                 onclick="changeHash('service-sec')">商業模式</a></li>
+            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+                 href="#contact-sec"
+                 onclick="changeHash('contact-sec')">聯絡我們</a></li>
+            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+                 href="#info-sec"
+                 onclick="changeHash('info-sec')">寶島公告</a></li>
+            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
+                 href="https://user.baodao7.com/login">登入</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </header>
   <!-- menu display on home page -->
-  <div class="center-menu flex-center w-screen h-screen"
+  <div class="center-menu flex-center w-screen h-screen text-main-white"
        onclick="toggleMenu()">
     <ul class="menu-list flex-center">
-      <li class="menu-item flex-center"><a class="flex-center"
-           href="#about-sec"
-           tab-target="about-sec"
-           onclick="showSec('#about-sec')">關於我們</a></li>
-      <li class="menu-item flex-center"><a class="flex-center"
-           href="#service-sec"
-           tab-target="service-sec"
-           onclick="showSec('#service-sec')">商業模式</a></li>
-      <li class="menu-item flex-center"><a class="flex-center"
-           href="#contact-sec"
-           tab-target="contact-sec"
-           onclick="showSec('#contact-sec')">聯絡我們</a></li>
-      <li class="menu-item flex-center"><a class="flex-center"
-           href="#info-sec"
-           tab-target="info-sec"
-           onclick="showSec('#info-sec')">寶島公告</a></li>
-      <li class="menu-item flex-center"><a class="flex-center"
-           href="#course-sec"
-           onclick="showSec('#course-sec')">拿樂趣</a></li>
-      <li class="menu-item flex-center"><a class="flex-center"
+      <li class="menu-item flex-center cursor-pointer"
+          onclick="changeHash('course-sec')">
+        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+          拿樂趣</a></li>
+      <li class="menu-item flex-center cursor-pointer"
+          onclick="changeHash('about-sec')">
+        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+          關於我們</a></li>
+      <li class="menu-item flex-center cursor-pointer"
+          onclick="changeHash('service-sec')">
+        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+          商業模式</a></li>
+      <li class="menu-item flex-center cursor-pointer"
+          onclick="changeHash('contact-sec')">
+        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+          聯絡我們</a></li>
+      <li class="menu-item flex-center cursor-pointer"
+          onclick="changeHash('about-sec')">
+        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+          寶島公告</a></li>
+      <li class="menu-item flex-center">
+        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500"
            href="https://user.baodao7.com/login">登入/註冊</a></li>
     </ul>
   </div>
   <!-- 首頁 -->
   <section id="main-sec"
-           class="active h-full w-full bg-cover"
+           class="inactive h-full w-full bg-cover"
            style="background-image: url(' img/background/101bright-min.png');"
            sec-order="0">
     <div id="main-sec-content"
@@ -548,7 +540,7 @@
       <!-- left -->
       <div class="min-h-full block relative lg:w-1/2 lg:mr-2 overflow-hidden">
         <!-- parallax background -->
-        <img class='rellax absolute bottom-0'
+        <img class='rellax-contact absolute bottom-0'
              src="img/background/milkovi.jpg"
              alt="background"
              style="z-index:-1;"
@@ -605,7 +597,7 @@
       <!-- right -->
       <div class="min-h-full block relative lg:w-1/2 mt-2 lg:mt-0 lg:ml-2 overflow-hidden">
         <!-- parallax background -->
-        <img class='rellax absolute object-cover bottom-0'
+        <img class='rellax-contact absolute object-cover bottom-0'
              src="img/background/joyce.jpg"
              alt="background"
              style="z-index:-1;"
@@ -655,11 +647,11 @@
            style="">
     <div class="h-auto md:h-vh-half overflow-hidden">
 
-      <div class="h-full w-full bg-cover bg-top rellax"
+      <div class="h-full w-full bg-cover bg-top rellax-course"
            style="background-image:url('img/background/helloquence.jpg');"
            data-rellax-speed="-6">
         <!-- overlay -->
-        <div class="h-full w-full bg-main-white-4 p-6 rellax"
+        <div class="h-full w-full bg-main-white-4 p-6 rellax-course"
              style="box-shadow:inset 0px -9px 5px rgba(70,70,70,0.3);"
              data-rellax-speed="-2">
           <div class="mt-12">
@@ -756,7 +748,7 @@
           <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
             <div class="bg-white rounded-1rem overflow-hidden shadow-md">
               <a href="#watch-sec"
-                 onclick="showSec('#watch-sec')">
+                 onclick="changeHash('watch-sec')">
                 <img class="w-full"
                      src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80"
                      alt="">
@@ -824,7 +816,7 @@
 
   <!-- 觀看課程頁 -->
   <section id="watch-sec"
-           class="inactive w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 sm:p-6">
+           class="inactive w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 pt-1 sm:p-6 sm:pt-1">
     <!-- left -->
     <div class="w-full lg:w-4/6">
       <div class="w-full lg:m-0">
@@ -840,9 +832,9 @@
           <p class="text-lg">此課程將帶領你前往新的旅遊世界!</p>
         </div>
         <div class="buy-btns flex py-3">
-          <button class="bg-main-orange hover:bg-orange-400 text-text-blue text-lg font-bold py-2 px-4 rounded mr-2 shadow-lg"
+          <button class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 rounded mr-2 shadow-lg"
                   type="button">購買當前課程<span class="cur-cost">&nbsp369點</span></button>
-          <button class="bg-main-orange hover:bg-orange-400 text-text-blue text-lg font-bold py-2 px-4 rounded shadow-lg"
+          <button class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 rounded shadow-lg"
                   type="button">購買全套課程<span class="all-cost">&nbsp666點</span></button>
         </div>
       </div>
@@ -867,6 +859,9 @@
   </section>
   <!-- 觀看課程頁 end -->
 
+  <!-- for ajax handling -->
+  <script src="js/ajaxHandler.js"></script>
+  <!-- api -->
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
           defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cash/6.0.2/cash.min.js"></script>
@@ -880,16 +875,12 @@
       wrapper: '#contact-sec'
     });
 
-    $(document).ready(function() {
-      // show target section when loaded by url
-      var firstSec = location.hash;
-      if (firstSec == '') {
-        firstSec = '#main-sec';
-        $('.navbar').addClass('inactive');
-      }
-      $(firstSec).addClass('active').removeClass('inactive');
+    var handler = new AjaxHandler();
 
-      //navbar toggler
+    $(document).ready(function() {
+      window.addEventListener("hashchange", showSec(location.hash), false);
+
+      // navbar toggle
       $('.nav-toggler').on('click', function() {
         let target = $(this).attr('toggle-target');
         $(target).toggleClass('collapse');
@@ -903,10 +894,26 @@
       $('.center-menu').toggleClass('active');
     }
 
+    // change hash (anchor event doesn't count as hash change)
+    function changeHash(hash) {
+      location.hash = hash;
+    }
+
     //show target section
     function showSec(secId) {
+      let showDelay = 700;
+
+      var secId = location.hash;
+      // 沒標籤時導向首頁，且不開啟 navbar
+      if (secId != '')
+        $('.navbar').removeClass('inactive');
+      else {
+        showDelay = 0;
+        secId = '#main-sec';
+      }
+
       var targetSec = $(secId);
-      $('.navbar').removeClass('inactive');
+
       closeActive(); // close active section
       // show target section
       setTimeout(function() {
@@ -914,7 +921,7 @@
         setTimeout(function() {
           targetSec.removeClass('flashIn');
         }, 1000);
-      }, 700);
+      }, showDelay);
     }
 
     // close active section
