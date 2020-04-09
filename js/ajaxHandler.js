@@ -46,9 +46,9 @@ class AjaxHandler {
   }
 
   // 取得老師資料
-  getTeacher(id) {
+  getTeacher(cat_id) {
     return postRequest('https://test7api.baodao7.com/web/teacher', {
-      id: id
+      class_catalog_id: cat_id
     });
   }
 
@@ -59,7 +59,7 @@ class AjaxHandler {
       cache: 'no-cache',
       method: 'POST'
     }).then(reponse => response.json()).catch(function(error) {
-      console.log('There has been a problem with your fetch operation: ', error.message);
+      console.log('There has been a problem: ', error.message);
     });
   }
 
