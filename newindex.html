@@ -6,6 +6,8 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
   <title>寶島奇蹟</title>
+  <link rel="icon"
+        href="img/logo_cut.png">
   <link rel="stylesheet"
         href="css/style.css">
   <link rel="stylesheet"
@@ -331,7 +333,7 @@
     <div class="navbar inactive flex items-center w-screen h-16 bg-text-blue text-main-white px-3">
       <h1 class="text-2xl italic"> <a href="index.html">寶島奇蹟AMB</a></h1>
       <div class="flex justify-end flex-grow">
-        <a class="mx-2 border-2 border-main-white rounded-lg text-lg sm:text-xl font-semibold hover:bg-main-white hover:text-text-blue transitions-colors duration-500  px-3 py-1"
+        <a class="mx-2 border-2 border-main-white rounded-lg text-lg sm:text-xl font-semibold hover:bg-main-white hover:text-text-blue transitions-colors duration-300  px-3 py-1"
            href="">登入／註冊</a>
         <button class="mx-2 nav-toggler focus:outline-none z-40"
                 toggle-target="#nav">menu</button>
@@ -359,7 +361,7 @@
                  href="#info-sec"
                  onclick="changeHash('info-sec')">寶島公告</a></li>
             <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-                 href="https://user.baodao7.com/login">登入</a></li>
+                 href="https://baodao7.com/user/login">登入</a></li>
           </ul>
         </div>
       </div>
@@ -391,7 +393,7 @@
           寶島公告</a></li>
       <li class="menu-item flex-center">
         <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500"
-           href="https://user.baodao7.com/login">登入/註冊</a></li>
+           href="https://baodao7.com/user/login">登入/註冊</a></li>
     </ul>
   </div>
   <!-- 首頁 -->
@@ -644,7 +646,8 @@
   <!-- 課程選擇頁 -->
   <section id="course-sec"
            class="inactive w-full sec-height bg-main-white overflow-auto"
-           style="">
+           x-data="course"
+           x-init="getClasses()">
     <div class="h-auto md:h-vh-half overflow-hidden">
 
       <div class="h-full w-full bg-cover bg-top rellax-course"
@@ -677,57 +680,65 @@
       <h1 class="text-4xl text-center">課程分類</h1>
       <div class="course-cat flex flex-wrap">
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/大健康.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(4)">
+            <img src="img/catagory/health.png"
                  alt="大健康">
             <p>大健康</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/兒童教育.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(1)">
+            <img src="img/catagory/children_ed.png"
                  alt="兒童教育">
             <p>兒童教育</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/風水命理.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(5)">
+            <img src="img/catagory/fortune.png"
                  alt="風水命理">
             <p>風水命理</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/全球旅遊.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(6)">
+            <img src="img/catagory/tour.png"
                  alt="全球旅遊">
             <p>全球旅遊</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/成功學.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(9)">
+            <img src="img/catagory/success.png"
                  alt="成功學">
             <p>成功學</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/身心靈.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(8)">
+            <img src="img/catagory/mental.png"
                  alt="身心靈">
             <p>身心靈</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/美業.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(7)">
+            <img src="img/catagory/beauty.png"
                  alt="美業">
             <p>美業</p>
           </div>
         </div>
         <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-          <div class="course-cat-item text-center cursor-pointer">
-            <img src="img/catagory/理財.png"
+          <div class="course-cat-item text-center cursor-pointer"
+               @click="getClasses(10)">
+            <img src="img/catagory/wealth.png"
                  alt="理財">
             <p>理財</p>
           </div>
@@ -740,10 +751,50 @@
     <div class="courses p-6">
       <!-- 課程分區 -->
       <div class="newest">
+        <button type="button"
+                name="button">get</button>
         <h2 class="text-4xl"
-            style="">最新課程</h2>
+            x-text="boxInfo.length"></h2>
         <!-- 分區課程列表 -->
         <div class="flex flex-wrap">
+          <template x-for="courseBox in boxInfo"
+                    :key="courseBox.id">
+            <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3"
+                 :classId="courseBox.id">
+              <div class="box bg-white rounded-1rem overflow-hidden shadow-md">
+                <a class=" h-full flex flex-col"
+                   href="#watch-sec"
+                   onclick="changeHash('watch-sec')">
+                  <div class="w-full overflow-y-hidden shadow-inner"
+                       style="max-height:13rem;">
+                    <img class="object-cover"
+                         :src="courseBox.thumbnail_url"
+                         alt="">
+                  </div>
+                  <!-- box body -->
+                  <div class="box-body w-full flex flex-grow p-2">
+                    <img class="h-16 w-16 rounded-full"
+                         :src="courseBox.teacher_url"
+                         alt="">
+                    <!-- text area -->
+                    <div class="flex-grow">
+                      <div class="mx-2">
+                        <h5 class="h-20 text-2xl"
+                            x-text="courseBox.title"></h5>
+                      </div>
+                      <div class="ep mt-2">
+                        <h5 class="text-right text-lg text-gray-600">共
+                          <span class="text-gray-900 mx-1"
+                                x-text="courseBox.total"></span>集</h5>
+                      </div>
+                    </div>
+                    <!-- end text area -->
+                  </div>
+                  <!-- box body end -->
+                </a>
+              </div>
+            </div>
+          </template>
           <!-- 各別課程方框容器 -->
           <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
             <div class="bg-white rounded-1rem overflow-hidden shadow-md">
@@ -753,23 +804,20 @@
                      src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80"
                      alt="">
                 <!-- box body -->
-                <div class="box-body">
-                  <div class="flex m-2">
-                    <img class="h-16 w-16 rounded-full"
-                         src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80"
-                         alt="">
-                    <!-- text area -->
-                    <div class=""
-                         style="margin: auto;">
-                      <div class="mx-2">
-                        <h5 class="text-2xl">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
-                      </div>
-                      <div class="ep mt-2">
-                        <h5 class="text-right text-lg text-gray-600">共<span class="text-gray-900 mx-1">9487</span>集</h5>
-                      </div>
+                <div class="box-body flex p-2">
+                  <img class="h-16 w-16 rounded-full"
+                       src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80"
+                       alt="">
+                  <!-- text area -->
+                  <div>
+                    <div class="mx-2">
+                      <h5 class="text-2xl">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
                     </div>
-                    <!-- end text area -->
+                    <div class="ep mt-2">
+                      <h5 class="text-right text-lg text-gray-600">共<span class="text-gray-900 mx-1">9487</span>集</h5>
+                    </div>
                   </div>
+                  <!-- end text area -->
                 </div>
                 <!-- box body end -->
               </a>
@@ -777,35 +825,6 @@
           </div>
           <!-- 各別課程方框容器 end -->
 
-          <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
-            <div class="bg-white rounded-1rem overflow-hidden shadow-md">
-              <a href="#">
-                <img class="w-full"
-                     src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80"
-                     alt="">
-                <!-- box body -->
-                <div class="box-body">
-                  <div class="flex m-2">
-                    <img class="h-16 w-16 rounded-full"
-                         src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80"
-                         alt="">
-                    <!-- text area -->
-                    <div class=""
-                         style="margin: auto;">
-                      <div class="mx-2">
-                        <h5 class="text-2xl">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
-                      </div>
-                      <div class="ep mt-2">
-                        <h5 class="text-right text-lg text-gray-600">共<span class="text-gray-900 mx-1">9487</span>集</h5>
-                      </div>
-                    </div>
-                    <!-- end text area -->
-                  </div>
-                </div>
-                <!-- box body end -->
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -859,8 +878,8 @@
   </section>
   <!-- 觀看課程頁 end -->
 
-  <!-- for ajax handling -->
-  <script src="js/ajaxHandler.js"></script>
+  <script src="js/course.js"></script> <!-- for class handling -->
+  <script src="js/ajaxHandler.js"></script> <!-- for ajax handling -->
   <!-- api -->
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
           defer></script>
@@ -868,14 +887,13 @@
   <!-- for parallax effect -->
   <script src="js/rellax.min.js"></script>
   <script>
+    var course = new Course();
     var rellaxCourse = new Rellax('.rellax-course', {
       wrapper: '#course-sec'
     });
     var rellaxContact = new Rellax('.rellax-contact', {
       wrapper: '#contact-sec'
     });
-
-    var handler = new AjaxHandler();
 
     $(document).ready(function() {
       window.addEventListener("hashchange", showSec(location.hash), false);
@@ -886,6 +904,8 @@
         $(target).toggleClass('collapse');
       });
 
+      // var ajax = new AjaxHandler();
+      // ajax.getClasses();
     });
 
     // 首頁選單
@@ -897,6 +917,7 @@
     // change hash (anchor event doesn't count as hash change)
     function changeHash(hash) {
       location.hash = hash;
+
     }
 
     //show target section
@@ -910,6 +931,7 @@
       else {
         showDelay = 0;
         secId = '#main-sec';
+        $('.navbar').addClass('inactive');
       }
 
       var targetSec = $(secId);
@@ -936,6 +958,104 @@
     // collapse nav list
     function collapseNav() {
       $('#nav').addClass('collapse');
+    }
+
+    function classSearch() {
+      return {
+        // fetch params
+        cat_id: false,
+        offset: 0,
+        order_column: 'updated_at',
+        order_type: 'desc',
+        class_id: null,
+        teacher_id: false,
+        // results
+        title: '最新課程',
+        boxInfo: [],
+        // 設定顯示課程
+        getClass() {
+
+          fetch('https://test7api.baodao7.com/web/classes/list', {
+            body: JSON.stringify({
+              offset: 0,
+              order_column: 'updated_at',
+              order_type: 'desc',
+              class_id: null,
+              teacher_id: false,
+              class_catalog_id: this.cat_id
+            }),
+            headers: {
+              'content-type': 'application/json'
+            },
+            method: 'POST'
+          }).then(response => response.json()).then(result => {
+            var boxinfo = [];
+            var data = result.data;
+            for (var i = 0; i < data.length; i++) {
+              let id = data[i].id;
+              let title = data[i].name;
+              let date_ym = data[i].created_at.split('-')[0] + "_" + data[i].created_at.split('-')[1];
+              let thumbnail = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
+              // this.setTeacher(teacher_id)
+              // this.setTotal(id)
+
+              boxinfo.push({
+                id: id,
+                title: title,
+                thumbnail_url: thumbnail
+              });
+            }
+
+            this.boxInfo = boxinfo;
+            console.log(boxinfo);
+          }).catch(function(error) {
+            console.log('There has been a problem: ', error.message);
+          });
+        },
+        setTeacher() {
+          fetch('https://test7api.baodao7.com/web/teacher/list', {
+            body: JSON.stringify({
+              offset: 0,
+              order_column: 'updated_at',
+              order_type: 'desc',
+              class_id: null,
+              teacher_id: false,
+              class_catalog_id: this.cat_id
+            }),
+            headers: {
+              'content-type': 'application/json'
+            },
+            method: 'POST'
+          }).then(response => response.json()).then(result => {
+            var data = result.data;
+            for (var i = 0; i < data.length; i++) {
+              let thumbnail = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
+              // this.setTeacher(teacher_id)
+              // this.setTotal(id)
+
+              boxinfo.push({
+                id: id,
+                title: title,
+                thumbnail: thumbnail
+              });
+            }
+
+            this.boxInfo = boxinfo;
+          }).catch(function(error) {
+            console.log('There has been a problem: ', error.message);
+          });
+        },
+        // 設定分類及標題
+        setCatalog(id, title) {
+          this.cat_id = id;
+          this.title = title;
+        }
+
+      };
+    }
+
+    function classBox() {
+      return new Course();
     }
   </script>
 </body>
