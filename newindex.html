@@ -646,7 +646,7 @@
   <!-- 課程選擇頁 -->
   <section id="course-sec"
            class="inactive w-full sec-height bg-main-white overflow-auto"
-           x-data="course"
+           x-data="course()"
            x-init="getClasses()">
     <div class="h-auto md:h-vh-half overflow-hidden">
 
@@ -753,8 +753,7 @@
       <div class="newest">
         <button type="button"
                 name="button">get</button>
-        <h2 class="text-4xl"
-            x-text="boxInfo.length"></h2>
+        <h2 class="text-4xl"></h2>
         <!-- 分區課程列表 -->
         <div class="flex flex-wrap">
           <template x-for="courseBox in boxInfo"
@@ -879,6 +878,7 @@
   <!-- 觀看課程頁 end -->
 
   <script src="js/course.js"></script> <!-- for class handling -->
+  <script src="js/courseBox.js"></script>
   <script src="js/ajaxHandler.js"></script> <!-- for ajax handling -->
   <!-- api -->
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
@@ -887,7 +887,6 @@
   <!-- for parallax effect -->
   <script src="js/rellax.min.js"></script>
   <script>
-    var course = new Course();
     var rellaxCourse = new Rellax('.rellax-course', {
       wrapper: '#course-sec'
     });
@@ -904,8 +903,6 @@
         $(target).toggleClass('collapse');
       });
 
-      // var ajax = new AjaxHandler();
-      // ajax.getClasses();
     });
 
     // 首頁選單
@@ -958,104 +955,6 @@
     // collapse nav list
     function collapseNav() {
       $('#nav').addClass('collapse');
-    }
-
-    function classSearch() {
-      return {
-        // fetch params
-        cat_id: false,
-        offset: 0,
-        order_column: 'updated_at',
-        order_type: 'desc',
-        class_id: null,
-        teacher_id: false,
-        // results
-        title: '最新課程',
-        boxInfo: [],
-        // 設定顯示課程
-        getClass() {
-
-          fetch('https://test7api.baodao7.com/web/classes/list', {
-            body: JSON.stringify({
-              offset: 0,
-              order_column: 'updated_at',
-              order_type: 'desc',
-              class_id: null,
-              teacher_id: false,
-              class_catalog_id: this.cat_id
-            }),
-            headers: {
-              'content-type': 'application/json'
-            },
-            method: 'POST'
-          }).then(response => response.json()).then(result => {
-            var boxinfo = [];
-            var data = result.data;
-            for (var i = 0; i < data.length; i++) {
-              let id = data[i].id;
-              let title = data[i].name;
-              let date_ym = data[i].created_at.split('-')[0] + "_" + data[i].created_at.split('-')[1];
-              let thumbnail = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
-              // this.setTeacher(teacher_id)
-              // this.setTotal(id)
-
-              boxinfo.push({
-                id: id,
-                title: title,
-                thumbnail_url: thumbnail
-              });
-            }
-
-            this.boxInfo = boxinfo;
-            console.log(boxinfo);
-          }).catch(function(error) {
-            console.log('There has been a problem: ', error.message);
-          });
-        },
-        setTeacher() {
-          fetch('https://test7api.baodao7.com/web/teacher/list', {
-            body: JSON.stringify({
-              offset: 0,
-              order_column: 'updated_at',
-              order_type: 'desc',
-              class_id: null,
-              teacher_id: false,
-              class_catalog_id: this.cat_id
-            }),
-            headers: {
-              'content-type': 'application/json'
-            },
-            method: 'POST'
-          }).then(response => response.json()).then(result => {
-            var data = result.data;
-            for (var i = 0; i < data.length; i++) {
-              let thumbnail = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
-              // this.setTeacher(teacher_id)
-              // this.setTotal(id)
-
-              boxinfo.push({
-                id: id,
-                title: title,
-                thumbnail: thumbnail
-              });
-            }
-
-            this.boxInfo = boxinfo;
-          }).catch(function(error) {
-            console.log('There has been a problem: ', error.message);
-          });
-        },
-        // 設定分類及標題
-        setCatalog(id, title) {
-          this.cat_id = id;
-          this.title = title;
-        }
-
-      };
-    }
-
-    function classBox() {
-      return new Course();
     }
   </script>
 </body>

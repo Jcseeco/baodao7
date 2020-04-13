@@ -26,7 +26,7 @@ class AjaxHandler {
       for (var i = 0; i < data.length; i++) {
         var id = data[i].id;
         var title = data[i].name;
-        var date_ym = data[i].created_at.split("-")[0] + data[i].created_at.split("-")[1];
+        var date_ym = data[i].created_at.split("-")[0] + "_" + data[i].created_at.split("-")[1];
         var thumbnail_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
         var updated_at = data[i].updated_at;
         var teacher_id = data[i].teacher_id;
@@ -161,7 +161,7 @@ class AjaxHandler {
       for (var i = 0; i < data.length; i++) {
         var id = data[i].id;
         var name = data[i].name;
-        var date_ym = data[i].created_at.split("-")[0] + data[i].created_at.split("-")[1];
+        var date_ym = data[i].created_at.split("-")[0] + "_" + data[i].created_at.split("-")[1];
         var picture_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
         var info = data[i].info;
 
