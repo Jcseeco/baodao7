@@ -16360,6 +16360,14 @@ section {
   transition-property: transform;
 }
 
+.transition-width {
+  transition-property: width;
+}
+
+.transition-height {
+  transition-property: height;
+}
+
 .ease-linear {
   transition-timing-function: linear;
 }
@@ -32082,6 +32090,14 @@ section {
 
   .sm\:transition-transform {
     transition-property: transform;
+  }
+
+  .sm\:transition-width {
+    transition-property: width;
+  }
+
+  .sm\:transition-height {
+    transition-property: height;
   }
 
   .sm\:ease-linear {
@@ -47809,6 +47825,14 @@ section {
     transition-property: transform;
   }
 
+  .md\:transition-width {
+    transition-property: width;
+  }
+
+  .md\:transition-height {
+    transition-property: height;
+  }
+
   .md\:ease-linear {
     transition-timing-function: linear;
   }
@@ -63534,6 +63558,14 @@ section {
     transition-property: transform;
   }
 
+  .lg\:transition-width {
+    transition-property: width;
+  }
+
+  .lg\:transition-height {
+    transition-property: height;
+  }
+
   .lg\:ease-linear {
     transition-timing-function: linear;
   }
@@ -79257,6 +79289,14 @@ section {
 
   .xl\:transition-transform {
     transition-property: transform;
+  }
+
+  .xl\:transition-width {
+    transition-property: width;
+  }
+
+  .xl\:transition-height {
+    transition-property: height;
   }
 
   .xl\:ease-linear {

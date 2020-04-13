@@ -68,6 +68,10 @@ module.exports = {
       },
       width: {
         'fit': 'fit-content',
+      },
+      transitionProperty: {
+        'width': 'width',
+        'height': 'height',
       }
     },
   },
