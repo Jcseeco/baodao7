@@ -5,44 +5,36 @@ function course() {
     boxStatus: false,
     // get information needed to show in box
     // return json array or false if none found
-    getClasses: function(cat_id) {
+    getClasses: async function(cat_id) {
       var boxes = [];
-      var that = this;
-      this.ajax.getClasses(cat_id).then(data => {
-        for (var i in data) {
-          var courseBox = new CourseBox(data[i].id);
-          courseBox.cat_id = data[i].cat_id;
-          courseBox.title = data[i].title;
-          courseBox.thumbnail_url = data[i].thumbnail_url;
-          courseBox.teacher_id = data[i].teacher_id;
-          courseBox.updated_at = data[i].updated_at;
-          this.setTeacherUrl(courseBox);
-          this.setTotal(courseBox);
+      var data = await this.ajax.getClasses(cat_id);
+      for (var i in data) {
+        var courseBox = new CourseBox(data[i].id);
+        courseBox.cat_id = data[i].class_catalog_id;
+        courseBox.title = data[i].name;
+        let date_ym = data[i].created_at.split("-")[0] + "_" + data[i].created_at.split("-")[1];
+        courseBox.thumbnail_url = data[i].picture_url.replace(date_ym, date_ym + "/").replace("test7image", "image");
+        courseBox.teacher = data[i].teacher_info;
+        let teacher_ym = courseBox.teacher.created_at.split("-")[0] + "_" + courseBox.teacher.created_at.split("-")[1];
+        courseBox.teacher_url = courseBox.teacher.picture_url.replace(teacher_ym, teacher_ym + "/").replace("test7image", "image");
+        courseBox.total = data[i].class_detail_count;
+        courseBox.updated_at = data[i].updated_at;
 
-          boxes.push(courseBox);
-        }
-        return boxes;
-      }).then((temp) => {
-        this.boxInfo = temp;
-        console.log(temp);
-        console.log(this);
-        this.boxStatus = !that.boxStatus;
-      });
-
+        boxes.push(courseBox);
+      }
+      this.boxInfo = boxes;
     },
     // 取得該課程教師圖片網址
-    setTeacherUrl: function(course) {
-      this.ajax.getTeacher(Number(course.cat_id)).then(data => {
-        course.teacher_url = data[0].picture_url;
-        console.log(course);
-      });
+    getTeacherUrl: async function(course) {
+      var data = await this.ajax.getTeacher(Number(course.cat_id));
+      return data[0].picture_url;
+
     },
     // 取得該課程的集數
-    setTotal: function(course) {
-      this.ajax.getTotal(Number(course.id)).then(total => {
-        course.total = total;
-        console.log(course);
-      });
+    getTotal: async function(course) {
+      var total = await this.ajax.getTotal(Number(course.id));
+      return total;
+
     },
     // 取得老師資訊
     getTeacher(cat_id) {

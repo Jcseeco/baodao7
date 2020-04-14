@@ -2,6 +2,7 @@ class CourseBox {
   id = null;
   title = "";
   thumbnail_url = "";
+  teacher = {};
   teacher_id = "";
   teacher_url = "";
   total = 0;

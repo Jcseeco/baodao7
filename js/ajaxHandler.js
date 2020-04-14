@@ -1,7 +1,7 @@
 // for handling api requests
 class AjaxHandler {
   constructor() {
-    this.classesUrl = "https://test7api.baodao7.com/web/classes/list";
+    this.classesUrl = "https://test7api.baodao7.com/web/classes/info";
     this.classUrl = "https://test7api.baodao7.com/web/classes";
     this.lessionsUrl = "https://test7api.baodao7.com/web/class_details/list";
     this.lessionUrl = "https://test7api.baodao7.com/web/class_details";
@@ -19,31 +19,31 @@ class AjaxHandler {
       class_catalog_id: cat_id
     };
 
-    var ret_array = [];
-    // var courseBoxes = this.courseBoxes;
-    await this.postRequest(this.classesUrl, data).then(response => {
-      var data = response.data;
-      for (var i = 0; i < data.length; i++) {
-        var id = data[i].id;
-        var title = data[i].name;
-        var date_ym = data[i].created_at.split("-")[0] + "_" + data[i].created_at.split("-")[1];
-        var thumbnail_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
-        var updated_at = data[i].updated_at;
-        var teacher_id = data[i].teacher_id;
-        var cat_id = data[i].class_catalog_id;
-
-        ret_array.push({
-          id: id,
-          cat_id: cat_id,
-          title: title,
-          thumbnail_url: thumbnail_url,
-          teacher_id: teacher_id,
-          updated_at: updated_at
-        });
-      }
-    })
-
-    return ret_array;
+    // var ret_array = [];
+    // // var courseBoxes = this.courseBoxes;
+    // await this.postRequest(this.classesUrl, data).then(response => {
+    //   var data = response.data;
+    //   for (var i = 0; i < data.length; i++) {
+    //     var id = data[i].id;
+    //     var title = data[i].name;
+    //     var date_ym = data[i].created_at.split("-")[0] + "_" + data[i].created_at.split("-")[1];
+    //     var thumbnail_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
+    //     var updated_at = data[i].updated_at;
+    //     var teacher_id = data[i].teacher_id;
+    //     var cat_id = data[i].class_catalog_id;
+    //
+    //     ret_array.push({
+    //       id: id,
+    //       cat_id: cat_id,
+    //       title: title,
+    //       thumbnail_url: thumbnail_url,
+    //       teacher_id: teacher_id,
+    //       updated_at: updated_at
+    //     });
+    //   }
+    // })
+    var response = await this.postRequest(this.classesUrl, data)
+    return response.data;
   }
 
   // 取得該課程資料

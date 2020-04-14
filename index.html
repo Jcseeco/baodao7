@@ -103,6 +103,8 @@
     .center-menu {
       background: transparent;
       position: fixed;
+      top: 0;
+      left: 0;
       transition: z-index 0.24s 0.4s;
       z-index: -1;
     }
@@ -322,6 +324,20 @@
         transform: scale(1, 1);
       }
     }
+
+    @keyframes hovering {
+      0% {
+        transform: scale(1.2) translateY(0);
+      }
+
+      50% {
+        transform: scale(1) translateY(-10px);
+      }
+
+      100% {
+        transform: scale(1.2) translateY(0);
+      }
+    }
   </style>
 </head>
 
@@ -347,7 +363,7 @@
           <ul class="nav-list w-fit flex-center flex-col text-main-white p-3">
             <li class="text-2xl py-4 w-full"><a class="flex-center"
                  href="#course-sec"
-                 onclick="changeHash('course-sec')">拿樂趣</a></li>
+                 onclick="changeHash('course-sec')">知識趣</a></li>
             <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
                  href="#about-sec"
                  onclick="changeHash('about-sec')">關於我們</a></li>
@@ -367,35 +383,7 @@
       </div>
     </div>
   </header>
-  <!-- menu display on home page -->
-  <div class="center-menu flex-center w-screen h-screen text-main-white"
-       onclick="toggleMenu()">
-    <ul class="menu-list flex-center">
-      <li class="menu-item flex-center cursor-pointer"
-          onclick="changeHash('course-sec')">
-        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-          拿樂趣</a></li>
-      <li class="menu-item flex-center cursor-pointer"
-          onclick="changeHash('about-sec')">
-        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-          關於我們</a></li>
-      <li class="menu-item flex-center cursor-pointer"
-          onclick="changeHash('service-sec')">
-        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-          商業模式</a></li>
-      <li class="menu-item flex-center cursor-pointer"
-          onclick="changeHash('contact-sec')">
-        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-          聯絡我們</a></li>
-      <li class="menu-item flex-center cursor-pointer"
-          onclick="changeHash('about-sec')">
-        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-          寶島公告</a></li>
-      <li class="menu-item flex-center">
-        <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500"
-           href="https://baodao7.com/user/login">登入/註冊</a></li>
-    </ul>
-  </div>
+
   <!-- 首頁 -->
   <section id="main-sec"
            class="inactive h-full w-full bg-cover"
@@ -414,12 +402,58 @@
           <h2 class="gradient-text text-center text-5xl">粉絲工廠</h2>
         </div>
       </div>
-      <img id="phone-menu"
-           class="mt-4"
-           src="img/feature/phone-static.png"
-           alt=""
-           style="max-width: 100px;"
-           onclick='toggleMenu()'>
+      <div x-data="{active: false}">
+        <div class="flex-col flex-center mt-4">
+          <img id="phone-menu"
+               class="mt-4"
+               src="img/feature/phone-static.png"
+               alt="選單"
+               style="max-width: 100px;"
+               @click="
+          active = !active;
+          $nextTick(() => {toggleMenu()});">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               focusable="false"
+               viewBox="0 0 448 512"
+               width="40px"
+               style="animation: hovering 2s ease infinite"
+               x-show="!active">
+            <path fill="white"
+                  d="M448 240v96c0 3.084-.356 6.159-1.063 9.162l-32 136C410.686 499.23 394.562 512 376 512H168a40.004 40.004 0 0 1-32.35-16.473l-127.997-176c-12.993-17.866-9.043-42.883 8.822-55.876 17.867-12.994 42.884-9.043 55.877 8.823L104 315.992V40c0-22.091 17.908-40 40-40s40 17.909 40 40v200h8v-40c0-22.091 17.908-40 40-40s40 17.909 40 40v40h8v-24c0-22.091 17.908-40 40-40s40 17.909 40 40v24h8c0-22.091 17.908-40 40-40s40 17.909 40 40zm-256 80h-8v96h8v-96zm88 0h-8v96h8v-96zm88 0h-8v96h8v-96z" />
+          </svg>
+        </div>
+        <!-- menu display on home page -->
+        <div class="center-menu flex-center w-screen h-screen text-main-white"
+             @click="
+             active = !active;
+             $nextTick(() => {toggleMenu()});">
+          <ul class="menu-list flex-center">
+            <li class="menu-item flex-center cursor-pointer"
+                onclick="changeHash('course-sec')">
+              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                知識趣</a></li>
+            <li class="menu-item flex-center cursor-pointer"
+                onclick="changeHash('about-sec')">
+              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                關於我們</a></li>
+            <li class="menu-item flex-center cursor-pointer"
+                onclick="changeHash('service-sec')">
+              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                商業模式</a></li>
+            <li class="menu-item flex-center cursor-pointer"
+                onclick="changeHash('contact-sec')">
+              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                聯絡我們</a></li>
+            <li class="menu-item flex-center cursor-pointer"
+                onclick="changeHash('about-sec')">
+              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                寶島公告</a></li>
+            <li class="menu-item flex-center">
+              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500"
+                 href="https://baodao7.com/user/login">登入/註冊</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
   <!-- 首頁 end -->
@@ -751,8 +785,6 @@
     <div class="courses p-6">
       <!-- 課程分區 -->
       <div class="newest">
-        <button type="button"
-                name="button">get</button>
         <h2 class="text-4xl"></h2>
         <!-- 分區課程列表 -->
         <div class="flex flex-wrap">
