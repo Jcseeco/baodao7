@@ -362,20 +362,15 @@
              style="box-shadow:-12px 0px 12px 8px rgba(0, 0, 0, 0.2), -6px 0px 12px 2px rgba(0, 0, 0, 0.3);">
           <ul class="nav-list w-fit flex-center flex-col text-main-white p-3">
             <li class="text-2xl py-4 w-full"><a class="flex-center"
-                 href="#course-sec"
-                 onclick="changeHash('course-sec')">知識趣</a></li>
+                 href="#course-sec">知識趣</a></li>
             <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-                 href="#about-sec"
-                 onclick="changeHash('about-sec')">關於我們</a></li>
+                 href="#about-sec">關於我們</a></li>
             <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-                 href="#service-sec"
-                 onclick="changeHash('service-sec')">商業模式</a></li>
+                 href="#service-sec">商業模式</a></li>
             <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-                 href="#contact-sec"
-                 onclick="changeHash('contact-sec')">聯絡我們</a></li>
+                 href="#contact-sec">聯絡我們</a></li>
             <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
-                 href="#info-sec"
-                 onclick="changeHash('info-sec')">寶島公告</a></li>
+                 href="#info-sec">寶島公告</a></li>
             <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center"
                  href="https://baodao7.com/user/login">登入</a></li>
           </ul>
@@ -785,7 +780,8 @@
     <div class="courses p-6">
       <!-- 課程分區 -->
       <div class="newest">
-        <h2 class="text-4xl"></h2>
+        <h2 class="text-4xl italic"
+            x-text="boxTitle"></h2>
         <!-- 分區課程列表 -->
         <div class="flex flex-wrap">
           <template x-for="courseBox in boxInfo"
@@ -795,7 +791,7 @@
               <div class="box bg-white rounded-1rem overflow-hidden shadow-md">
                 <a class=" h-full flex flex-col"
                    href="#watch-sec"
-                   onclick="changeHash('watch-sec')">
+                   @click="setClass(courseBox.id)">
                   <div class="w-full overflow-y-hidden shadow-inner"
                        style="max-height:13rem;">
                     <img class="object-cover"
@@ -826,35 +822,6 @@
               </div>
             </div>
           </template>
-          <!-- 各別課程方框容器 -->
-          <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
-            <div class="bg-white rounded-1rem overflow-hidden shadow-md">
-              <a href="#watch-sec"
-                 onclick="changeHash('watch-sec')">
-                <img class="w-full"
-                     src="https://images.unsplash.com/photo-1555091674-5b089c492143?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80"
-                     alt="">
-                <!-- box body -->
-                <div class="box-body flex p-2">
-                  <img class="h-16 w-16 rounded-full"
-                       src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80"
-                       alt="">
-                  <!-- text area -->
-                  <div>
-                    <div class="mx-2">
-                      <h5 class="text-2xl">歐洲如何遊? 帶你一天玩遍英、德、法!</h5>
-                    </div>
-                    <div class="ep mt-2">
-                      <h5 class="text-right text-lg text-gray-600">共<span class="text-gray-900 mx-1">9487</span>集</h5>
-                    </div>
-                  </div>
-                  <!-- end text area -->
-                </div>
-                <!-- box body end -->
-              </a>
-            </div>
-          </div>
-          <!-- 各別課程方框容器 end -->
 
         </div>
       </div>
@@ -866,7 +833,9 @@
 
   <!-- 觀看課程頁 -->
   <section id="watch-sec"
-           class="inactive w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 pt-1 sm:p-6 sm:pt-1">
+           class="inactive w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 pt-1 sm:p-6 sm:pt-1"
+           x-data="watchHandler"
+           x-init="$watch('class_id', value => console.log(value))">
     <!-- left -->
     <div class="w-full lg:w-4/6">
       <div class="w-full lg:m-0">
@@ -876,16 +845,23 @@
       </div>
       <div class="text-box p-3">
         <div class="vid-title border-b border-main-orange pb-3">
-          <h1 class="text-3xl">歐洲如何遊? 帶你一天玩遍英、德、法!</h1>
+          <h1 class="text-3xl"
+              x-text="lesson_title"></h1>
         </div>
         <div class="description py-3">
-          <p class="text-lg">此課程將帶領你前往新的旅遊世界!</p>
+          <p class="text-lg"
+             x-text="lesson_description"></p>
         </div>
         <div class="buy-btns flex py-3">
           <button class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 rounded mr-2 shadow-lg"
-                  type="button">購買當前課程<span class="cur-cost">&nbsp369點</span></button>
+                  type="button"
+                  x-show="lesson_price != 0">購買此集
+            <span class="cur-cost"
+                  x-text="lesson_price">&nbsp</span>點</button>
           <button class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 rounded shadow-lg"
-                  type="button">購買全套課程<span class="all-cost">&nbsp666點</span></button>
+                  type="button">購買全套課程
+            <span class="all-cost"
+                  x-text="class_price">&nbsp</span>點</button>
         </div>
       </div>
     </div>
@@ -898,7 +874,8 @@
           <span class="status-icon ml-2"><i class="far fa-play-circle"></i></span>
           <p class="duration flex-grow text-right">5:04</p>
         </div>
-        <div class="eps-item flex p-3">
+        <div class="eps-item flex p-3"
+             @click="setClass(2)">
           <span>2.&nbsp</span>
           <p class="eps-title">5小時遊遍德國</p>
           <span class="status-icon ml-2"><i class="fas fa-lock"></i></span>
@@ -909,6 +886,7 @@
   </section>
   <!-- 觀看課程頁 end -->
 
+  <script src="js/watch.js"></script> <!-- for watch handling -->
   <script src="js/course.js"></script> <!-- for class handling -->
   <script src="js/courseBox.js"></script>
   <script src="js/ajaxHandler.js"></script> <!-- for ajax handling -->
@@ -919,6 +897,7 @@
   <!-- for parallax effect -->
   <script src="js/rellax.min.js"></script>
   <script>
+    var watchHandler = watch();
     var rellaxCourse = new Rellax('.rellax-course', {
       wrapper: '#course-sec'
     });
@@ -987,6 +966,10 @@
     // collapse nav list
     function collapseNav() {
       $('#nav').addClass('collapse');
+    }
+
+    function setClass(class_id) {
+      watchHandler.class_id = class_id;
     }
   </script>
 </body>

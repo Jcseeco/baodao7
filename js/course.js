@@ -2,12 +2,23 @@ function course() {
   return {
     ajax: new AjaxHandler(),
     boxInfo: [],
-    boxStatus: false,
+    boxTitle: "最新課程",
+    titles: {
+      1: "兒童教育",
+      4: "大健康",
+      5: "風水命理",
+      6: "全球旅遊",
+      7: "美業",
+      8: "身心靈",
+      9: "成功學",
+      10: "理財",
+    },
     // get information needed to show in box
     // return json array or false if none found
-    getClasses: async function(cat_id) {
+    getClasses: async function(cat_id = false) {
       var boxes = [];
       var data = await this.ajax.getClasses(cat_id);
+      (cat_id) ? this.boxTitle = this.titles[cat_id]: this.boxTitle = "最新課程";
       for (var i in data) {
         var courseBox = new CourseBox(data[i].id);
         courseBox.cat_id = data[i].class_catalog_id;

@@ -19,67 +19,22 @@ class AjaxHandler {
       class_catalog_id: cat_id
     };
 
-    // var ret_array = [];
-    // // var courseBoxes = this.courseBoxes;
-    // await this.postRequest(this.classesUrl, data).then(response => {
-    //   var data = response.data;
-    //   for (var i = 0; i < data.length; i++) {
-    //     var id = data[i].id;
-    //     var title = data[i].name;
-    //     var date_ym = data[i].created_at.split("-")[0] + "_" + data[i].created_at.split("-")[1];
-    //     var thumbnail_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data[i].picture_filename;
-    //     var updated_at = data[i].updated_at;
-    //     var teacher_id = data[i].teacher_id;
-    //     var cat_id = data[i].class_catalog_id;
-    //
-    //     ret_array.push({
-    //       id: id,
-    //       cat_id: cat_id,
-    //       title: title,
-    //       thumbnail_url: thumbnail_url,
-    //       teacher_id: teacher_id,
-    //       updated_at: updated_at
-    //     });
-    //   }
-    // })
     var response = await this.postRequest(this.classesUrl, data)
     return response.data;
   }
 
   // 取得該課程資料
-  getClass(id) {
-    var ret_array = [];
-
-    this.postRequest(this.classUrl, {
+  async getClass(id) {
+    var response = await this.postRequest(this.classUrl, {
       id: id
-    }).then(response => {
-      var data = response.data;
-      for (var i = 0; i < data.length; i++) {
-        // console.log(data[i].id);
-        var id = data[i].id;
-        var title = data[i].name;
-        var content = data[i].content;
-        var teacher_id = data[i].teacher_id;
-        var updated_at = data[i].updated_at;
-        var price = Number(data[i].price_market);
-
-        ret_array.push({
-          id: id,
-          title: title,
-          content: content,
-          teacher_id: teacher_id,
-          updated_at: updated_at,
-          price: price
-        });
-      }
     });
 
-    return ret_array;
+    return response.data;
   }
 
   // 取得所有集數資料
   // param class_id: 需求課程之id *必填*
-  getLessons(class_id, order_column = id, order_type = 'desc', offset = 0) {
+  async getLessons(class_id, order_column = 'id', order_type = 'asc', offset = 0) {
     var data = {
       class_id: class_id,
       order_column: order_column,
@@ -87,24 +42,9 @@ class AjaxHandler {
       offset: offset
     };
 
-    var ret_array = [];
-    this.postRequest(this.lessionsUrl, data).then(response => {
-      var data = response.data;
-      for (var i = 0; i < data.length; i++) {
-        // console.log(data[i].id);
-        var id = data[i].id;
-        var title = data[i].info;
-        var content = data[i].content;
+    var response = await this.postRequest(this.lessionsUrl, data);
 
-        ret_array.push({
-          id: id,
-          title: title,
-          content: content,
-        });
-      }
-    });
-
-    return ret_array;
+    return response.data;
   }
 
   async getTotal(class_id) {
@@ -121,33 +61,11 @@ class AjaxHandler {
   }
 
   // 取得該集資料
-  getLesson(id) {
-    var ret_array = [];
-    this.postRequest(this.lessionUrl, {
+  async getLesson(id) {
+    var response = await this.postRequest(this.lessionUrl, {
       id: id
-    }).then(response => {
-      var data = response.data;
-      for (var i = 0; i < data.length; i++) {
-        // console.log(data[i].id);
-        var id = data[i].id;
-        var title = data[i].info;
-        var content = data[i].content;
-        var filename = data[i].filename;
-        var updated_at = data[i].updated_at;
-        var price_market = data[i].price_market;
-
-        ret_array.push({
-          id: id,
-          title: title,
-          content: content,
-          filename: filename,
-          updated_at: updated_at,
-          price_market: price_market
-        });
-      }
     });
-
-    return ret_array;
+    return response.data;
   }
 
   // 取得老師資料
