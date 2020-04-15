@@ -1,6 +1,7 @@
 # Offical website of A Miracle Baodao
 
-### 新版首頁暫時為newindex.html，已不使用 Bootstap 及 jQuery
+### 基本api串接完成
+### 從課程選擇頁到觀看頁的換頁架構有些問題，可能跟alpine x-data的component scope有關，尚須研究
 
 ### 更動項目
 * 網頁所有外觀
