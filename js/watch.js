@@ -20,10 +20,12 @@ function watch() {
         for (var i in data) {
           var id = data[i].id;
           var title = data[i].info;
+          var price = Math.round(data[i].price_market);
 
           ret_array.push({
             id: id,
-            title: title
+            title: title,
+            price: price
           });
         }
         return ret_array;
