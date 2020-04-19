@@ -3,6 +3,7 @@ function course() {
     ajax: new AjaxHandler(),
     boxInfo: [],
     boxTitle: "最新課程",
+    searchStatus: false,
     titles: {
       1: "兒童教育",
       4: "大健康",
@@ -16,6 +17,7 @@ function course() {
     // get information needed to show in box
     // return json array or false if none found
     getClasses: async function(cat_id = false) {
+      this.searchStatus = false;
       var boxes = [];
       var data = await this.ajax.getClasses(cat_id);
       (cat_id) ? this.boxTitle = this.titles[cat_id]: this.boxTitle = "最新課程";
@@ -34,6 +36,7 @@ function course() {
         boxes.push(courseBox);
       }
       this.boxInfo = boxes;
+      this.searchStatus = true;
     },
     // 取得該課程教師圖片網址
     getTeacherUrl: async function(course) {
