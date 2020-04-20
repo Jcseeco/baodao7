@@ -68,6 +68,11 @@ function course() {
       }
 
       return false;
+    },
+
+    scrollToResult() {
+      var resultTop = document.getElementById('course-results').offsetTop;
+      document.getElementById('course-sec').scrollTo(0, resultTop);
     }
 
   };

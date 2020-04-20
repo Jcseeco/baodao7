@@ -9,10 +9,12 @@
   <link rel="icon"
         href="img/logo_icon.png">
   <link rel="stylesheet"
-        href="css/style.css">
-  <link rel="stylesheet"
-        href="https://use.fontawesome.com/releases/v5.11.1/css/all.css">
+        href="css/style.css?ver_2.0">
   <style>
+    body {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     @media(min-width: 1024px) {
       ::-webkit-scrollbar-track {
         /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
@@ -1208,7 +1210,8 @@
                watch.init();">
     <!-- 課程選擇頁 -->
     <section id="course-sec"
-             class="inactive w-full sec-height bg-main-white overflow-auto">
+             class="inactive w-full sec-height bg-main-white overflow-auto"
+             style="scroll-behavior:smooth;">
       <div class="h-auto md:h-vh-half overflow-hidden">
 
         <div class="h-full w-full bg-cover bg-top rellax-course"
@@ -1242,7 +1245,8 @@
         <div class="course-cat flex flex-wrap">
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(4)">
+                 @click="course.getClasses(4);
+                       course.scrollToResult();">
               <img src="img/catagory/health.png"
                    alt="大健康">
               <p>大健康</p>
@@ -1250,7 +1254,8 @@
           </div>
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(1)">
+                 @click="course.getClasses(1);
+                       course.scrollToResult();">
               <img src="img/catagory/children_ed.png"
                    alt="兒童教育">
               <p>兒童教育</p>
@@ -1258,7 +1263,8 @@
           </div>
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(5)">
+                 @click="course.getClasses(5);
+                       course.scrollToResult();">
               <img src="img/catagory/fortune.png"
                    alt="風水命理">
               <p>風水命理</p>
@@ -1266,7 +1272,8 @@
           </div>
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(6)">
+                 @click="course.getClasses(6);
+                       course.scrollToResult();">
               <img src="img/catagory/tour.png"
                    alt="全球旅遊">
               <p>全球旅遊</p>
@@ -1274,7 +1281,8 @@
           </div>
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(9)">
+                 @click="course.getClasses(9);
+                       course.scrollToResult();">
               <img src="img/catagory/success.png"
                    alt="成功學">
               <p>成功學</p>
@@ -1282,7 +1290,8 @@
           </div>
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(8)">
+                 @click="course.getClasses(8);
+                       course.scrollToResult();">
               <img src="img/catagory/mental.png"
                    alt="身心靈">
               <p>身心靈</p>
@@ -1290,7 +1299,8 @@
           </div>
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(7)">
+                 @click="course.getClasses(7);
+                       course.scrollToResult();">
               <img src="img/catagory/beauty.png"
                    alt="美業">
               <p>美業</p>
@@ -1298,7 +1308,8 @@
           </div>
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(10)">
+                 @click="course.getClasses(10);
+                       course.scrollToResult();">
               <img src="img/catagory/wealth.png"
                    alt="理財">
               <p>理財</p>
@@ -1309,16 +1320,48 @@
       <!-- 分類欄 end -->
 
       <!-- 課程框區域 -->
-      <div class="courses p-6">
+      <div id="course-results"
+           class="courses p-6">
         <!-- 課程分區 -->
         <div class="newest">
-          <div x-show="!course.searchStatus">
-            <h1 class="text-2xl">搜尋中</h1>
-          </div>
+          <!-- 搜尋分類 -->
           <h2 class="text-4xl italic"
               x-text="course.boxTitle"></h2>
+          <!-- 預設樣式 -->
+          <div class="pre-template"
+               x-show="!course.searchStatus">
+            <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
+              <div class="box bg-white rounded-1rem overflow-hidden shadow-md">
+                <a class=" h-full flex flex-col">
+                  <div class="w-full overflow-y-hidden bg-gray-400"
+                       style="height:13rem;max-height:13rem;">
+                  </div>
+                  <!-- box body -->
+                  <div class="box-body w-full flex flex-grow p-2">
+                    <div class="h-16 w-16 bg-text-blue rounded-full mr-2"></div>
+                    <!-- text area -->
+                    <div class="flex-grow">
+                      <div class="ml-2">
+                        <h1 class="h-20 text-2xl">搜尋中...</h1>
+                      </div>
+                      <div class="ep mt-2">
+                        <h5 class="text-right text-lg text-gray-600">搜尋中...</h5>
+                      </div>
+                    </div>
+                    <!-- end text area -->
+                  </div>
+                  <!-- box body end -->
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- 無結果顯示 -->
+          <div x-show="course.boxInfo.length === 0">
+            <h1 class="text-2xl">尚未推出，敬請期待...</h1>
+          </div>
           <!-- 分區課程列表 -->
-          <div class="flex flex-wrap">
+          <div class="flex flex-wrap"
+               x-show="course.searchStatus">
 
             <template x-for="courseBox in course.boxInfo"
                       :key="courseBox.id">
@@ -1330,7 +1373,7 @@
                      @click="setQuery('class_id', courseBox.id);
                              watch.setClass(courseBox.id);">
                     <div class="w-full overflow-y-hidden shadow-inner"
-                         style="max-height:13rem;">
+                         style="height:13rem;max-height:13rem;">
                       <img class="object-cover"
                            :src="courseBox.thumbnail_url"
                            alt="">
@@ -1498,10 +1541,11 @@
         $('.navbar').addClass('inactive');
       }
 
-      var targetSec = $(secId);
+      setTitle(secId);
 
       closeActive(); // close active section
       // show target section
+      var targetSec = $(secId);
       setTimeout(function() {
         targetSec.addClass('active').addClass('flashIn').removeClass('inactive');
         setTimeout(function() {
@@ -1517,6 +1561,19 @@
       setTimeout(function() {
         activeSec.addClass('inactive').removeClass('flashOut');
       }, 1000);
+    }
+
+    // 設定當標題
+    function setTitle(secId) {
+      var titles = {
+        '#main-sec': '寶島奇蹟',
+        '#about-sec': '寶島奇蹟-關於我們',
+        '#service-sec': '寶島奇蹟-商業模式',
+        '#contact-sec': '寶島奇蹟-聯絡我們',
+        '#course-sec': '寶島知識趣',
+        '#watch-sec': '寶島知識趣-觀看'
+      };
+      $('title').text(titles[secId]);
     }
 
     // set search string of url
