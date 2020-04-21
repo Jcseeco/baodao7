@@ -65,6 +65,7 @@ module.exports = {
         'vw-3/4': '75vw',
         'vw-1/4': '25vw',
         'vw-half': '50vw',
+        '16:9': '56.25%',
       },
       width: {
         'fit': 'fit-content',
@@ -76,7 +77,9 @@ module.exports = {
     },
   },
 
-  variants: {},
+  variants: {
+    borderWidth: ['responsive', 'last', 'hover', 'focus'],
+  },
 
   plugins: [],
 

@@ -156,10 +156,13 @@
       left: -100px;
       transform-origin: calc(100px) calc(100px);
       transition: all 0.5s 0.1s;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
     }
 
-    .menu-item a {
-      box-shadow: 0px 0px 4px 1px #3f3e3e;
+    .menu-item.active div {
+      animation: breathe 3.5s ease-in-out infinite;
     }
 
     .center-menu.active .menu-list li:nth-child(1) {
@@ -224,7 +227,7 @@
 
     /* nav-icon */
     .nav-icon {
-      width: 40px;
+      width: 56px;
     }
 
     .nav-icon::after,
@@ -234,7 +237,7 @@
       border-radius: 3px;
       content: '';
       display: block;
-      height: 5px;
+      height: 4px;
       color: black;
     }
 
@@ -249,11 +252,11 @@
     }
 
     .nav-icon.active::before {
-      transform: translateY(12px) rotate(135deg);
+      transform: translateY(11px) rotate(135deg);
     }
 
     .nav-icon.active::after {
-      transform: translateY(-12px) rotate(-135deg);
+      transform: translateY(-11px) rotate(-135deg);
     }
 
     .nav-icon.active div {
@@ -397,6 +400,24 @@
       }
     }
 
+    @keyframes breathe {
+      0% {
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      60% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
     /* jumbo logo animation */
     .jumbo-logo #plane {
       transform: translate(-100px, 100px);
@@ -463,13 +484,17 @@
         opacity: 1;
       }
     }
+
+    [x-cloak] {
+      display: none;
+    }
   </style>
 </head>
 
 <body class="w-screen h-screen bg-text-blue p-0 m-0 overflow-hidden"
       style="background-image:url('img/background/stardust.png');"
       onhashchange="showSec()">
-
+  <!-- topbar nav -->
   <header class="fixed z-10">
     <div class="navbar inactive flex items-center w-screen h-16 bg-text-blue text-main-white px-3"
          x-data="{collapse: true}">
@@ -479,7 +504,7 @@
           <svg xmlns="http://www.w3.org/2000/svg"
                height="3rem"
                viewBox="0 0 563 384"
-               class="text-gray-200 hover:text-blue-200"
+               class="text-gray-200 hover:text-blue-200 transition duration-500"
                fill="currentColor">
             <g id="AMBLOGO_BORDER">
               <ellipse id="back"
@@ -631,17 +656,19 @@
           </svg>
           &nbsp寶島奇蹟</a></h1>
       <div class="flex justify-end flex-grow">
-        <a class="mx-2 border-2 border-main-white rounded-lg text-lg sm:text-xl font-semibold hover:bg-main-orange hover:text-text-blue hover:border-main-orange transitions-colors duration-300  px-3 py-1"
-           href="https://baodao7.com/user/register">註冊</a>
+        <a class="flex-center mx-2 border-2 border-main-white rounded-lg text-lg sm:text-xl font-semibold hover:bg-main-orange hover:text-text-blue hover:border-main-orange transitions-colors duration-300  px-3"
+           href="https://baodao7.com/user/register">
+          <h1>註冊</h1>
+        </a>
         <button class="mx-2 nav-toggler focus:outline-none z-40"
                 @click="collapse = !collapse">
-          <div class="nav-icon"
+          <div class="nav-icon border-2 rounded-lg p-2"
                :class="{'active': !collapse}">
             <div></div>
           </div>
         </button>
       </div>
-
+      <!-- sidebar menu -->
       <div id="nav"
            class="collapse top-0 right-0 w-screen h-screen fixed z-20"
            @click="collapse = !collapse"
@@ -649,19 +676,13 @@
         <div class="w-1/2 sm:w-1/4 h-full flex-center bg-text-blue ml-auto whitespace-no-wrap shadow-lg"
              style="box-shadow:-12px 0px 12px 8px rgba(0, 0, 0, 0.2), -6px 0px 12px 2px rgba(0, 0, 0, 0.3);">
           <ul class="nav-list w-fit flex-center flex-col text-main-white p-3">
-            <li class="text-2xl py-4 w-full"><a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
-                 href="#course-sec">知識趣</a></li>
-            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
-                 href="#about-sec">關於我們</a></li>
-            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
-                 href="#service-sec">商業模式</a></li>
-            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
-                 href="#contact-sec">聯絡我們</a></li>
-            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
-                 href="https://baodao7.com/mall">寶島商城</a></li>
-            <li class="text-2xl py-4 w-full border-t-2"><a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
-                 href="https://baodao7.com/user/login">登入</a></li>
-          </ul>
+            <template x-for="nav in sideNav()"
+                      :key="nav.href">
+              <li class="text-2xl py-4 w-full border-b-2 last:border-b-0">
+                <a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
+                   :href="nav.href"
+                   x-text="nav.text"></a></li>
+            </template></ul>
         </div>
       </div>
     </div>
@@ -706,34 +727,61 @@
           </svg>
         </div>
         <!-- menu display on home page -->
-        <div class="center-menu flex-center w-screen h-screen text-main-white"
+        <div class="center-menu flex-center w-screen h-screen text-main-white text-xl font-semibold"
              @click="
              active = !active;
              $nextTick(() => {toggleMenu()});">
           <ul class="menu-list flex-center">
             <li class="menu-item flex-center cursor-pointer"
+                :class="{'active': active}"
                 onclick="changeHash('course-sec')">
-              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-                知識趣</a></li>
+              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                知識趣</a>
+              <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
+            </li>
             <li class="menu-item flex-center cursor-pointer"
-                onclick="changeHash('about-sec')">
-              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-                關於我們</a></li>
-            <li class="menu-item flex-center cursor-pointer"
-                onclick="changeHash('service-sec')">
-              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-                商業模式</a></li>
-            <li class="menu-item flex-center cursor-pointer"
-                onclick="changeHash('contact-sec')">
-              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500">
-                聯絡我們</a></li>
-            <li class="menu-item flex-center cursor-pointer">
-              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500"
+                :class="{'active': active}"
+                onclick="changeHash('course-sec')">
+              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500"
                  href="https://baodao7.com/mall">
-                寶島商城</a></li>
-            <li class="menu-item flex-center">
-              <a class="w-20 h-20 bg-text-blue absolute flex-center rounded-full transition duration-500"
-                 href="https://baodao7.com/user/login">登入/註冊</a></li>
+                寶島商城</a>
+              <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
+            </li>
+            <li class="menu-item flex-center cursor-pointer"
+                :class="{'active': active}"
+                onclick="changeHash('about-sec')">
+              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                關於我們</a>
+              <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
+            </li>
+            <li class="menu-item flex-center cursor-pointer"
+                :class="{'active': active}"
+                onclick="changeHash('service-sec')">
+              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                商業模式</a>
+              <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
+            </li>
+            <li class="menu-item flex-center cursor-pointer"
+                :class="{'active': active}"
+                onclick="changeHash('contact-sec')">
+              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+                聯絡我們</a>
+              <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
+            </li>
+            <li class="menu-item flex-center cursor-pointer"
+                :class="{'active': active}"
+                onclick="changeHash('course-sec')">
+              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500"
+                 href="https://baodao7.com/user/login">
+                登入/註冊</a>
+              <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
+            </li>
           </ul>
         </div>
       </div>
@@ -1117,41 +1165,44 @@
             </div>
           </div>
 
-          <div class="form text-lg">
+          <form id="contact-form"
+                class="form text-lg"
+                method="post"
+                onsubmit="return validateSubmit()">
             <div class="flex w-full my-2">
               <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
-                    for="">暱稱</span>
-              <input class="form-input rounded-r"
+                    for="fname">暱稱</span>
+              <input class="form-input border-l-0 rounded-r"
                      type="text"
-                     name="name"
+                     name="fname"
                      placeholder="ex. 小明">
             </div>
             <div class="flex w-full my-2">
               <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
-                    for="">信箱</span>
-              <input class="form-input rounded-r"
+                    for="fmail">信箱</span>
+              <input class="form-input border-l-0 rounded-r"
                      type="text"
-                     name="mail"
+                     name="fmail"
                      placeholder="ex. ****@**mail.com">
             </div>
             <div class="flex w-full my-2">
               <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
-                    for="">手機</span>
-              <input class="form-input rounded-r"
+                    for="fphone">手機</span>
+              <input class="form-input border-l-0 rounded-r"
                      type="text"
-                     name="phone"
+                     name="fphone"
                      placeholder="ex. 0912345678">
             </div>
             <div class="flex flex-col w-full my-2">
               <span class="bg-text-blue text-main-white rounded-t text-center px-4 py-1"
-                    for="">訊息</span>
+                    for="fmessage">訊息</span>
               <textarea class="form-input border-t-0 rounded-b"
-                        name="message"></textarea>
+                        name="fmessage"></textarea>
             </div>
             <div class="text-center">
               <button class="bg-text-blue hover:bg-main-blue text-main-white text-lg rounded py-2 px-6">送出</button>
             </div>
-          </div>
+          </form>
           <!-- end of main content -->
         </div>
       </div>
@@ -1173,12 +1224,16 @@
             </div>
             <div class="text-lg">
               <div class="flex w-full my-2">
-                <h1 class="bg-text-blue text-main-white rounded-l px-4 py-1">地址</h1>
-                <h1 class="form-input bg-white rounded-r align-text-bottom">台中市南屯區益豐東街186號2樓</h1>
+                <span class="bg-text-blue text-main-white rounded-l px-4 py-1">地址</span>
+                <div class="form-input flex items-center bg-white rounded-r">
+                  <p>台中市南屯區益豐東街186號2樓</p>
+                </div>
               </div>
               <div class="flex w-full my-2">
-                <h1 class="bg-text-blue text-main-white rounded-l px-4 py-1">連絡電話</h1>
-                <h1 class="form-input bg-white rounded-r align-text-bottom">04-23890131</h1>
+                <span class="bg-text-blue text-main-white rounded-l px-4 py-1">連絡電話</span>
+                <div class="form-input flex items-center bg-white rounded-r">
+                  <p>04-23890131</p>
+                </div>
               </div>
               <div class="w-3/5 ml-auto mr-auto"
                    style="max-width:350px;">
@@ -1417,9 +1472,25 @@
       <!-- left -->
       <div class="w-full lg:w-4/6">
         <div class="w-full lg:m-0">
-          <video class="w-full"
-                 src="img/intro_vid.mp4"
-                 controls></video>
+          <!-- 未購買時顯示 -->
+          <div class="w-full pt-16:9 relative bg-gray-700"
+               x-show="!watch.video_url">
+            <div class="w-full h-full absolute top-0 left-0 flex-center flex-col"
+                 style="box-shadow:inset 0px 0px 15px 4px rgba(0, 0, 0, 0.7);">
+              <p class="text-2xl">接下來的課程需要您的支持!</p>
+              <p class="text-2xl">請先登入並購買，感謝您!</p>
+              <a class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
+                 href="https://baodao7.com/user/login">登入</a>
+            </div>
+          </div>
+          <!-- 影片 -->
+          <div class="w-full pt-16:9 relative"
+               x-show="watch.video_url">
+            <video class="w-full h-full absolute top-0 left-0"
+                   :src="watch.video_url"
+                   controls>
+            </video>
+          </div>
         </div>
         <div class="text-box p-3">
           <div class="vid-title border-b border-main-orange pb-3">
@@ -1431,15 +1502,15 @@
                x-text="watch.lesson_description"></p>
           </div>
           <div class="buy-btns block sm:flex">
-            <button class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
-                    type="button"
-                    x-show="watch.lesson_price != 0">購買此集
+            <a class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
+               href="https://baodao7.com/user/login"
+               x-show="watch.lesson_price != 0">購買此集
               <span class="cur-cost"
-                    x-text="watch.lesson_price">&nbsp</span>點</button>
-            <button class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
-                    type="button">購買完整課程
+                    x-text="watch.lesson_price">&nbsp</span>點</a>
+            <a class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
+               href="https://baodao7.com/user/login">購買完整課程
               <span class="all-cost"
-                    x-text="watch.class_price">&nbsp</span>點</button>
+                    x-text="watch.class_price">&nbsp</span>點</a>
           </div>
         </div>
       </div>
@@ -1488,7 +1559,7 @@
     <!-- 觀看課程頁 end -->
   </div>
 
-
+  <script src="js/formHandler.js"></script> <!-- for form handling -->
   <script src="js/watch.js"></script> <!-- for watch handling -->
   <script src="js/course.js"></script> <!-- for class handling -->
   <script src="js/courseBox.js"></script>
@@ -1517,6 +1588,29 @@
     function toggleMenu() {
       $('#phone-menu').toggleClass('active');
       $('.center-menu').toggleClass('active');
+    }
+
+    // sidebar menu
+    function sideNav() {
+      return [{
+        href: '#course-sec',
+        text: '知識趣',
+      }, {
+        href: 'https://baodao7.com/mall',
+        text: '寶島商城',
+      }, {
+        href: '#about-sec',
+        text: '關於我們',
+      }, {
+        href: '#service-sec',
+        text: '商業模式',
+      }, {
+        href: '#contact-sec',
+        text: '聯絡我們',
+      }, {
+        href: 'https://baodao7.com/user/login',
+        text: '登入/註冊',
+      }];
     }
 
     // change hash (anchor event doesn't count as hash change)
@@ -1598,6 +1692,21 @@
         let delay = 3.5 + 0.2 * i + "s";
         $(item).css('animation', "fade-in-3 3s forwards " + delay);
       });
+    }
+
+    function validateSubmit() {
+      var formHandler = new FromHandler();
+      var name = $('#contact-form [name="fname"]').val();
+      var mail = $('#contact-form [name="fmail"]').val();
+      var phone = $('#contact-form [name="fphone"]').val();
+      var message = $('#contact-form [name="fmessage"]').val();
+      // console.log(formHandler.validate("234", "mai@gmail.com", "0912345678", ""));
+      if (formHandler.validate(name, mail, phone, message)) {
+        alert("傳送成功! 我們會盡速與您聯繫!");
+        return true;
+      } else {
+        return false;
+      }
     }
   </script>
 </body>

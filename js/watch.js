@@ -3,9 +3,10 @@ function watch() {
     ajax: new AjaxHandler(),
     class_id: null,
     lesson_id: null, // 當前分集id
+    video_url: "",
     lesson_title: null, // 當前分集標題
     lesson_description: null, // 當前分集說明
-    lesson_price: 123, // 當前分集價格
+    lesson_price: null, // 當前分集價格
     class_price: null, // 整體課程價格
     lessons: [], // 所有分集資料
     init() {
@@ -45,10 +46,27 @@ function watch() {
       this.lesson_title = data.title;
       this.lesson_description = data.info;
       this.lesson_price = Math.round(data.price_market);
+      if (await this.validateLesson(id)) {
+        var date_ym = data.created_at.split("-")[0] + "_" + data.created_at.split("-")[1];
+        this.video_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data.filename;
+      } else {
+        this.video_url = "";
+      }
+
     },
     async setPrice(class_id) {
       var data = await this.ajax.getClass(class_id);
       this.class_price = Math.round(data.price_market);
     },
+    validateLesson(id) {
+      return fetch('php/lessonValidate.php', {
+        body: JSON.stringify({
+          id: id
+        }),
+        method: 'POST'
+      }).then(response => response.text()).catch(function(error) {
+        console.log('There has been a problem: ', error.message);
+      });
+    }
   };
 }
