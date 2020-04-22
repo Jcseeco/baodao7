@@ -489,6 +489,8 @@
       display: none;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+          defer></script>
 </head>
 
 <body class="w-screen h-screen bg-text-blue p-0 m-0 overflow-hidden"
@@ -1412,7 +1414,7 @@
             </div>
           </div>
           <!-- 無結果顯示 -->
-          <div x-show="course.boxInfo.length === 0">
+          <div x-show="course.searchStatus && course.boxInfo.length === 0">
             <h1 class="text-2xl">尚未推出，敬請期待...</h1>
           </div>
           <!-- 分區課程列表 -->
@@ -1427,7 +1429,7 @@
                   <a class=" h-full flex flex-col"
                      href="#watch-sec"
                      @click="setQuery('class_id', courseBox.id);
-                             watch.setClass(courseBox.id);">
+                     watch.setClass(courseBox.id);">
                     <div class="w-full overflow-y-hidden shadow-inner"
                          style="height:13rem;max-height:13rem;">
                       <img class="object-cover"
@@ -1560,11 +1562,11 @@
     <!-- 觀看課程頁 end -->
   </div>
 
-  <script src="js/formHandler.js"></script> <!-- for form handling -->
-  <script src="js/watch.js"></script> <!-- for watch handling -->
-  <script src="js/course.js"></script> <!-- for class handling -->
-  <script src="js/courseBox.js"></script>
-  <script src="js/ajaxHandler.js"></script> <!-- for ajax handling -->
+  <script src="js/formHandler.js?ver1.0"></script> <!-- for form handling -->
+  <script src="js/watch.js?ver2.0"></script> <!-- for watch handling -->
+  <script src="js/course.js?ver2.0"></script> <!-- for class handling -->
+  <script src="js/courseBox.js?ver1.0"></script>
+  <script src="js/ajaxHandler.js?ver2.0"></script> <!-- for ajax handling -->
   <!-- api -->
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
           defer></script>
@@ -1673,6 +1675,7 @@
 
     // set search string of url
     function setQuery(key, value) {
+      console.log(key + ", " + value);
       urlParams.set(key, value);
       let url = location.origin + "?" + urlParams.toString() + location.hash;
       history.pushState('watch', 'watch', url);

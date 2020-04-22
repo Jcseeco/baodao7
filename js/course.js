@@ -1,7 +1,7 @@
 function course() {
   return {
     ajax: new AjaxHandler(),
-    boxInfo: [],
+    boxInfo: null,
     boxTitle: "最新課程",
     searchStatus: false,
     titles: {
