@@ -1,3 +1,4 @@
+"use strict";
 // for handling api requests
 class AjaxHandler {
   constructor() {

@@ -1,3 +1,5 @@
+"use strict";
+
 function watch() {
   return {
     ajax: new AjaxHandler(),
@@ -17,7 +19,6 @@ function watch() {
 
     },
     setClass(id) {
-      console.log(id);
       this.class_id = id;
       this.setLessons(id);
     },

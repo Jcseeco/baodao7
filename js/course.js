@@ -1,9 +1,12 @@
+"use strict";
+
 function course() {
   return {
     ajax: new AjaxHandler(),
-    boxInfo: null,
+    boxInfo: [],
     boxTitle: "最新課程",
     searchStatus: false,
+    errorMessage: "",
     titles: {
       1: "兒童教育",
       4: "大健康",
@@ -17,6 +20,7 @@ function course() {
     // get information needed to show in box
     // return json array or false if none found
     getClasses: async function(cat_id = false) {
+      this.boxInfo = [];
       this.searchStatus = false;
       var boxes = [];
       var data = await this.ajax.getClasses(cat_id);

@@ -9,7 +9,7 @@
   <link rel="icon"
         href="img/logo_icon.png">
   <link rel="stylesheet"
-        href="css/style.css?ver_2.1">
+        href="css/style.css?ver_2.1.1">
   <style>
     body {
       -webkit-tap-highlight-color: transparent;
@@ -743,8 +743,7 @@
                    style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
             </li>
             <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}"
-                onclick="changeHash('course-sec')">
+                :class="{'active': active}">
               <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500"
                  href="https://baodao7.com/mall">
                 寶島商城</a>
@@ -776,8 +775,7 @@
                    style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
             </li>
             <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}"
-                onclick="changeHash('course-sec')">
+                :class="{'active': active}">
               <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500"
                  href="https://baodao7.com/user/login">
                 登入/註冊</a>
@@ -1300,7 +1298,7 @@
       <div id="course-nav"
            class="bg-text-blue text-main-white border-main-orange border-b-8 rounded-b-2rem p-2 md:p-4 shadow-md">
         <h1 class="text-4xl text-center">課程分類</h1>
-        <div class="course-cat flex flex-wrap">
+        <div class="course-cat flex flex-wrap text-sm sm:text-base md:text-lg">
           <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(4);
@@ -1562,11 +1560,14 @@
     <!-- 觀看課程頁 end -->
   </div>
 
+
+  <script src="js/courseBoxCompatible.js?ver1.0"></script>
+  <script src="js/ajaxCompatible.js?ver2.0"></script> <!-- for ajax handling -->
   <script src="js/formHandler.js?ver1.0"></script> <!-- for form handling -->
-  <script src="js/watch.js?ver2.0"></script> <!-- for watch handling -->
-  <script src="js/course.js?ver2.0"></script> <!-- for class handling -->
-  <script src="js/courseBox.js?ver1.0"></script>
-  <script src="js/ajaxHandler.js?ver2.0"></script> <!-- for ajax handling -->
+  <script src="js/watch.js?ver2.0.1"></script> <!-- for watch handling -->
+  <script src="js/course.js?ver2.0.1"></script>
+  <!-- <script src="js/courseBox.js?ver1.0.2"></script>
+  <script src="js/ajaxHandler.js?ver2.0.1"></script>  -->
   <!-- api -->
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
           defer></script>
@@ -1675,7 +1676,6 @@
 
     // set search string of url
     function setQuery(key, value) {
-      console.log(key + ", " + value);
       urlParams.set(key, value);
       let url = location.origin + "?" + urlParams.toString() + location.hash;
       history.pushState('watch', 'watch', url);

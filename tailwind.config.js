@@ -1,5 +1,8 @@
 module.exports = {
   theme: {
+    screens: {
+      'xs': '400px',
+    },
     extend: {
       fontSize: {
         '6.5xl': '4.5rem',
