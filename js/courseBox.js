@@ -1,3 +1,4 @@
+"use strict";
 class CourseBox {
   id = null;
   title = "";

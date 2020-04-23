@@ -692,7 +692,7 @@
 
   <!-- 首頁 -->
   <section id="main-sec"
-           class="inactive h-full w-full bg-cover"
+           class="inactive h-full w-full bg-cover bg-no-repeat"
            style="background-image: url(' img/background/101bright-min.png');"
            sec-order="0">
     <div id="main-sec-content"
@@ -737,14 +737,14 @@
             <li class="menu-item flex-center cursor-pointer"
                 :class="{'active': active}"
                 onclick="changeHash('course-sec')">
-              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+              <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500">
                 知識趣</a>
               <div class="w-24 h-24 absolute bg-transparent rounded-full"
                    style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
             </li>
             <li class="menu-item flex-center cursor-pointer"
                 :class="{'active': active}">
-              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500"
+              <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500"
                  href="https://baodao7.com/mall">
                 寶島商城</a>
               <div class="w-24 h-24 absolute bg-transparent rounded-full"
@@ -753,7 +753,7 @@
             <li class="menu-item flex-center cursor-pointer"
                 :class="{'active': active}"
                 onclick="changeHash('about-sec')">
-              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+              <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500">
                 關於我們</a>
               <div class="w-24 h-24 absolute bg-transparent rounded-full"
                    style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
@@ -761,7 +761,7 @@
             <li class="menu-item flex-center cursor-pointer"
                 :class="{'active': active}"
                 onclick="changeHash('service-sec')">
-              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+              <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500">
                 商業模式</a>
               <div class="w-24 h-24 absolute bg-transparent rounded-full"
                    style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
@@ -769,14 +769,14 @@
             <li class="menu-item flex-center cursor-pointer"
                 :class="{'active': active}"
                 onclick="changeHash('contact-sec')">
-              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500">
+              <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500">
                 聯絡我們</a>
               <div class="w-24 h-24 absolute bg-transparent rounded-full"
                    style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
             </li>
             <li class="menu-item flex-center cursor-pointer"
                 :class="{'active': active}">
-              <a class="w-24 h-24 bg-text-blue absolute flex-center rounded-full transition duration-500"
+              <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500"
                  href="https://baodao7.com/user/login">
                 登入/註冊</a>
               <div class="w-24 h-24 absolute bg-transparent rounded-full"
@@ -1168,6 +1168,7 @@
 
           <form id="contact-form"
                 class="form text-lg"
+                action="php/mail.php"
                 method="post"
                 onsubmit="return validateSubmit()">
             <div class="flex w-full my-2">
@@ -1563,7 +1564,7 @@
 
   <script src="js/courseBoxCompatible.js?ver1.0"></script>
   <script src="js/ajaxCompatible.js?ver2.0"></script> <!-- for ajax handling -->
-  <script src="js/formHandler.js?ver1.0"></script> <!-- for form handling -->
+  <script src="js/formHandler.js?ver1.1"></script> <!-- for form handling -->
   <script src="js/watch.js?ver2.0.1"></script> <!-- for watch handling -->
   <script src="js/course.js?ver2.0.1"></script>
   <!-- <script src="js/courseBox.js?ver1.0.2"></script>
@@ -1699,14 +1700,13 @@
     }
 
     function validateSubmit() {
-      var formHandler = new FromHandler();
+      var formHandler = new FormHandler();
       var name = $('#contact-form [name="fname"]').val();
       var mail = $('#contact-form [name="fmail"]').val();
       var phone = $('#contact-form [name="fphone"]').val();
       var message = $('#contact-form [name="fmessage"]').val();
-      // console.log(formHandler.validate("234", "mai@gmail.com", "0912345678", ""));
+
       if (formHandler.validate(name, mail, phone, message)) {
-        alert("傳送成功! 我們會盡速與您聯繫!");
         return true;
       } else {
         return false;
