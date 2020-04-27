@@ -39,10 +39,9 @@
 
     /* 換頁 */
     section.inactive:not(.flashOut) {
-      transform: scale(0.2, 0.002);
       opacity: 0;
       visibility: hidden;
-      transform: translateY(64px);
+      transform: translateY(100%);
     }
 
     .flashOut {
@@ -712,7 +711,7 @@
         <div class="flex-col flex-center mt-4 text-main-white">
           <img id="phone-menu"
                class="mt-4"
-               src="img/feature/phone-static.png"
+               data-src="img/feature/phone-static.png"
                alt="選單"
                style="max-width: 100px;"
                @click="
@@ -1066,7 +1065,7 @@
         </ul>
       </div>
       <div class="w-1/2 md:w-2/5 overflow-hidden rounded-full md:rounded-lg md:mx-10 mt-auto">
-        <img src="img/feature/founder.jpg"
+        <img data-src="img/feature/founder.jpg"
              alt="founder"
              width="100%">
       </div>
@@ -1131,7 +1130,7 @@
           <h1 class="text-5xl text-right text-gray-200">特點價值</h1>
         </div>
         <img class="ml-auto mt-6"
-             src=" img/feature/merit.png"
+             data-src="img/feature/merit.png"
              alt="免: 找人、拉人、推銷、囤貨、帶團隊、售後服務">
       </div>
       <!-- end main content -->
@@ -1148,7 +1147,7 @@
       <div class="min-h-full block relative lg:w-1/2 lg:mr-2 overflow-hidden">
         <!-- parallax background -->
         <img class='rellax-contact absolute bottom-0'
-             src="img/background/milkovi.jpg"
+             data-src="img/background/milkovi.jpg"
              alt="background"
              style="z-index:-1;"
              data-rellax-speed="-6">
@@ -1331,7 +1330,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(4);
                        course.scrollToResult();">
-              <img src="img/catagory/health.png"
+              <img data-src="img/catagory/health.png"
                    alt="大健康">
               <p>大健康</p>
             </div>
@@ -1340,7 +1339,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(1);
                        course.scrollToResult();">
-              <img src="img/catagory/children_ed.png"
+              <img data-src="img/catagory/children_ed.png"
                    alt="兒童教育">
               <p>兒童教育</p>
             </div>
@@ -1349,7 +1348,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(5);
                        course.scrollToResult();">
-              <img src="img/catagory/fortune.png"
+              <img data-src="img/catagory/fortune.png"
                    alt="風水命理">
               <p>風水命理</p>
             </div>
@@ -1358,7 +1357,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(6);
                        course.scrollToResult();">
-              <img src="img/catagory/tour.png"
+              <img data-src="img/catagory/tour.png"
                    alt="全球旅遊">
               <p>全球旅遊</p>
             </div>
@@ -1367,7 +1366,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(9);
                        course.scrollToResult();">
-              <img src="img/catagory/success.png"
+              <img data-src="img/catagory/success.png"
                    alt="成功學">
               <p>成功學</p>
             </div>
@@ -1376,7 +1375,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(8);
                        course.scrollToResult();">
-              <img src="img/catagory/mental.png"
+              <img data-src="img/catagory/mental.png"
                    alt="身心靈">
               <p>身心靈</p>
             </div>
@@ -1385,7 +1384,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(7);
                        course.scrollToResult();">
-              <img src="img/catagory/beauty.png"
+              <img data-src="img/catagory/beauty.png"
                    alt="美業">
               <p>美業</p>
             </div>
@@ -1394,7 +1393,7 @@
             <div class="course-cat-item text-center cursor-pointer"
                  @click="course.getClasses(10);
                        course.scrollToResult();">
-              <img src="img/catagory/wealth.png"
+              <img data-src="img/catagory/wealth.png"
                    alt="理財">
               <p>理財</p>
             </div>
@@ -1610,11 +1609,28 @@
     var rellaxContact = new Rellax('.rellax-contact', {
       wrapper: '#contact-sec'
     });
+    const watcher = new IntersectionObserver(onEnterView)
+    const lazyImages = document.querySelectorAll('img[data-src]')
 
     $(document).ready(function() {
       window.addEventListener("hashchange", showSec(location.hash), false);
 
+      for (let image of lazyImages) {
+        watcher.observe(image) // lazy load observe
+      }
     });
+
+    function onEnterView(entries, observer) {
+      for (let entry of entries) {
+        if (entry.isIntersecting) {
+          // 監視目標進入畫面
+          const img = entry.target
+          img.setAttribute('src', img.dataset.src) // 把值塞回 src
+          img.removeAttribute('data-src')
+          observer.unobserve(img) // 取消監視
+        }
+      }
+    }
 
     // 首頁選單
     function toggleMenu() {
