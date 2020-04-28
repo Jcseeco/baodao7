@@ -1455,21 +1455,22 @@
                      href="#watch-sec"
                      @click="setQuery('class_id', courseBox.id);
                      watch.setClass(courseBox.id);">
-                    <div class="w-full overflow-y-hidden shadow-inner"
-                         style="height:13rem;max-height:13rem;">
-                      <img class="object-cover"
+                    <div class="w-full relative pt-16:9 flex-center">
+                      <img class="h-full absolute top-0 mx-auto"
                            :src="courseBox.thumbnail_url"
-                           alt="">
+                           :alt="courseBox.title">
+                      <div class="thumbnail-mask w-full h-full absolute top-0 left-0"
+                           style="background: linear-gradient(to top , #4d4d4d1a , transparent 15%);"></div>
                     </div>
                     <!-- box body -->
                     <div class="box-body w-full flex flex-grow p-2">
                       <img class="h-16 w-16 rounded-full mr-2"
                            :src="courseBox.teacher_url"
-                           alt="">
+                           alt="老師">
                       <!-- text area -->
-                      <div class="flex-grow">
-                        <div class="ml-2">
-                          <h5 class="h-20 text-2xl"
+                      <div class="flex-col flex-grow">
+                        <div class="flex-grow ml-2">
+                          <h5 class="h-20 w-full text-2xl"
                               x-text="courseBox.title"></h5>
                         </div>
                         <div class="ep mt-2">
