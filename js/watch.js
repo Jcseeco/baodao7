@@ -48,7 +48,7 @@ function watch() {
       this.lesson_title = data.title;
       this.lesson_description = data.info;
       this.lesson_price = Math.round(data.price_market);
-      if (await this.validateLesson(id)) {
+      if (this.lesson_price === 0) {
         var date_ym = data.updated_at.split("-")[0] + "_" + data.updated_at.split("-")[1];
         this.video_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data.filename;
       } else {

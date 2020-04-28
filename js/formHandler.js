@@ -33,7 +33,7 @@ var FormHandler = /*#__PURE__*/ function() {
       } else
         this.showFormCorrect("fmessage")
 
-      valid ? null : alert("格式不正確!");
+      valid ? alert("非常抱歉! 目前暫無法透過信箱聯絡，請用line或facebook，非常感謝您的配合!") : alert("格式不正確!");
       return valid;
     }
   }, {
