@@ -7,6 +7,7 @@ function course() {
     boxTitle: "最新課程",
     searchStatus: false,
     errorMessage: "",
+    errorStatus: false,
     titles: {
       1: "兒童教育",
       4: "大健康",
@@ -22,9 +23,15 @@ function course() {
     getClasses: async function(cat_id = false) {
       this.boxInfo = [];
       this.searchStatus = false;
+      this.errorStatus = false;
       var boxes = [];
-      var data = await this.ajax.getClasses(cat_id);
       (cat_id) ? this.boxTitle = this.titles[cat_id]: this.boxTitle = "最新課程";
+
+      var data = await this.ajax.getClasses(cat_id).catch(() => {
+        this.errorMessage = "Uh oh! 似乎出現錯誤了...";
+        this.errorStatus = true;
+      });
+
       for (var i in data) {
         var courseBox = new CourseBox(data[i].id);
         courseBox.cat_id = data[i].class_catalog_id;

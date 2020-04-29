@@ -49,4 +49,6 @@ section {
   @apply border-main-orange;
   outline: none;
 }
+
+
 @tailwind utilities;
