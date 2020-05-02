@@ -2,6 +2,14 @@ module.exports = {
   theme: {
     screens: {
       'xs': '400px',
+      'sm': '640px',
+      // => @media (min-width: 640px) { ... }
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+      'lg': '1024px',
+      // => @media (min-width: 1024px) { ... }
+      'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
     },
     extend: {
       fontSize: {
@@ -12,11 +20,6 @@ module.exports = {
       borderRadius: {
         '1rem': '1rem',
         '2rem': '2rem',
-        '3rem': '3rem',
-        '4rem': '4rem',
-        '5rem': '5rem',
-        '6rem': '6rem',
-        '7rem': '7rem',
       },
       borderColor: {
         'main-blue': '#2943df',
@@ -26,11 +29,6 @@ module.exports = {
       },
       backgroundColor: {
         'main-blue': '#2943df',
-        'main-blue-2': '#2943df33',
-        'main-blue-4': '#2943df66',
-        'main-blue-6': '#2943df99',
-        'main-blue-8': '#2943dfcc',
-        'main-blue-9': '#2943dfe6',
         'text-blue': '#192045',
         'text-blue-2': '#19204533',
         'text-blue-4': '#19204566',
@@ -38,11 +36,6 @@ module.exports = {
         'text-blue-8': '#192045cc',
         'text-blue-9': '#192045e6',
         'main-orange': '#ff9d33',
-        'main-orange-2': '#ff9d3333',
-        'main-orange-4': '#ff9d3366',
-        'main-orange-6': '#ff9d3399',
-        'main-orange-8': '#ff9d33cc',
-        'main-orange-9': '#ff9d33e6',
         'main-white': '#E9E9ED',
         'main-white-2': '#E9E9ED33',
         'main-white-4': '#E9E9ED66',

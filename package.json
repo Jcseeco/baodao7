@@ -1,15 +1,26 @@
 {
   "name": "baodao7",
   "version": "1.0.0",
-  "description": "link to website: [寶島奇蹟AMB](http://baodao7.com)",
-  "main": "index.js",
+  "description": "baodao website",
+  "private": true,
   "scripts": {
-    "build:css": "tailwind build src/style.css -o css/style.css"
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js",
+    "build:css": "tailwind build src/style.css -o css/style.css",
+    "postcss": "postcss css/style.css -o css/style.min.css",
+    "pack": "webpack --mode=development",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=webpack.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "tailwindcss": "^1.2.0"
+  "dependencies": {},
+  "devDependencies": {
+    "css-loader": "^3.5.3",
+    "mini-css-extract-plugin": "^0.9.0",
+    "purgecss-webpack-plugin": "^2.1.2",
+    "tailwindcss": "^1.4.0",
+    "webpack": "^4.43.0"
   }
 }

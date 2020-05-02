@@ -34,11 +34,11 @@ var AjaxHandler = /*#__PURE__*/ function() {
   function AjaxHandler() {
     _classCallCheck(this, AjaxHandler);
 
-    this.classesUrl = "https://test7api.baodao7.com/web/classes/info";
-    this.classUrl = "https://test7api.baodao7.com/web/classes";
-    this.lessionsUrl = "https://test7api.baodao7.com/web/class_details/list";
-    this.lessionUrl = "https://test7api.baodao7.com/web/class_details";
-    this.teachersUrl = "https://test7api.baodao7.com/web/teacher/list";
+    this.classesUrl = "https://api.baodao7.com/web/classes/info";
+    this.classUrl = "https://api.baodao7.com/web/classes";
+    this.lessionsUrl = "https://api.baodao7.com/web/class_details/list";
+    this.lessionUrl = "https://api.baodao7.com/web/class_details";
+    this.teachersUrl = "https://api.baodao7.com/web/teacher/list";
   } // 取得課程列表
 
 
