@@ -78,11 +78,13 @@ var AjaxHandler = /*#__PURE__*/ function() {
       var order_column = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'id';
       var order_type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'asc';
       var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+      var limit = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 12;
       var data = {
         class_id: class_id,
         order_column: order_column,
         order_type: order_type,
-        offset: offset
+        offset: offset,
+        limit: limit
       };
       var response = await this.postRequest(this.lessionsUrl, data);
       return response.data;
