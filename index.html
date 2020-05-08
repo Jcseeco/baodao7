@@ -8,8 +8,10 @@
   <title>寶島奇蹟</title>
   <link rel="icon"
         href="img/logo_icon.png">
+  <!-- <link rel="stylesheet"
+        href="css/style.min.css?ver1.1"> -->
   <link rel="stylesheet"
-        href="css/style.min.css?ver1.0">
+        href="css/style.css?ver1.0">
   <style>
     body {
       -webkit-tap-highlight-color: transparent;
@@ -35,21 +37,6 @@
           #464c6a 62%,
           #192045 86%);
       }
-    }
-
-    /* 換頁 */
-    section.inactive:not(.flashOut) {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(100%);
-    }
-
-    .flashOut {
-      animation: flashOut 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards
-    }
-
-    .flashIn {
-      animation: flashIn .8s ease-out forwards;
     }
 
     /* side navbar  */
@@ -98,12 +85,12 @@
       border-style: double;
       border-left: none;
       border-right: none;
-      animation: fillBorder .7s cubic-bezier(0.39, 0.58, 0.57, 1) forwards .9s;
+      animation: fillBorder .7s cubic-bezier(0.39, 0.58, 0.57, 1) forwards .3s;
     }
 
     .content-box {
       opacity: 0;
-      animation: fadeIn .5s ease forwards 1.5s;
+      animation: fadeIn .5s ease forwards .9s;
     }
 
     /* phone button menu toggler */
@@ -111,11 +98,6 @@
       animation: shake 1.5s infinite 1.3s;
       cursor: pointer;
       transition: all 1s ease;
-    }
-
-    #phone-menu.active {
-      content: url('img/feature/phone-income.png');
-      animation: none;
     }
 
     /* center menu customization */
@@ -264,7 +246,7 @@
 
     @media (max-width:900px) {
       #main-sec {
-        background-position: calc(-219px + 20vw);
+        background-position: calc(-245px + 20vw);
       }
     }
 
@@ -346,42 +328,6 @@
 
       60% {
         content: url("img/feature/phone-static.png");
-      }
-    }
-
-    @keyframes flashOut {
-      50% {
-        transform: scale(1, 0.002);
-      }
-
-      75% {
-        transform: scale(0.2, 0.002);
-        opacity: 1;
-      }
-
-      100% {
-        transform: scale(0.2, 0.002);
-        opacity: 0;
-      }
-    }
-
-    @keyframes flashIn {
-      0% {
-        transform: scale(0.2, 0.002);
-        opacity: 0;
-      }
-
-      25% {
-        transform: scale(0.2, 0.002);
-        opacity: 1;
-      }
-
-      75% {
-        transform: scale(1, 0.002);
-      }
-
-      100% {
-        transform: scale(1, 1);
       }
     }
 
@@ -524,1004 +470,1176 @@
         border-width: .2em;
       }
     }
+
+    /* catagory select animation */
+    .fill-x {
+      position: relative;
+      z-index: 2;
+      border-radius: .5rem;
+      overflow: hidden;
+    }
+
+    .fill-x::before,
+    .fill-x:after {
+      content: '';
+      position: absolute;
+      top: 0px;
+      background-color: #81c9ff;
+      opacity: 0.5;
+      width: 0px;
+      height: 100%;
+      z-index: -1;
+      transition: all .4s ease-out;
+    }
+
+    .fill-x::before {
+      left: 0px;
+    }
+
+    .fill-x:hover::before {
+      width: 100%;
+    }
+
+    .fill-x::after {
+      right: 0px;
+    }
+
+    .fill-x:hover::after {
+      width: 100%;
+    }
+
+    /* page transit animation */
+    .curt_in-left,
+    .curt_in-right {
+      transform: scale(0, 1);
+      width: 50vw;
+    }
+
+    .curt_in-left {
+      transform-origin: left;
+    }
+
+    .curt_in-right {
+      transform-origin: right;
+    }
+
+    @keyframes curt-in {
+      0% {
+        transform: scale(0, 1);
+      }
+
+      25% {
+        transform: scale(1, 1);
+      }
+
+      80% {
+        transform: scale(1, 1);
+      }
+
+      100% {
+        transform: scale(0, 1);
+      }
+    }
+
+    @keyframes spinScreen {
+      0% {
+        transform: scale(1) rotate3d(0deg);
+      }
+
+      50% {
+        transform: scale(0.2) rotate3d(1, 1, 0.5, 180deg);
+      }
+
+      100% {
+        transform: scale(1) rotate3d(1, 1, 0.5, 360deg);
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
           defer></script>
 </head>
 
 <body class="w-screen h-screen bg-text-blue p-0 m-0 overflow-hidden"
-      style="background-image:url('img/background/stardust.png');"
-      onhashchange="showSec()">
-  <!-- topbar nav -->
-  <header class="fixed z-10">
-    <div class="navbar inactive flex items-center w-screen h-16 bg-text-blue text-main-white px-3"
-         x-data="{collapse: true}">
-      <h1 class="w-fit text-2xl">
-        <a class="flex-center"
-           href="https://baodao7.com">
-          <svg xmlns="http://www.w3.org/2000/svg"
-               height="3rem"
-               viewBox="0 0 563 384"
-               class="text-gray-200 hover:text-blue-200 transition duration-500"
-               fill="currentColor">
-            <g id="AMBLOGO_BORDER">
-              <ellipse id="back"
-                       cx="281.5"
+      style="background-image:url('img/background/stardust.png');">
+
+  <section id="main-container"
+           class="active h-full w-full"
+           x-data="{active_section: '',
+           menu_active: false,
+           topbar_active: false,
+           side_menu_active: false,
+           showSec(){
+             this.active_section = location.hash;
+           }}"
+           x-init="
+             window.addEventListener('hashchange', () => {
+               active_section = location.hash
+             }, false);
+             location.hash = (location.hash === '')? '#main-sec' : location.hash;
+             showSec();
+             $watch('active_section', () => pageTransit());
+           ">
+
+    <header class="navbar fixed z-10"
+            :class="{'inactive': active_section === '#main-sec'}">
+      <div class="flex items-center w-screen h-16 bg-text-blue text-main-white px-3">
+        <h1 class="w-fit text-2xl">
+          <a class="flex-center"
+             href="https://baodao7.com">
+            <svg height="3rem"
+                 viewBox="0 0 563 384"
+                 xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="281.5"
                        cy="192"
                        rx="281.5"
                        ry="192"
                        fill="currentColor" />
-              <g id="front">
-                <g id="wifi">
-                  <path id="Vector"
-                        d="M424.483 109.32C439.532 110.163 454.582 119.011 454.193 135.572C454.225 133.951 462.593 132.46 462.626 130.71C463.015 114.149 447.965 105.302 432.916 104.459C430.159 104.297 427.142 109.482 424.483 109.32Z"
-                        fill="url(#paint0_linear_small)" />
-                  <path id="Vector_2"
-                        d="M425.747 86.5042C452.214 87.9626 478.713 103.746 477.805 132.882C477.87 131.229 486.173 129.803 486.238 128.02C487.146 98.9169 460.615 83.1012 434.18 81.6428C431.424 81.4807 428.407 86.6338 425.747 86.5042Z"
-                        fill="url(#paint1_linear_small)" />
-                  <path id="Vector_3"
-                        d="M425.91 66.1187C438.721 66.7345 451.955 70.3644 463.469 75.8415C486.692 86.9579 499.471 107.732 498.401 133.53C498.466 131.845 506.769 130.451 506.834 128.669C507.904 102.838 495.125 82.0965 471.902 70.9801C460.388 65.4706 447.154 61.8731 434.343 61.2574C431.586 61.1277 428.602 66.2484 425.91 66.1187Z"
-                        fill="url(#paint2_linear_small)" />
-                </g>
-                <g id="plane">
-                  <g id="Group">
-                    <g id="Group_2">
-                      <path id="Vector_4"
-                            d="M132.442 270.621L169.709 235.878L124.009 223.433V268.385L132.442 270.621Z"
-                            fill="url(#paint3_linear_small)" />
-                    </g>
-                    <g id="Group_3">
-                      <path id="Vector_5"
-                            d="M60.664 212.771C60.664 212.771 147.07 224.73 207.106 252.083L281.738 104.977L60.664 212.771Z"
-                            fill="url(#paint4_linear_small)" />
-                    </g>
-                    <path id="Vector_6"
-                          d="M278.884 108.056L128.874 228.035L150.735 233.999L278.884 108.056Z"
-                          fill="white" />
-                  </g>
-                </g>
-                <g id="AMB">
-                  <path id="Vector_7"
-                        d="M66.8914 197.247C66.8914 197.247 161.211 154.434 200.392 175.5C239.573 196.566 213.82 250.916 213.82 250.916L195.754 242.49C195.754 242.49 217.161 210.34 190.597 188.042C164.033 165.745 85.1845 208.881 85.1845 208.881L66.8914 197.247Z"
-                        fill="#171C61" />
-                  <path id="Vector_8"
-                        d="M440.667 156.573C438.008 136.998 414.817 123.678 387.15 124.65C389.55 127.081 390.556 130.743 389.356 134.178L387.248 140.271C405.119 140.336 419.942 149.897 421.79 163.573C423.899 179.033 408.622 193.876 387.702 196.728C380.761 197.668 374.112 197.149 368.209 195.496L365.679 202.821C373.106 204.085 381.15 204.279 389.453 203.145C420.688 198.964 443.619 178.093 440.667 156.573Z"
-                        fill="url(#paint5_linear_small)" />
-                  <path id="Vector_9"
-                        d="M390.037 203.076L363.214 199.997L360.327 210.465L360.392 210.594C360.976 210.303 363.668 209.168 369.636 208.618C404.633 208.488 479.037 257.264 375.247 331.254C375.247 331.254 234.87 416.134 112.494 288.053L116.192 287.015C121.349 287.502 126.928 287.891 128.679 287.631C132.182 287.08 129.555 282.089 129.555 282.089C129.555 282.089 106.591 278.848 100.202 277.422C93.8121 275.996 93.8121 282.284 93.8121 282.284L95.8555 315.309C101.142 319.911 102.213 311.809 102.213 311.809C102.213 311.809 101.791 304.452 101.467 297.97C117.1 314.012 181.029 370.664 298.247 361.816C450.236 350.343 455.522 256.842 455.522 256.842C454.939 213.479 414.103 204.566 390.037 203.076Z"
-                        fill="url(#paint6_linear_small)" />
-                  <path id="Vector_10"
-                        d="M383.583 122.349C378.717 120.664 373.431 123.256 371.744 128.118L352.672 183.473C269.51 239.573 252.255 159.522 252.255 159.522L245.768 174.657C268.18 249.425 324.033 216.789 347.321 198.997L326.206 260.315C324.519 265.176 327.114 270.459 331.979 272.144C336.844 273.83 342.131 271.237 343.818 266.376L389.356 134.178C391.042 129.317 388.448 124.034 383.583 122.349Z"
-                        fill="url(#paint7_linear_small)" />
-                  <path id="Vector_11"
-                        d="M283.425 100.764C280.603 94.9306 273.564 92.4675 267.726 95.2871L62.9344 194.07C57.0962 196.89 54.6311 203.923 57.4529 209.757C60.2747 215.59 67.313 218.053 73.1513 215.234L248.849 130.484L195.721 242.457C192.932 248.324 195.43 255.324 201.3 258.111C207.171 260.898 214.177 258.403 216.966 252.537L283.262 112.723C284.008 111.168 284.333 109.547 284.365 107.927C284.819 105.561 284.56 103.065 283.425 100.764Z"
-                        fill="url(#paint8_linear_small)" />
-                </g>
-              </g>
-            </g>
-            <defs>
-              <linearGradient id="paint0_linear_small"
-                              x1="423.826"
-                              y1="120.02"
-                              x2="463.288"
-                              y2="120.02"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#171C61" />
-                <stop offset="1"
-                      stop-color="#2EA7E0" />
-              </linearGradient>
-              <linearGradient id="paint1_linear_small"
-                              x1="425.092"
-                              y1="107.259"
-                              x2="486.949"
-                              y2="107.259"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#171C61" />
-                <stop offset="1"
-                      stop-color="#2EA7E0" />
-              </linearGradient>
-              <linearGradient id="paint2_linear_small"
-                              x1="425.26"
-                              y1="97.4024"
-                              x2="507.572"
-                              y2="97.4024"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#171C61" />
-                <stop offset="1"
-                      stop-color="#2EA7E0" />
-              </linearGradient>
-              <linearGradient id="paint3_linear_small"
-                              x1="124.012"
-                              y1="247.028"
-                              x2="169.705"
-                              y2="247.028"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#E4B562" />
-                <stop offset="1"
-                      stop-color="#CA497A" />
-              </linearGradient>
-              <linearGradient id="paint4_linear_small"
-                              x1="60.676"
-                              y1="178.529"
-                              x2="281.723"
-                              y2="178.529"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#E4B562" />
-                <stop offset="1"
-                      stop-color="#CA497A" />
-              </linearGradient>
-              <linearGradient id="paint5_linear_small"
-                              x1="381.323"
-                              y1="139.864"
-                              x2="411.29"
-                              y2="191.739"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#171C61" />
-                <stop offset="1"
-                      stop-color="#2EA7E0" />
-              </linearGradient>
-              <linearGradient id="paint6_linear_small"
-                              x1="93.8037"
-                              y1="281.392"
-                              x2="455.507"
-                              y2="281.392"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#171C61" />
-                <stop offset="1"
-                      stop-color="#2EA7E0" />
-              </linearGradient>
-              <linearGradient id="paint7_linear_small"
-                              x1="245.78"
-                              y1="197.262"
-                              x2="389.866"
-                              y2="197.262"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#171C61" />
-                <stop offset="1"
-                      stop-color="#2EA7E0" />
-              </linearGradient>
-              <linearGradient id="paint8_linear_small"
-                              x1="88.7422"
-                              y1="248.586"
-                              x2="294.771"
-                              y2="150.232"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#171C61" />
-                <stop offset="1"
-                      stop-color="#2EA7E0" />
-              </linearGradient>
-            </defs>
-          </svg>
-          &nbsp寶島奇蹟</a></h1>
-      <div class="flex justify-end flex-grow">
-        <a class="flex-center mx-2 border-2 border-main-white rounded-lg text-lg sm:text-xl font-semibold hover:bg-main-orange hover:text-text-blue hover:border-main-orange transitions-colors duration-300  px-3"
-           href="https://baodao7.com/user/register">
-          <h1>註冊</h1>
-        </a>
-        <button class="mx-2 nav-toggler focus:outline-none z-40"
-                @click="collapse = !collapse">
-          <div class="nav-icon border-2 rounded-lg p-2"
-               :class="{'active': !collapse}">
-            <div></div>
-          </div>
-        </button>
-      </div>
-      <!-- sidebar menu -->
-      <div id="nav"
-           class="collapse top-0 right-0 w-screen h-screen fixed z-20"
-           @click="collapse = !collapse"
-           :class="{'collapse': collapse}">
-        <div class="w-1/2 sm:w-1/4 h-full flex-center bg-text-blue ml-auto whitespace-no-wrap shadow-lg"
+              <path d="M402.702 141.614L353.52 270.247C351.699 274.978 345.989 277.5 340.735 275.861C335.48 274.221 332.678 269.08 334.499 264.35L383.681 135.717C385.502 130.987 391.212 128.464 396.466 130.104C401.721 131.743 404.523 136.884 402.702 141.614Z"
+                    fill="#171C61" />
+              <path d="M375.344 214.019C410.933 213.893 484.285 256.025 398.988 321.082C489.784 254.511 414.962 211.244 378.847 211.37C372.436 211.875 369.494 213.01 368.863 213.294L368.793 213.168L371.035 205.883L368.408 205.6L365.29 215.785L365.36 215.912C365.991 215.659 368.898 214.524 375.344 214.019Z"
+                    fill="#171C61" />
+              <path d="M301.712 360.47C175.116 369.079 106.073 313.955 89.189 298.345C89.2941 300.364 89.4342 302.476 89.5393 304.4C111.573 323.321 179.635 371.161 298.209 363.119C364.204 358.641 404.593 341.234 429.289 322.06C404.348 340.161 364.695 356.181 301.712 360.47Z"
+                    fill="#171C61" />
+              <path d="M458.293 165.266C457.522 160.22 455.175 155.616 451.637 151.579C453.669 154.701 455.035 158.107 455.561 161.734C458.713 182.673 433.948 202.982 400.249 207.082C392.683 207.996 411.249 209.352 415.172 208.343C442.46 201.405 461.06 183.556 458.293 165.266Z"
+                    fill="#171C61" />
+              <path d="M400.88 205.978L371.911 202.982L368.793 213.168L368.863 213.294C369.494 213.01 372.401 211.907 378.847 211.37C416.643 211.244 497 258.705 384.907 330.701C384.907 330.701 233.3 413.292 101.134 288.664L105.127 287.655C110.697 288.128 116.722 288.506 118.614 288.254C122.397 287.718 119.559 282.861 119.559 282.861C119.559 282.861 94.7586 279.708 87.8578 278.32C80.9571 276.933 80.9571 283.051 80.9571 283.051L83.1639 315.185C88.8737 319.663 90.0297 311.779 90.0297 311.779C90.0297 311.779 89.5743 304.621 89.224 298.314C106.108 313.924 175.151 369.048 301.747 360.439C465.894 349.275 471.604 258.295 471.604 258.295C470.974 216.101 426.872 207.429 400.88 205.978Z"
+                    fill="url(#logo_paint0_linear)" />
+              <path d="M438.081 115.723C454.335 116.543 470.588 125.153 470.168 141.267C470.203 139.69 479.241 138.24 479.276 136.537C479.696 120.422 463.442 111.813 447.189 110.993C444.211 110.835 440.954 115.881 438.081 115.723Z"
+                    fill="url(#logo_paint1_linear)" />
+              <path d="M439.447 93.5224C468.031 94.9415 496.65 110.299 495.669 138.65C495.739 137.041 504.707 135.654 504.777 133.919C505.758 105.601 477.104 90.2112 448.555 88.7921C445.577 88.6344 442.32 93.6486 439.447 93.5224Z"
+                    fill="url(#logo_paint2_linear)" />
+              <path d="M439.622 73.6866C453.459 74.2858 467.751 77.8178 480.186 83.1473C505.267 93.9639 519.069 114.178 517.913 139.28C517.983 137.641 526.951 136.285 527.021 134.55C528.177 109.416 514.375 89.2336 489.294 78.417C476.859 73.0559 462.567 69.5555 448.73 68.9563C445.753 68.8302 442.53 73.8128 439.622 73.6866Z"
+                    fill="url(#logo_paint3_linear)" />
+              <path d="M122.677 272.675L162.926 238.869L113.569 226.76V270.5L122.677 272.675Z"
+                    fill="url(#logo_paint4_linear)" />
+              <path d="M45.1571 216.385C45.1571 216.385 138.475 228.021 203.315 254.637L283.917 111.498L45.1571 216.385Z"
+                    fill="url(#logo_paint5_linear)" />
+              <path d="M280.834 114.494L118.824 231.238L142.434 237.04L280.834 114.494Z"
+                    fill="white" />
+              <path d="M367.917 189.895L366.026 194.467C366.026 194.467 292.359 258.169 255.403 201.468C291.238 266.431 368.898 199.292 368.898 199.292L374.643 185.448C372.366 187.025 370.124 188.476 367.917 189.895Z"
+                    fill="#171C61" />
+              <path d="M51.8827 201.279C51.8827 201.279 153.748 159.621 196.063 180.119C238.379 200.617 210.566 253.502 210.566 253.502L191.054 245.303C191.054 245.303 214.174 214.019 185.485 192.323C156.796 170.627 71.6393 212.6 71.6393 212.6L51.8827 201.279Z"
+                    fill="#171C61" />
+              <path d="M393.909 128.401C388.655 126.761 382.945 129.284 381.123 134.014L360.526 187.877C270.711 242.464 252.075 164.572 252.075 164.572L245.069 179.299C269.275 252.051 329.595 220.295 354.746 202.982L331.942 262.647C330.121 267.377 332.923 272.518 338.177 274.158C343.432 275.797 349.142 273.275 350.963 268.544L400.144 139.911C401.966 135.181 399.164 130.041 393.909 128.401Z"
+                    fill="url(#logo_paint6_linear)" />
+              <path d="M285.739 107.398C282.691 101.722 275.09 99.325 268.784 102.069L47.6091 198.189C41.3039 200.932 38.6416 207.775 41.6892 213.452C44.7367 219.128 52.3381 221.525 58.6434 218.781L248.397 136.316L191.019 245.271C188.007 250.979 190.704 257.791 197.044 260.503C203.385 263.215 210.951 260.787 213.963 255.079L285.563 119.035C286.369 117.521 286.719 115.944 286.754 114.367C287.245 112.065 286.965 109.637 285.739 107.398Z"
+                    fill="url(#logo_paint7_linear)" />
+              <path d="M236.102 136.095L46.7685 218.403C50.2714 220.232 54.6851 220.516 58.6434 218.781L247.977 136.505C244.439 134.676 240.025 134.392 236.102 136.095Z"
+                    fill="#171C61" />
+              <path d="M455.561 161.702C452.688 142.655 427.642 129.694 397.762 130.64C400.354 133.005 401.44 136.568 400.144 139.911L397.867 145.84C417.169 145.903 433.177 155.206 435.174 168.514C437.451 183.556 420.952 197.999 398.358 200.775C390.862 201.689 383.681 201.185 377.305 199.576L374.573 206.703C382.595 207.933 391.282 208.122 400.249 207.019C433.983 202.951 458.748 182.642 455.561 161.702Z"
+                    fill="url(#logo_paint8_linear)" />
+              <path d="M397.867 145.84L377.305 199.608L397.867 145.84Z"
+                    fill="url(#logo_paint9_linear)" />
+              <path d="M278.838 123.765L207.238 259.777C207.028 260.156 206.923 260.534 206.782 260.944C209.83 259.967 212.492 257.917 213.998 255.079L285.598 119.035C285.809 118.656 285.914 118.278 286.054 117.868C282.971 118.877 280.344 120.895 278.838 123.765Z"
+                    fill="#171C61" />
+              <path d="M125.619 292.543C123.413 293.741 121.241 294.908 118.999 296.043C117.878 295.066 116.792 294.056 115.671 293.047C124.499 288.695 133.116 284.091 141.523 279.235C142.749 280.307 144.01 281.316 145.271 282.357C140.822 290.493 136.759 298.85 133.046 307.396C131.785 306.45 130.524 305.504 129.298 304.558C130.278 302.382 131.294 300.237 132.345 298.125C130.068 296.327 127.826 294.466 125.619 292.543ZM134.517 294.435C137.459 288.79 139.351 285.479 140.612 283.492C140.612 283.492 140.612 283.492 140.577 283.461C138.335 284.943 134.342 287.371 129.403 290.178C131.084 291.628 132.801 293.047 134.517 294.435Z"
+                    fill="#BE2120" />
+              <path d="M172.594 319.064C174.976 314.996 177.603 310.613 179.179 308.09C179.144 308.058 179.109 308.058 179.074 308.027C175.676 312 168.285 319.285 161.7 325.34C160.579 324.74 159.458 324.141 158.337 323.542C160.579 316.573 164.502 305.977 166.674 301.341C166.639 301.31 166.604 301.31 166.569 301.278C164.887 303.959 161.7 308.689 159.072 312.505C157.181 315.248 155.254 318.023 153.363 320.799C152.207 320.105 151.016 319.442 149.86 318.717C155.114 311.369 160.369 304.053 165.728 296.768C167.339 297.746 168.986 298.724 170.632 299.67C167.97 306.765 164.852 315.847 163.486 319.411C163.486 319.411 163.521 319.411 163.521 319.443C165.763 317.014 173.715 309.635 179.179 304.242C180.826 305.062 182.437 305.851 184.118 306.639C179.74 314.428 175.396 322.218 171.123 330.038C169.826 329.439 168.565 328.84 167.304 328.209C169.056 325.15 170.807 322.123 172.594 319.064Z"
+                    fill="#181F43" />
+              <path d="M192.21 310.14C188.252 318.086 184.329 326.065 180.475 334.075C179.109 333.507 177.778 332.94 176.447 332.372C180.51 324.457 184.609 316.541 188.742 308.657C189.863 309.162 191.054 309.667 192.21 310.14Z"
+                    fill="#181F43" />
+              <path d="M194.137 327.579C192.701 330.953 191.264 334.327 189.828 337.702C188.497 337.229 187.131 336.724 185.8 336.219C189.443 328.115 193.121 320.073 196.834 312C199.496 313.009 202.159 313.987 204.856 314.87C208.919 316.226 210.075 319.758 208.744 323.637C207.588 326.948 205.416 328.367 203.455 328.556C204.541 329.439 205.556 331.268 204.015 335.683C203.875 336.062 203.735 336.472 203.595 336.85C202.999 338.553 202.299 340.54 202.229 341.77C200.898 341.36 199.566 340.981 198.27 340.54C198.27 339.341 198.936 337.449 199.882 334.926C199.952 334.8 199.987 334.643 200.057 334.516C201.178 331.521 201.038 329.975 197.535 328.777C196.379 328.367 195.258 327.989 194.137 327.579ZM195.713 323.889C197.009 324.362 198.34 324.835 199.636 325.277C202.299 326.16 203.84 325.277 204.716 322.974C205.556 320.735 204.891 319.127 202.614 318.37C201.283 317.929 199.987 317.456 198.691 316.983C197.71 319.285 196.694 321.587 195.713 323.889Z"
+                    fill="#181F43" />
+              <path d="M212.492 337.638C211.196 339.625 209.9 341.58 208.569 343.567C207.203 343.189 205.802 342.81 204.435 342.432C209.795 334.8 214.874 327.074 219.638 319.222C221.144 319.6 222.686 319.979 224.227 320.326C224.262 329.313 224.753 338.395 225.628 347.446C224.122 347.162 222.616 346.878 221.144 346.563C220.969 344.261 220.829 341.927 220.689 339.625C217.957 338.995 215.225 338.332 212.492 337.638ZM220.794 335.431C220.619 329.219 220.689 325.529 220.829 323.258H220.794C219.638 325.529 217.396 329.345 214.559 333.949C216.626 334.453 218.727 334.958 220.794 335.431Z"
+                    fill="#BE2120" />
+              <path d="M248.678 342.716C247.311 347.32 243.808 350.536 238.239 349.811C231.023 348.834 228.816 342.337 230.392 335.084C231.934 328.052 236.312 322.344 242.477 323.195C247.487 323.858 249.623 327.926 249.728 332.341C248.432 332.214 247.136 332.088 245.84 331.931C245.595 329.565 244.649 327.421 241.742 327.043C237.889 326.507 235.471 330.732 234.561 335.62C233.685 340.224 234.316 345.333 239.009 345.964C242.302 346.405 243.773 344.103 244.544 342.306C245.91 342.432 247.276 342.59 248.678 342.716Z"
+                    fill="#181F43" />
+              <path d="M254.282 324.772C255.543 324.867 256.769 324.961 258.03 325.024C257.575 332.372 257.155 339.72 256.769 347.099C260.588 347.32 264.371 347.414 268.189 347.446C268.014 348.802 267.874 350.158 267.698 351.514C262.549 351.483 257.4 351.262 252.251 350.883C252.881 342.18 253.547 333.476 254.282 324.772Z"
+                    fill="#181F43" />
+              <path d="M285.598 339.341C282.131 339.594 278.628 339.751 275.125 339.846C275.23 342.369 275.335 344.86 275.475 347.383C279.468 347.288 283.497 347.068 287.455 346.784C287.42 348.14 287.42 349.496 287.385 350.883C282.096 351.262 276.771 351.483 271.447 351.546C271.201 342.842 271.026 334.106 270.921 325.403C275.475 325.371 280.064 325.182 284.618 324.867C284.758 326.223 284.898 327.579 285.003 328.903C281.57 329.155 278.137 329.313 274.704 329.408C274.774 331.552 274.879 333.697 274.95 335.841C278.347 335.746 281.78 335.589 285.178 335.368C285.353 336.629 285.458 337.985 285.598 339.341Z"
+                    fill="#181F43" />
+              <path d="M302.483 322.722C305.215 322.281 307.912 321.776 310.609 321.24C315.058 320.326 317.79 322.911 318.806 326.254C319.682 329.124 318.981 331.3 317.72 332.372C319.297 332.687 321.819 333.98 322.905 337.418C324.341 341.864 322.239 345.648 317.615 346.595C314.393 347.257 311.17 347.856 307.912 348.392C306.091 339.877 304.234 331.3 302.483 322.722ZM312.781 331.584C315.198 331.079 315.794 329.597 315.233 327.579C314.673 325.592 313.202 324.677 311.31 325.056C309.839 325.34 308.403 325.623 306.931 325.907C307.422 328.083 307.947 330.259 308.438 332.435C309.909 332.151 311.345 331.867 312.781 331.584ZM311.205 343.946C312.781 343.662 314.322 343.378 315.899 343.063C318.526 342.526 319.577 340.887 318.806 338.301C318.141 335.999 316.494 334.8 313.657 335.399C312.221 335.683 310.785 335.967 309.348 336.219C309.944 338.774 310.574 341.36 311.205 343.946Z"
+                    fill="#181F43" />
+              <path d="M330.926 336.535C331.067 338.805 331.172 341.107 331.277 343.409C329.911 343.788 328.544 344.135 327.178 344.482C326.968 335.494 326.478 326.506 325.637 317.582C327.108 317.172 328.579 316.73 330.051 316.257C335.55 323.763 341.435 331.142 347.67 338.301C346.269 338.805 344.833 339.278 343.397 339.751C341.856 337.891 340.314 336.03 338.808 334.17C336.251 334.989 333.589 335.778 330.926 336.535ZM336.426 330.606C332.538 325.497 330.331 322.375 329.07 320.42H329.035C329.455 322.88 329.911 327.2 330.366 332.404C332.433 331.836 334.429 331.237 336.426 330.606Z"
+                    fill="#BE2120" />
+              <path d="M362.733 317.582C366.621 323.921 366.726 331.111 359.896 334.012C353.345 336.724 347.215 332.435 344.097 325.497C340.91 318.465 341.75 311.906 347.25 309.603C352.399 307.459 358.459 310.644 362.733 317.582ZM347.916 323.952C350.263 328.809 354.151 331.931 358.109 330.291C362.383 328.493 361.612 323.763 359.02 319.379C356.358 314.775 352.645 311.811 349.002 313.325C345.394 314.838 345.569 319.127 347.916 323.952Z"
+                    fill="#181F43" />
+              <path d="M359.335 304.495C361.577 303.359 363.784 302.193 365.991 300.994C370.895 298.282 377.235 300.364 382.279 306.671C387.254 312.883 387.429 319.821 381.369 323.195C378.882 324.583 376.359 325.907 373.802 327.2C368.933 319.663 364.099 312.095 359.335 304.495ZM375.274 321.808C376.465 321.177 377.621 320.546 378.776 319.916C382.84 317.645 382.139 313.293 378.776 308.847C375.904 305.062 371.806 302.476 368.093 304.558C367.042 305.125 365.991 305.725 364.905 306.261C368.338 311.464 371.771 316.636 375.274 321.808Z"
+                    fill="#181F43" />
+              <path d="M393.349 307.743C394.329 309.856 395.275 312 396.221 314.113C395.065 314.901 393.874 315.658 392.683 316.415C389.18 307.964 385.362 299.638 381.299 291.471C382.56 290.588 383.821 289.705 385.082 288.79C393.138 294.151 401.51 299.197 410.198 303.927C409.007 304.873 407.816 305.788 406.625 306.702C404.453 305.441 402.281 304.179 400.144 302.886C397.902 304.589 395.661 306.198 393.349 307.743ZM396.501 300.364C390.862 296.769 387.604 294.529 385.677 293.079C385.677 293.079 385.677 293.079 385.642 293.079C386.938 295.286 388.97 299.197 391.352 304.022C393.068 302.823 394.785 301.625 396.501 300.364Z"
+                    fill="#BE2120" />
+              <path d="M417.134 279.235C423.229 283.934 425.961 290.808 420.426 295.854C415.102 300.647 407.606 298.566 402.001 293.047C396.361 287.434 394.715 280.938 399.199 276.901C403.402 273.085 410.443 274.063 417.134 279.235ZM405.119 290.304C409.182 294.12 414.086 295.822 417.309 292.921C420.777 289.768 418.29 285.542 414.191 282.199C409.918 278.73 405.224 277.153 402.281 279.802C399.339 282.451 401.055 286.488 405.119 290.304Z"
+                    fill="#181F43" />
+              <defs>
+                <linearGradient id="logo_paint0_linear"
+                                x1="80.948"
+                                y1="282.183"
+                                x2="471.587"
+                                y2="282.183"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+                <linearGradient id="logo_paint1_linear"
+                                x1="437.372"
+                                y1="126.135"
+                                x2="479.991"
+                                y2="126.135"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+                <linearGradient id="logo_paint2_linear"
+                                x1="438.739"
+                                y1="113.717"
+                                x2="505.545"
+                                y2="113.717"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+                <linearGradient id="logo_paint3_linear"
+                                x1="438.921"
+                                y1="104.127"
+                                x2="527.818"
+                                y2="104.127"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+                <linearGradient id="logo_paint4_linear"
+                                x1="113.573"
+                                y1="249.719"
+                                x2="162.922"
+                                y2="249.719"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#E4B562" />
+                  <stop offset="1"
+                        stop-color="#CA497A" />
+                </linearGradient>
+                <linearGradient id="logo_paint5_linear"
+                                x1="45.1701"
+                                y1="183.066"
+                                x2="283.901"
+                                y2="183.066"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#E4B562" />
+                  <stop offset="1"
+                        stop-color="#CA497A" />
+                </linearGradient>
+                <linearGradient id="logo_paint6_linear"
+                                x1="245.082"
+                                y1="201.294"
+                                x2="400.695"
+                                y2="201.294"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+                <linearGradient id="logo_paint7_linear"
+                                x1="75.4816"
+                                y1="251.234"
+                                x2="288.81"
+                                y2="138.201"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+                <linearGradient id="logo_paint8_linear"
+                                x1="391.469"
+                                y1="145.443"
+                                x2="419.039"
+                                y2="198.415"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+                <linearGradient id="logo_paint9_linear"
+                                x1="375.43"
+                                y1="153.791"
+                                x2="403"
+                                y2="206.763"
+                                gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#171C61" />
+                  <stop offset="1"
+                        stop-color="#2EA7E0" />
+                </linearGradient>
+              </defs>
+            </svg>
+            &nbsp寶島奇蹟</a></h1>
+        <div class="flex justify-end flex-grow">
+          <a class="flex-center mx-2 border-2 border-main-white rounded-lg text-lg sm:text-xl font-semibold hover:bg-main-orange hover:text-text-blue hover:border-main-orange transitions-colors duration-300  px-3"
+             href="https://baodao7.com/user/register">
+            <h1>註冊</h1>
+          </a>
+          <button class="mx-2 nav-toggler focus:outline-none z-40">
+            <div class="nav-icon border-2 rounded-lg p-2"
+                 :class="{'active': side_menu_active}"
+                 @click="side_menu_active = !side_menu_active"
+                 @click.away="side_menu_active = false">
+              <div></div>
+            </div>
+          </button>
+        </div>
+        <!-- sidebar menu -->
+        <div id="nav"
+             class="collapse w-1/2 sm:w-1/4 h-screen fixed top-0 right-0 flex-center bg-text-blue whitespace-no-wrap"
+             :class="{'collapse': !side_menu_active}"
              style="box-shadow:-12px 0px 12px 8px rgba(0, 0, 0, 0.2), -6px 0px 12px 2px rgba(0, 0, 0, 0.3);">
           <ul class="nav-list w-fit flex-center flex-col text-main-white p-3">
             <template x-for="nav in sideNav()"
                       :key="nav.href">
               <li class="text-2xl py-4 w-full border-b-2 last:border-b-0">
                 <a class="flex-center transform hover:translate-x-3 transition duration-300 ease-out"
-                   :href="nav.href"
-                   x-text="nav.text"></a></li>
+                   :href="nav.href">
+                  <span class="mr-2"
+                        x-html="nav.svg"></span>
+                  <p x-text="nav.text"></p>
+                </a></li>
             </template></ul>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- 首頁 -->
-  <section id="main-sec"
-           class="inactive h-full w-full bg-cover bg-no-repeat"
-           style="background-image: url(' img/background/101bright-min.png');"
-           sec-order="0">
-    <div id="main-sec-content"
-         class="h-full w-full p-8 flex flex-col items-center"
-         style="background: linear-gradient(to right top, #0079ff26, #286ee626, #3464ce26, #3a5ab626, #3c519f26, #5e4e9b26, #774c9426, #8a4a8c26, #c795ad26, #e15b6f26, #f5765526, #f69b3a26);">
-      <div id="main-text-content"
-           class="relative mt-24 flex flex-col items-center">
-        <div class="content-box">
-          <h1 id="head-title"
-              class="gradient-text text-center text-6.5xl sm:text-8xl font-medium">寶島奇蹟</h1>
-          <h6 class="gradient-text text-lg text-center"
-              style="color:#1a1a1a;">A MIRACLE BAODAO</h6>
-          <h2 class="gradient-text text-center text-5xl">粉絲工廠</h2>
-        </div>
-      </div>
-      <div x-data="{active: false}">
-        <div class="flex-col flex-center mt-4 text-main-white">
-          <img id="phone-menu"
-               class="mt-4"
-               data-src="img/feature/phone-static.png"
-               alt="選單"
-               style="max-width: 100px;"
-               @click="
-          active = !active;
-          $nextTick(() => {toggleMenu()});">
-          <svg xmlns="http://www.w3.org/2000/svg"
-               focusable="false"
-               viewBox="0 0 448 512"
-               width="40px"
-               style="animation: hovering 2s ease infinite"
-               x-show="!active">
-            <path fill="currentColor"
-                  d="M448 240v96c0 3.084-.356 6.159-1.063 9.162l-32 136C410.686 499.23 394.562 512 376 512H168a40.004 40.004 0 0 1-32.35-16.473l-127.997-176c-12.993-17.866-9.043-42.883 8.822-55.876 17.867-12.994 42.884-9.043 55.877 8.823L104 315.992V40c0-22.091 17.908-40 40-40s40 17.909 40 40v200h8v-40c0-22.091 17.908-40 40-40s40 17.909 40 40v40h8v-24c0-22.091 17.908-40 40-40s40 17.909 40 40v24h8c0-22.091 17.908-40 40-40s40 17.909 40 40zm-256 80h-8v96h8v-96zm88 0h-8v96h8v-96zm88 0h-8v96h8v-96z" />
-          </svg>
-        </div>
-        <!-- menu display on home page -->
-        <div class="center-menu flex-center w-screen h-screen text-main-white text-xl font-semibold"
-             @click="
-             active = !active;
-             $nextTick(() => {toggleMenu()});">
-          <ul class="menu-list flex-center">
-            <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}"
-                onclick="changeHash('course-sec')">
-              <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500">
-                知識趣</a>
-              <div class="w-24 h-24 absolute bg-transparent rounded-full"
-                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
-            </li>
-            <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}">
-              <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500"
-                 href="https://baodao7.com/mall">
-                寶島商城</a>
-              <div class="w-24 h-24 absolute bg-transparent rounded-full"
-                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
-            </li>
-            <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}"
-                onclick="changeHash('about-sec')">
-              <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500">
-                關於我們</a>
-              <div class="w-24 h-24 absolute bg-transparent rounded-full"
-                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
-            </li>
-            <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}"
-                onclick="changeHash('service-sec')">
-              <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500">
-                商業模式</a>
-              <div class="w-24 h-24 absolute bg-transparent rounded-full"
-                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
-            </li>
-            <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}"
-                onclick="changeHash('contact-sec')">
-              <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500">
-                聯絡我們</a>
-              <div class="w-24 h-24 absolute bg-transparent rounded-full"
-                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
-            </li>
-            <li class="menu-item flex-center cursor-pointer"
-                :class="{'active': active}">
-              <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500"
-                 href="https://baodao7.com/user/login">
-                登入/註冊</a>
-              <div class="w-24 h-24 absolute bg-transparent rounded-full"
-                   style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- 首頁 end -->
-
-  <!-- 關於我們 -->
-  <section id="about-sec"
-           class="inactive w-full sec-height bg-main-white p-6 pt-3 overflow-y-auto overflow-x-hidden">
-    <div class="jumbo-logo h-64 relative flex-center -mx-6 -mt-3 bg-cover bg-center overflow-visible"
-         style="background-image:url('img/background/wave.png')">
-      <svg xmlns="http://www.w3.org/2000/svg"
-           height="95%"
-           viewBox="0 0 140 95"
-           fill="none"
-           style="overflow:visible;">
-        <g id="AMBLOGO">
-          <g id="wifi">
-            <path id="Vector"
-                  d="M114.34 15.72C118.98 15.98 123.62 18.71 123.5 23.82C123.51 23.32 126.09 22.86 126.1 22.32C126.22 17.21 121.58 14.48 116.94 14.22C116.09 14.17 115.16 15.77 114.34 15.72Z"
-                  fill="url(#paint0_linear)" />
-            <path id="Vector_2"
-                  d="M114.73 8.68C122.89 9.13 131.06 14 130.78 22.99C130.8 22.48 133.36 22.04 133.38 21.49C133.66 12.51 125.48 7.63 117.33 7.18C116.48 7.13 115.55 8.72 114.73 8.68Z"
-                  fill="url(#paint1_linear)" />
-            <path id="Vector_3"
-                  d="M114.78 2.39C118.73 2.58 122.81 3.7 126.36 5.39C133.52 8.82 137.46 15.23 137.13 23.19C137.15 22.67 139.71 22.24 139.73 21.69C140.06 13.72 136.12 7.32 128.96 3.89C125.41 2.19 121.33 1.08 117.38 0.889999C116.53 0.849999 115.61 2.43 114.78 2.39Z"
-                  fill="url(#paint2_linear)" />
-          </g>
-          <g id="plane">
-            <g id="Group">
-              <g id="Group_2">
-                <path id="Vector_4"
-                      d="M24.3 65.49L35.79 54.77L21.7 50.93V64.8L24.3 65.49Z"
-                      fill="url(#paint3_linear)" />
-              </g>
-              <g id="Group_3">
-                <path id="Vector_5"
-                      d="M2.17 47.64C2.17 47.64 28.81 51.33 47.32 59.77L70.33 14.38L2.17 47.64Z"
-                      fill="url(#paint4_linear)" />
-              </g>
-              <path id="Vector_6"
-                    d="M69.45 15.33L23.2 52.35L29.94 54.19L69.45 15.33Z"
-                    fill="white" />
-            </g>
-          </g>
-          <g id="AMB">
-            <path id="Vector_7"
-                  d="M104.24 23.93L90.2 64.72C89.68 66.22 88.05 67.02 86.55 66.5C85.05 65.98 84.25 64.35 84.77 62.85L98.81 22.06C99.33 20.56 100.96 19.76 102.46 20.28C103.96 20.8 104.76 22.43 104.24 23.93Z"
-                  fill="#171C61" />
-            <path id="Vector_8"
-                  d="M120.11 31.43C119.89 29.83 119.22 28.37 118.21 27.09C118.79 28.08 119.18 29.16 119.33 30.31C120.23 36.95 113.16 43.39 103.54 44.69C101.38 44.98 106.68 45.41 107.8 45.09C115.59 42.89 120.9 37.23 120.11 31.43Z"
-                  fill="#171C61" />
-            <path id="Vector_9"
-                  d="M96.43 46.89C106.59 46.85 127.53 60.21 103.18 80.84C129.1 59.73 107.74 46.01 97.43 46.05C95.6 46.21 94.76 46.57 94.58 46.66L94.56 46.62L95.2 44.31L94.45 44.22L93.56 47.45L93.58 47.49C93.76 47.41 94.59 47.05 96.43 46.89Z"
-                  fill="#171C61" />
-            <path id="Vector_10"
-                  d="M75.41 93.33C39.27 96.06 19.56 78.58 14.74 73.63C14.77 74.27 14.81 74.94 14.84 75.55C21.13 81.55 40.56 96.72 74.41 94.17C93.25 92.75 104.78 87.23 111.83 81.15C104.71 86.89 93.39 91.97 75.41 93.33Z"
-                  fill="#171C61" />
-            <path id="Vector_11"
-                  d="M103.72 44.34L95.45 43.39L94.56 46.62L94.58 46.66C94.76 46.57 95.59 46.22 97.43 46.05C108.22 46.01 131.16 61.06 99.16 83.89C99.16 83.89 55.88 110.08 18.15 70.56L19.29 70.24C20.88 70.39 22.6 70.51 23.14 70.43C24.22 70.26 23.41 68.72 23.41 68.72C23.41 68.72 16.33 67.72 14.36 67.28C12.39 66.84 12.39 68.78 12.39 68.78L13.02 78.97C14.65 80.39 14.98 77.89 14.98 77.89C14.98 77.89 14.85 75.62 14.75 73.62C19.57 78.57 39.28 96.05 75.42 93.32C122.28 89.78 123.91 60.93 123.91 60.93C123.73 47.55 111.14 44.8 103.72 44.34Z"
-                  fill="url(#paint5_linear)" />
-            <path id="Vector_12"
-                  d="M94.31 39.24L93.77 40.69C93.77 40.69 72.74 60.89 62.19 42.91C72.42 63.51 94.59 42.22 94.59 42.22L96.23 37.83C95.58 38.33 94.94 38.79 94.31 39.24Z"
-                  fill="#171C61" />
-            <path id="Vector_13"
-                  d="M119.33 30.3C118.51 24.26 111.36 20.15 102.83 20.45C103.57 21.2 103.88 22.33 103.51 23.39L102.86 25.27C108.37 25.29 112.94 28.24 113.51 32.46C114.16 37.23 109.45 41.81 103 42.69C100.86 42.98 98.81 42.82 96.99 42.31L96.21 44.57C98.5 44.96 100.98 45.02 103.54 44.67C113.17 43.38 120.24 36.94 119.33 30.3Z"
-                  fill="url(#paint6_linear)" />
-            <path id="Vector_14"
-                  d="M101.73 19.74C100.23 19.22 98.6 20.02 98.08 21.52L92.2 38.6C66.56 55.91 61.24 31.21 61.24 31.21L59.24 35.88C66.15 58.95 83.37 48.88 90.55 43.39L84.04 62.31C83.52 63.81 84.32 65.44 85.82 65.96C87.32 66.48 88.95 65.68 89.47 64.18L103.51 23.39C104.03 21.89 103.23 20.26 101.73 19.74Z"
-                  fill="url(#paint7_linear)" />
-            <g id="A">
-              <path id="Vector_15"
-                    d="M4.09 42.85C4.09 42.85 33.17 29.64 45.25 36.14C57.33 42.64 49.39 59.41 49.39 59.41L43.82 56.81C43.82 56.81 50.42 46.89 42.23 40.01C34.04 33.13 9.73 46.44 9.73 46.44L4.09 42.85Z"
-                    fill="#171C61" />
-              <path id="Vector_16"
-                    d="M70.85 13.08C69.98 11.28 67.81 10.52 66.01 11.39L2.86999 41.87C1.06999 42.74 0.309992 44.91 1.17999 46.71C2.04999 48.51 4.21999 49.27 6.01999 48.4L60.19 22.25L43.81 56.8C42.95 58.61 43.72 60.77 45.53 61.63C47.34 62.49 49.5 61.72 50.36 59.91L70.8 16.77C71.03 16.29 71.13 15.79 71.14 15.29C71.28 14.56 71.2 13.79 70.85 13.08Z"
-                    fill="url(#paint8_linear)" />
-              <path id="Vector_17"
-                    d="M56.68 22.18L2.63 48.28C3.63 48.86 4.89001 48.95 6.02001 48.4L60.07 22.31C59.06 21.73 57.8 21.64 56.68 22.18Z"
-                    fill="#171C61" />
-              <path id="Vector_18"
-                    d="M68.88 18.27L48.44 61.4C48.38 61.52 48.35 61.64 48.31 61.77C49.18 61.46 49.94 60.81 50.37 59.91L70.81 16.77C70.87 16.65 70.9 16.53 70.94 16.4C70.06 16.72 69.31 17.36 68.88 18.27Z"
-                    fill="#171C61" />
-            </g>
-          </g>
-          <g id="words">
-            <path id="Vector_19"
-                  d="M25.14 71.79C24.51 72.17 23.89 72.54 23.25 72.9C22.93 72.59 22.62 72.27 22.3 71.95C24.82 70.57 27.28 69.11 29.68 67.57C30.03 67.91 30.39 68.23 30.75 68.56C29.48 71.14 28.32 73.79 27.26 76.5C26.9 76.2 26.54 75.9 26.19 75.6C26.47 74.91 26.76 74.23 27.06 73.56C26.41 72.99 25.77 72.4 25.14 71.79ZM27.68 72.39C28.52 70.6 29.06 69.55 29.42 68.92C29.42 68.92 29.42 68.92 29.41 68.91C28.77 69.38 27.63 70.15 26.22 71.04C26.7 71.5 27.19 71.95 27.68 72.39Z"
-                  fill="#BE2120" />
-            <path id="Vector_20"
-                  d="M38.55 80.2C39.23 78.91 39.98 77.52 40.43 76.72C40.42 76.71 40.41 76.71 40.4 76.7C39.43 77.96 37.32 80.27 35.44 82.19C35.12 82 34.8 81.81 34.48 81.62C35.12 79.41 36.24 76.05 36.86 74.58C36.85 74.57 36.84 74.57 36.83 74.56C36.35 75.41 35.44 76.91 34.69 78.12C34.15 78.99 33.6 79.87 33.06 80.75C32.73 80.53 32.39 80.32 32.06 80.09C33.56 77.76 35.06 75.44 36.59 73.13C37.05 73.44 37.52 73.75 37.99 74.05C37.23 76.3 36.34 79.18 35.95 80.31C35.95 80.31 35.96 80.31 35.96 80.32C36.6 79.55 38.87 77.21 40.43 75.5C40.9 75.76 41.36 76.01 41.84 76.26C40.59 78.73 39.35 81.2 38.13 83.68C37.76 83.49 37.4 83.3 37.04 83.1C37.54 82.13 38.04 81.17 38.55 80.2Z"
-                  fill="#181F43" />
-            <path id="Vector_21"
-                  d="M44.15 77.37C43.02 79.89 41.9 82.42 40.8 84.96C40.41 84.78 40.03 84.6 39.65 84.42C40.81 81.91 41.98 79.4 43.16 76.9C43.48 77.06 43.82 77.22 44.15 77.37Z"
-                  fill="#181F43" />
-            <path id="Vector_22"
-                  d="M44.7 82.9C44.29 83.97 43.88 85.04 43.47 86.11C43.09 85.96 42.7 85.8 42.32 85.64C43.36 83.07 44.41 80.52 45.47 77.96C46.23 78.28 46.99 78.59 47.76 78.87C48.92 79.3 49.25 80.42 48.87 81.65C48.54 82.7 47.92 83.15 47.36 83.21C47.67 83.49 47.96 84.07 47.52 85.47C47.48 85.59 47.44 85.72 47.4 85.84C47.23 86.38 47.03 87.01 47.01 87.4C46.63 87.27 46.25 87.15 45.88 87.01C45.88 86.63 46.07 86.03 46.34 85.23C46.36 85.19 46.37 85.14 46.39 85.1C46.71 84.15 46.67 83.66 45.67 83.28C45.34 83.15 45.02 83.03 44.7 82.9ZM45.15 81.73C45.52 81.88 45.9 82.03 46.27 82.17C47.03 82.45 47.47 82.17 47.72 81.44C47.96 80.73 47.77 80.22 47.12 79.98C46.74 79.84 46.37 79.69 46 79.54C45.72 80.27 45.43 81 45.15 81.73Z"
-                  fill="#181F43" />
-            <path id="Vector_23"
-                  d="M49.94 86.09C49.57 86.72 49.2 87.34 48.82 87.97C48.43 87.85 48.03 87.73 47.64 87.61C49.17 85.19 50.62 82.74 51.98 80.25C52.41 80.37 52.85 80.49 53.29 80.6C53.3 83.45 53.44 86.33 53.69 89.2C53.26 89.11 52.83 89.02 52.41 88.92C52.36 88.19 52.32 87.45 52.28 86.72C51.5 86.52 50.72 86.31 49.94 86.09ZM52.31 85.39C52.26 83.42 52.28 82.25 52.32 81.53H52.31C51.98 82.25 51.34 83.46 50.53 84.92C51.12 85.08 51.72 85.24 52.31 85.39Z"
-                  fill="#BE2120" />
-            <path id="Vector_24"
-                  d="M60.27 87.7C59.88 89.16 58.88 90.18 57.29 89.95C55.23 89.64 54.6 87.58 55.05 85.28C55.49 83.05 56.74 81.24 58.5 81.51C59.93 81.72 60.54 83.01 60.57 84.41C60.2 84.37 59.83 84.33 59.46 84.28C59.39 83.53 59.12 82.85 58.29 82.73C57.19 82.56 56.5 83.9 56.24 85.45C55.99 86.91 56.17 88.53 57.51 88.73C58.45 88.87 58.87 88.14 59.09 87.57C59.48 87.61 59.87 87.66 60.27 87.7Z"
-                  fill="#181F43" />
-            <path id="Vector_25"
-                  d="M61.87 82.01C62.23 82.04 62.58 82.07 62.94 82.09C62.81 84.42 62.69 86.75 62.58 89.09C63.67 89.16 64.75 89.19 65.84 89.2C65.79 89.63 65.75 90.06 65.7 90.49C64.23 90.48 62.76 90.41 61.29 90.29C61.47 87.53 61.66 84.77 61.87 82.01Z"
-                  fill="#181F43" />
-            <path id="Vector_26"
-                  d="M70.81 86.63C69.82 86.71 68.82 86.76 67.82 86.79C67.85 87.59 67.88 88.38 67.92 89.18C69.06 89.15 70.21 89.08 71.34 88.99C71.33 89.42 71.33 89.85 71.32 90.29C69.81 90.41 68.29 90.48 66.77 90.5C66.7 87.74 66.65 84.97 66.62 82.21C67.92 82.2 69.23 82.14 70.53 82.04C70.57 82.47 70.61 82.9 70.64 83.32C69.66 83.4 68.68 83.45 67.7 83.48C67.72 84.16 67.75 84.84 67.77 85.52C68.74 85.49 69.72 85.44 70.69 85.37C70.74 85.77 70.77 86.2 70.81 86.63Z"
-                  fill="#181F43" />
-            <path id="Vector_27"
-                  d="M75.63 81.36C76.41 81.22 77.18 81.06 77.95 80.89C79.22 80.6 80 81.42 80.29 82.48C80.54 83.39 80.34 84.08 79.98 84.42C80.43 84.52 81.15 84.93 81.46 86.02C81.87 87.43 81.27 88.63 79.95 88.93C79.03 89.14 78.11 89.33 77.18 89.5C76.66 86.8 76.13 84.08 75.63 81.36ZM78.57 84.17C79.26 84.01 79.43 83.54 79.27 82.9C79.11 82.27 78.69 81.98 78.15 82.1C77.73 82.19 77.32 82.28 76.9 82.37C77.04 83.06 77.19 83.75 77.33 84.44C77.75 84.35 78.16 84.26 78.57 84.17ZM78.12 88.09C78.57 88 79.01 87.91 79.46 87.81C80.21 87.64 80.51 87.12 80.29 86.3C80.1 85.57 79.63 85.19 78.82 85.38C78.41 85.47 78 85.56 77.59 85.64C77.76 86.45 77.94 87.27 78.12 88.09Z"
-                  fill="#181F43" />
-            <path id="Vector_28"
-                  d="M83.75 85.74C83.79 86.46 83.82 87.19 83.85 87.92C83.46 88.04 83.07 88.15 82.68 88.26C82.62 85.41 82.48 82.56 82.24 79.73C82.66 79.6 83.08 79.46 83.5 79.31C85.07 81.69 86.75 84.03 88.53 86.3C88.13 86.46 87.72 86.61 87.31 86.76C86.87 86.17 86.43 85.58 86 84.99C85.27 85.25 84.51 85.5 83.75 85.74ZM85.32 83.86C84.21 82.24 83.58 81.25 83.22 80.63H83.21C83.33 81.41 83.46 82.78 83.59 84.43C84.18 84.25 84.75 84.06 85.32 83.86Z"
-                  fill="#BE2120" />
-            <path id="Vector_29"
-                  d="M92.83 79.73C93.94 81.74 93.97 84.02 92.02 84.94C90.15 85.8 88.4 84.44 87.51 82.24C86.6 80.01 86.84 77.93 88.41 77.2C89.88 76.52 91.61 77.53 92.83 79.73ZM88.6 81.75C89.27 83.29 90.38 84.28 91.51 83.76C92.73 83.19 92.51 81.69 91.77 80.3C91.01 78.84 89.95 77.9 88.91 78.38C87.88 78.86 87.93 80.22 88.6 81.75Z"
-                  fill="#181F43" />
-            <path id="Vector_30"
-                  d="M91.86 75.58C92.5 75.22 93.13 74.85 93.76 74.47C95.16 73.61 96.97 74.27 98.41 76.27C99.83 78.24 99.88 80.44 98.15 81.51C97.44 81.95 96.72 82.37 95.99 82.78C94.6 80.39 93.22 77.99 91.86 75.58ZM96.41 81.07C96.75 80.87 97.08 80.67 97.41 80.47C98.57 79.75 98.37 78.37 97.41 76.96C96.59 75.76 95.42 74.94 94.36 75.6C94.06 75.78 93.76 75.97 93.45 76.14C94.43 77.79 95.41 79.43 96.41 81.07Z"
-                  fill="#181F43" />
-            <path id="Vector_31"
-                  d="M101.57 76.61C101.85 77.28 102.12 77.96 102.39 78.63C102.06 78.88 101.72 79.12 101.38 79.36C100.38 76.68 99.29 74.04 98.13 71.45C98.49 71.17 98.85 70.89 99.21 70.6C101.51 72.3 103.9 73.9 106.38 75.4C106.04 75.7 105.7 75.99 105.36 76.28C104.74 75.88 104.12 75.48 103.51 75.07C102.87 75.61 102.23 76.12 101.57 76.61ZM102.47 74.27C100.86 73.13 99.93 72.42 99.38 71.96C99.38 71.96 99.38 71.96 99.37 71.96C99.74 72.66 100.32 73.9 101 75.43C101.49 75.05 101.98 74.67 102.47 74.27Z"
-                  fill="#BE2120" />
-            <path id="Vector_32"
-                  d="M108.36 67.57C110.1 69.06 110.88 71.24 109.3 72.84C107.78 74.36 105.64 73.7 104.04 71.95C102.43 70.17 101.96 68.11 103.24 66.83C104.44 65.62 106.45 65.93 108.36 67.57ZM104.93 71.08C106.09 72.29 107.49 72.83 108.41 71.91C109.4 70.91 108.69 69.57 107.52 68.51C106.3 67.41 104.96 66.91 104.12 67.75C103.28 68.59 103.77 69.87 104.93 71.08Z"
-                  fill="#181F43" />
-          </g>
-        </g>
-        <defs>
-          <linearGradient id="paint0_linear"
-                          x1="114.138"
-                          y1="19.0214"
-                          x2="126.304"
-                          y2="19.0214"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#171C61" />
-            <stop offset="1"
-                  stop-color="#2EA7E0" />
-          </linearGradient>
-          <linearGradient id="paint1_linear"
-                          x1="114.528"
-                          y1="15.0839"
-                          x2="133.599"
-                          y2="15.0839"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#171C61" />
-            <stop offset="1"
-                  stop-color="#2EA7E0" />
-          </linearGradient>
-          <linearGradient id="paint2_linear"
-                          x1="114.58"
-                          y1="12.0427"
-                          x2="139.958"
-                          y2="12.0427"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#171C61" />
-            <stop offset="1"
-                  stop-color="#2EA7E0" />
-          </linearGradient>
-          <linearGradient id="paint3_linear"
-                          x1="21.7009"
-                          y1="58.2103"
-                          x2="35.7889"
-                          y2="58.2103"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#E4B562" />
-            <stop offset="1"
-                  stop-color="#CA497A" />
-          </linearGradient>
-          <linearGradient id="paint4_linear"
-                          x1="2.1737"
-                          y1="37.0746"
-                          x2="70.3255"
-                          y2="37.0746"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#E4B562" />
-            <stop offset="1"
-                  stop-color="#CA497A" />
-          </linearGradient>
-          <linearGradient id="paint5_linear"
-                          x1="12.3874"
-                          y1="68.5048"
-                          x2="123.905"
-                          y2="68.5048"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#171C61" />
-            <stop offset="1"
-                  stop-color="#2EA7E0" />
-          </linearGradient>
-          <linearGradient id="paint6_linear"
-                          x1="101.033"
-                          y1="25.1443"
-                          x2="110.283"
-                          y2="41.1443"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#171C61" />
-            <stop offset="1"
-                  stop-color="#2EA7E0" />
-          </linearGradient>
-          <linearGradient id="paint7_linear"
-                          x1="59.2437"
-                          y1="42.8548"
-                          x2="103.667"
-                          y2="42.8548"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#171C61" />
-            <stop offset="1"
-                  stop-color="#2EA7E0" />
-          </linearGradient>
-          <linearGradient id="paint8_linear"
-                          x1="10.8269"
-                          y1="58.6909"
-                          x2="74.3666"
-                          y2="28.382"
-                          gradientUnits="userSpaceOnUse">
-            <stop stop-color="#171C61" />
-            <stop offset="1"
-                  stop-color="#2EA7E0" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-    <div class="has-reveal reveal-rtl w-full sm:w-3/5 mx-auto">
-      <h1 class="text-5xl gradient-text text-center mx-auto"
-          style="width:fit-content;">關於我們</h1>
-    </div>
-
-    <div class="block md:flex bg-text-blue text-main-white rounded-b-2rem border-b-8 border-main-orange -mx-6">
-      <div class="md:w-1/2 flex-center p-3">
-        <video id="intro_vid"
-               src="img/intro_vid.mp4"
-               controls
-               preload="metadata">
-          影片無法播放
-        </video>
-      </div>
-      <div class="md:w-1/2 p-6">
-        <div class="has-reveal reveal-rtl">
-          <h1 class="text-4xl"
-              style="text-align:center;">創辦理念</h1>
-        </div>
-        <h6 class="text-lg">現在各行業，無論是科技業、傳統產業、服務業、傳直銷業…等。都圍繞在以下六點：<br />
-          <span class="">&nbsp&nbsp「找人」、「拉人」、「推銷」、「囤貨」、「售後服務」、「帶團隊」</span><br /><br />
-          且高達90~95%的人不喜歡以上六點，只想安逸工作，然而收入增加的速度比不上物價或房價上漲的速度，若想增加收入，
-          就是投資(傳統投資，投資金額大，又有一定風險)或兼職其他工作，用勞力換取金錢，沒有好的生活品質。<br />
-          <span class="">&nbsp&nbsp「寶島奇蹟-粉絲工廠」</span>的成立就是要<span>打破傳統模式</span>，透過自行開發軟體，使一般上班族及退休族也能輕鬆增加收入。</h6>
-      </div>
-
-    </div>
-
-    <div class="flex mt-2 md:mt-4">
-      <div class="w-1/2 md:w-2/5 pl-2 md:pl-4 pt-6 md:pl-24 md:pt-12">
-        <div class="has-reveal reveal-ltr">
-          <h1 class="text-4xl text-left whitespace-no-wrap overflow-visible">創辦人簡介</h1>
-        </div>
-        <ul class="text-lg md:text-2xl mt-8 list-disc">
-          <p>經歷:</p>
-          <li class="">
-            <h6>寶島奇蹟-粉絲工廠 創辦人</h6>
-          </li>
-          <li>
-            <h6>亞洲服務成交天王</h6>
-          </li>
-          <li>
-            <h6>皮指紋分析諮詢師</h6>
-          </li>
-          <li>
-            <h6>NAC神經練調整師</h6>
-          </li>
-          <li>
-            <h6>SID財富系統講師</h6>
-          </li>
-          <li>
-            <h6>兩性關係幸福講師</h6>
-          </li>
-          <li>
-            <h6>青少年兒童發展講師</h6>
-          </li>
-        </ul>
-      </div>
-      <div class="w-1/2 md:w-2/5 overflow-hidden rounded-full md:rounded-lg md:mx-10 mt-auto">
-        <img data-src="img/feature/founder.jpg"
-             alt="founder"
-             width="100%">
-      </div>
-    </div>
-
-  </section>
-  <!-- 關於我們 end -->
-
-  <!-- 商業模式 -->
-  <section id="service-sec"
-           class="inactive sec-height w-full bg-fixed bg-cover bg-center bg-text-blue overflow-auto"
-           style="background-image:url('img/background/lukas-cold-min.png');"
-           sec-order="2">
-    <!-- overlay of fixed background -->
-    <div class="min-h-screen w-full bg-main-white-2 flex flex-col">
-      <!-- main content -->
-      <!-- top -->
-      <div class="w-full h-1/2 lg:w-11/12 rounded-br-7rem sm:rounded-br-full p-6 pb-8 md:px-10"
-           style="background-color: #D1D2D9e6;box-shadow: 2px 2px 8px #00000066;">
-        <div class="has-reveal reveal-ltr w-3/5">
-          <h1 class="text-5xl">商業模式</h1>
-        </div>
-        <div class="flex flex-wrap w-full">
-          <div class="p-1 flex-grow flex-center flex-col">
-            <object type="image/svg+xml"
-                    data="img/svg/befriend.svg"
-                    class="h-64"
-                    alt="累積粉絲">
-            </object>
-            <p class="text-xl font-semibold text-center mt-2">累積粉絲</p>
-          </div>
-          <div class="p-1 flex-grow flex-center flex-col">
-            <object type="image/svg+xml"
-                    data="img/svg/chat.svg"
-                    class="h-64"
-                    alt="回覆與互動">
-            </object>
-            <p class="text-xl font-semibold text-center mt-2">回覆與互動</p>
-          </div>
-          <div class="p-1 flex-grow flex-center flex-col">
-            <object type="image/svg+xml"
-                    data="img/svg/online_shopping.svg"
-                    class="h-64"
-                    alt="線上商城">
-            </object>
-            <p class="text-xl font-semibold text-center mt-2">線上商城</p>
-          </div>
-          <div class="p-1 flex-grow flex-center flex-col">
-            <object type="image/svg+xml"
-                    data="img/svg/wallet.svg"
-                    class="h-64"
-                    alt="被動收入">
-            </object>
-            <p class="text-xl font-semibold text-center mt-2">被動收入</p>
+    <template x-if="active_section === '#main-sec'">
+      <section id="main-sec"
+               class="w-full h-screen overflow-auto">
+        <div class="h-screen w-full bg-cover bg-no-repeat"
+             style="background-image: url(' img/background/101bright-min.png');">
+          <div id="main-sec-content"
+               class="h-full w-full flex flex-col items-center"
+               style="background: linear-gradient(to right top, #0079ff26, #286ee626, #3464ce26, #3a5ab626, #3c519f26, #5e4e9b26, #774c9426, #8a4a8c26, #c795ad26, #e15b6f26, #f5765526, #f69b3a26);">
+            <a class="absolute top-0 right-0 flex-center border-2 border-main-orange hover:border-orange-300 rounded-lg text-lg sm:text-xl font-semibold bg-main-orange text-text-blue hover:text-main-white transform hover:scale-110 shadow-md hover:shadow-2xl transitions-colors duration-300 px-3 py-2  m-4"
+               href="https://baodao7.com/user/register">
+              <span class="mr-2"><svg xmlns="http://www.w3.org/2000/svg"
+                     height="1em"
+                     viewBox="0 0 24 24"
+                     fill="currentColor">
+                  <path d="M8 9v-4l8 7-8 7v-4h-8v-6h8zm2-7v2h12v16h-12v2h14v-20h-14z" /></svg></span>
+              <h1>免費註冊</h1>
+            </a>
+            <div id="main-text-content"
+                 class="relative mt-24 flex flex-col items-center">
+              <div class="content-box">
+                <h1 id="head-title"
+                    class="gradient-text text-center text-6.5xl sm:text-8xl font-medium">寶島奇蹟</h1>
+                <h6 class="gradient-text text-lg text-center"
+                    style="color:#1a1a1a;">A MIRACLE BAODAO</h6>
+                <h2 class="gradient-text text-center text-5xl">粉絲工廠</h2>
+              </div>
+            </div>
+            <div class="flex-col flex-center mt-4 text-main-white">
+              <img id="phone-menu"
+                   class="mt-4"
+                   :class="{'active': menu_active}"
+                   src="img/feature/phone-static.png"
+                   alt="選單"
+                   style="max-width: 100px;"
+                   x-show="!menu_active"
+                   @click="menu_active = !menu_active;">
+              <img class="absolute"
+                   src="img/feature/phone-income.png"
+                   alt="選單"
+                   style="max-width: 100px;top:50vh;left:50vw;transform:translate(-50%, -50%);"
+                   x-show="menu_active">
+              <svg xmlns="
+                 http://www.w3.org/2000/svg"
+                   focusable="false"
+                   viewBox="0 0 448 512"
+                   width="40px"
+                   style="animation: hovering 2s ease infinite"
+                   x-show="!menu_active">
+                <path fill="currentColor"
+                      d="M448 240v96c0 3.084-.356 6.159-1.063 9.162l-32 136C410.686 499.23 394.562 512 376 512H168a40.004 40.004 0 0 1-32.35-16.473l-127.997-176c-12.993-17.866-9.043-42.883 8.822-55.876 17.867-12.994 42.884-9.043 55.877 8.823L104 315.992V40c0-22.091 17.908-40 40-40s40 17.909 40 40v200h8v-40c0-22.091 17.908-40 40-40s40 17.909 40 40v40h8v-24c0-22.091 17.908-40 40-40s40 17.909 40 40v24h8c0-22.091 17.908-40 40-40s40 17.909 40 40zm-256 80h-8v96h8v-96zm88 0h-8v96h8v-96zm88 0h-8v96h8v-96z" />
+              </svg>
+            </div>
+            <!-- menu display on home page -->
+            <div class="center-menu flex-center w-screen h-screen text-main-white text-xl font-semibold"
+                 :class="{'active': menu_active}"
+                 @click="menu_active = !menu_active;">
+              <ul class="menu-list flex-center">
+                <li class="menu-item flex-center cursor-pointer"
+                    :class="{'active': menu_active}">
+                  <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500"
+                     href="#course-sec">
+                    知識趣</a>
+                  <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                       style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
+                </li>
+                <li class="menu-item flex-center cursor-pointer"
+                    :class="{'active': menu_active}">
+                  <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500"
+                     href="https://baodao7.com/mall">
+                    寶島商城</a>
+                  <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                       style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
+                </li>
+                <li class="menu-item flex-center cursor-pointer"
+                    :class="{'active': menu_active}">
+                  <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500"
+                     href="#about-sec">
+                    關於我們</a>
+                  <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                       style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
+                </li>
+                <li class="menu-item flex-center cursor-pointer"
+                    :class="{'active': menu_active}">
+                  <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500"
+                     href="#service-sec">
+                    商業模式</a>
+                  <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                       style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
+                </li>
+                <li class="menu-item flex-center cursor-pointer"
+                    :class="{'active': menu_active}">
+                  <a class="w-24 h-24 bg-text-blue hover:bg-main-blue absolute flex-center rounded-full transition duration-500"
+                     href="#contact-sec">
+                    聯絡我們</a>
+                  <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                       style="z-index:-1;box-shadow:0px 0px 12px 6px var(--main-blue);"></div>
+                </li>
+                <li class="menu-item flex-center cursor-pointer"
+                    :class="{'active': menu_active}">
+                  <a class="w-24 h-24 bg-text-blue hover:bg-main-orange hover:text-text-blue absolute flex-center rounded-full transition duration-500"
+                     href="https://baodao7.com/user/login">
+                    會員中心</a>
+                  <div class="w-24 h-24 absolute bg-transparent rounded-full"
+                       style="z-index:-1;box-shadow:0px 0px 12px 6px var(--orange);"></div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- bot -->
-      <div class="w-full h-1/2 bg-text-blue-9 lg:w-11/12 flex-grow rounded-tl-7rem sm:rounded-tl-full ml-auto p-6 md:px-10"
-           style="box-shadow: -2px -2px 8px #00000066;">
-        <div class="has-reveal reveal-rtl w-3/5 ml-auto">
-          <h1 class="text-5xl text-right text-gray-200">特點價值</h1>
+        <!-- 商城介紹區 -->
+        <div class="w-full bg-main-white p-6"
+             style="box-shadow:0px -8px 10px 3px #21212166">
+          <div class="w-full block sm:flex flex-row-reverse">
+            <div class="sm:w-3/5 sm:pl-4">
+              <img class="rounded-lg"
+                   src="img/feature/watch.jpg"
+                   alt="寶島知識趣"
+                   style="box-shadow:3px 3px 9px 1px rgba(0, 0, 0, 0.5)"></div>
+            <div class="sm:w-2/5 flex-center flex-col sm:pl-8">
+              <div class="text-left">
+                <h1 class="relative inline-block text-5xl text-left border-4 border-text-blue border-b-0 border-double px-2 pb-2 mb-6">
+                  寶島知識趣
+                  <div class="absolute top-0 left-0 w-1/3 h-full border-b-4 border-double border-text-blue"></div>
+                  <div class="absolute top-0 right-0 w-1/3 h-full border-b-4 border-double border-text-blue"></div>
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="absolute"
+                       height="2.5rem"
+                       viewBox="0 0 24 24"
+                       fill="currentColor"
+                       style="bottom:0px;left:50%;transform:translate(-50%, 50%);">
+                    <path
+                          d="M14 19h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm0 2h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm.25 2h-4.5l1.188.782c.154.138.38.218.615.218h.895c.234 0 .461-.08.615-.218l1.187-.782zm3.75-13.799c0 3.569-3.214 5.983-3.214 8.799h-1.989c-.003-1.858.87-3.389 1.721-4.867.761-1.325 1.482-2.577 1.482-3.932 0-2.592-2.075-3.772-4.003-3.772-1.925 0-3.997 1.18-3.997 3.772 0 1.355.721 2.607 1.482 3.932.851 1.478 1.725 3.009 1.72 4.867h-1.988c0-2.816-3.214-5.23-3.214-8.799 0-3.723 2.998-5.772 5.997-5.772 3.001 0 6.003 2.051 6.003 5.772zm4-.691v1.372h-2.538c.02-.223.038-.448.038-.681 0-.237-.017-.464-.035-.69h2.535zm-10.648-6.553v-1.957h1.371v1.964c-.242-.022-.484-.035-.726-.035-.215 0-.43.01-.645.028zm-3.743 1.294l-1.04-1.94 1.208-.648 1.037 1.933c-.418.181-.822.401-1.205.655zm10.586 1.735l1.942-1.394.799 1.115-2.054 1.473c-.191-.43-.423-.827-.687-1.194zm-3.01-2.389l1.038-1.934 1.208.648-1.041 1.941c-.382-.254-.786-.473-1.205-.655zm-10.068 3.583l-2.054-1.472.799-1.115 1.942 1.393c-.264.366-.495.763-.687 1.194zm13.707 6.223l2.354.954-.514 1.271-2.425-.982c.21-.397.408-.812.585-1.243zm-13.108 1.155l-2.356 1.06-.562-1.251 2.34-1.052c.173.433.371.845.578 1.243zm-1.178-3.676h-2.538v-1.372h2.535c-.018.226-.035.454-.035.691 0 .233.018.458.038.681z" />
+                  </svg>
+                </h1>
+                <p class="text-xl font-semibold">大健康、兒童教育、風水命理、全球旅遊、成功學、身心靈、美容、理財</p>
+                <p class="text-xl mb-2">八大領域專業的講解，這些實用的知識講豐富我們生活點滴!</p>
+                <div class="text-center">
+                  <a class="inline-block border-2 border-main-orange hover:border-orange-300 rounded-lg text-lg sm:text-xl font-semibold bg-main-orange text-text-blue hover:text-main-white transform hover:scale-110 shadow-md hover:shadow-2xl transitions-colors duration-300 px-3 py-2"
+                     href="#course-sec">前往體驗</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <img class="ml-auto mt-6"
-             data-src="img/feature/merit.png"
-             alt="免: 找人、拉人、推銷、囤貨、帶團隊、售後服務">
-      </div>
-      <!-- end main content -->
-    </div>
-  </section>
-  <!-- 商業模式 end -->
+      </section>
+    </template>
 
-  <!-- 聯絡我們 -->
-  <section id="contact-sec"
-           class="inactive sec-height w-full overflow-auto bg-text-blue"
-           sec-order="3">
-    <div class="lg:flex min-h-full p-3 pt-0">
-      <!-- left -->
-      <div class="min-h-full block relative lg:w-1/2 lg:mr-2 overflow-hidden">
-        <!-- parallax background -->
-        <img class='rellax-contact absolute bottom-0'
-             data-src="img/background/milkovi.jpg"
-             alt="background"
-             style="z-index:-1;"
-             data-rellax-speed="-6">
-        <!-- white overlay -->
-        <div class="h-full bg-main-white-4 px-4 pb-4">
+    <template x-if="active_section === '#about-sec'">
+      <section id="about-sec"
+               class="active w-full sec-height bg-main-white p-6 pt-3 overflow-y-auto overflow-x-hidden"
+               x-data="{}"
+               x-init="animateLogo()">
+        <div class="bg-fixed bg-cover bg-bottom overflow-hidden -mx-6 -mt-3"
+             style="background-image:url('img/background/maddison.jpg');">
+          <div class="w-full h-full bg-main-white-4">
+            <div class="jumbo-logo h-64 relative flex-center bg-cover bg-center overflow-visible">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   height="95%"
+                   viewBox="0 0 140 95"
+                   fill="none"
+                   style="overflow:visible;">
+                <g id="AMBLOGO">
+                  <g id="wifi">
+                    <path id="Vector"
+                          d="M114.34 15.72C118.98 15.98 123.62 18.71 123.5 23.82C123.51 23.32 126.09 22.86 126.1 22.32C126.22 17.21 121.58 14.48 116.94 14.22C116.09 14.17 115.16 15.77 114.34 15.72Z"
+                          fill="url(#paint0_linear)" />
+                    <path id="Vector_2"
+                          d="M114.73 8.68C122.89 9.13 131.06 14 130.78 22.99C130.8 22.48 133.36 22.04 133.38 21.49C133.66 12.51 125.48 7.63 117.33 7.18C116.48 7.13 115.55 8.72 114.73 8.68Z"
+                          fill="url(#paint1_linear)" />
+                    <path id="Vector_3"
+                          d="M114.78 2.39C118.73 2.58 122.81 3.7 126.36 5.39C133.52 8.82 137.46 15.23 137.13 23.19C137.15 22.67 139.71 22.24 139.73 21.69C140.06 13.72 136.12 7.32 128.96 3.89C125.41 2.19 121.33 1.08 117.38 0.889999C116.53 0.849999 115.61 2.43 114.78 2.39Z"
+                          fill="url(#paint2_linear)" />
+                  </g>
+                  <g id="plane">
+                    <g id="Group">
+                      <g id="Group_2">
+                        <path id="Vector_4"
+                              d="M24.3 65.49L35.79 54.77L21.7 50.93V64.8L24.3 65.49Z"
+                              fill="url(#paint3_linear)" />
+                      </g>
+                      <g id="Group_3">
+                        <path id="Vector_5"
+                              d="M2.17 47.64C2.17 47.64 28.81 51.33 47.32 59.77L70.33 14.38L2.17 47.64Z"
+                              fill="url(#paint4_linear)" />
+                      </g>
+                      <path id="Vector_6"
+                            d="M69.45 15.33L23.2 52.35L29.94 54.19L69.45 15.33Z"
+                            fill="white" />
+                    </g>
+                  </g>
+                  <g id="AMB">
+                    <path id="Vector_7"
+                          d="M104.24 23.93L90.2 64.72C89.68 66.22 88.05 67.02 86.55 66.5C85.05 65.98 84.25 64.35 84.77 62.85L98.81 22.06C99.33 20.56 100.96 19.76 102.46 20.28C103.96 20.8 104.76 22.43 104.24 23.93Z"
+                          fill="#171C61" />
+                    <path id="Vector_8"
+                          d="M120.11 31.43C119.89 29.83 119.22 28.37 118.21 27.09C118.79 28.08 119.18 29.16 119.33 30.31C120.23 36.95 113.16 43.39 103.54 44.69C101.38 44.98 106.68 45.41 107.8 45.09C115.59 42.89 120.9 37.23 120.11 31.43Z"
+                          fill="#171C61" />
+                    <path id="Vector_9"
+                          d="M96.43 46.89C106.59 46.85 127.53 60.21 103.18 80.84C129.1 59.73 107.74 46.01 97.43 46.05C95.6 46.21 94.76 46.57 94.58 46.66L94.56 46.62L95.2 44.31L94.45 44.22L93.56 47.45L93.58 47.49C93.76 47.41 94.59 47.05 96.43 46.89Z"
+                          fill="#171C61" />
+                    <path id="Vector_10"
+                          d="M75.41 93.33C39.27 96.06 19.56 78.58 14.74 73.63C14.77 74.27 14.81 74.94 14.84 75.55C21.13 81.55 40.56 96.72 74.41 94.17C93.25 92.75 104.78 87.23 111.83 81.15C104.71 86.89 93.39 91.97 75.41 93.33Z"
+                          fill="#171C61" />
+                    <path id="Vector_11"
+                          d="M103.72 44.34L95.45 43.39L94.56 46.62L94.58 46.66C94.76 46.57 95.59 46.22 97.43 46.05C108.22 46.01 131.16 61.06 99.16 83.89C99.16 83.89 55.88 110.08 18.15 70.56L19.29 70.24C20.88 70.39 22.6 70.51 23.14 70.43C24.22 70.26 23.41 68.72 23.41 68.72C23.41 68.72 16.33 67.72 14.36 67.28C12.39 66.84 12.39 68.78 12.39 68.78L13.02 78.97C14.65 80.39 14.98 77.89 14.98 77.89C14.98 77.89 14.85 75.62 14.75 73.62C19.57 78.57 39.28 96.05 75.42 93.32C122.28 89.78 123.91 60.93 123.91 60.93C123.73 47.55 111.14 44.8 103.72 44.34Z"
+                          fill="url(#paint5_linear)" />
+                    <path id="Vector_12"
+                          d="M94.31 39.24L93.77 40.69C93.77 40.69 72.74 60.89 62.19 42.91C72.42 63.51 94.59 42.22 94.59 42.22L96.23 37.83C95.58 38.33 94.94 38.79 94.31 39.24Z"
+                          fill="#171C61" />
+                    <path id="Vector_13"
+                          d="M119.33 30.3C118.51 24.26 111.36 20.15 102.83 20.45C103.57 21.2 103.88 22.33 103.51 23.39L102.86 25.27C108.37 25.29 112.94 28.24 113.51 32.46C114.16 37.23 109.45 41.81 103 42.69C100.86 42.98 98.81 42.82 96.99 42.31L96.21 44.57C98.5 44.96 100.98 45.02 103.54 44.67C113.17 43.38 120.24 36.94 119.33 30.3Z"
+                          fill="url(#paint6_linear)" />
+                    <path id="Vector_14"
+                          d="M101.73 19.74C100.23 19.22 98.6 20.02 98.08 21.52L92.2 38.6C66.56 55.91 61.24 31.21 61.24 31.21L59.24 35.88C66.15 58.95 83.37 48.88 90.55 43.39L84.04 62.31C83.52 63.81 84.32 65.44 85.82 65.96C87.32 66.48 88.95 65.68 89.47 64.18L103.51 23.39C104.03 21.89 103.23 20.26 101.73 19.74Z"
+                          fill="url(#paint7_linear)" />
+                    <g id="A">
+                      <path id="Vector_15"
+                            d="M4.09 42.85C4.09 42.85 33.17 29.64 45.25 36.14C57.33 42.64 49.39 59.41 49.39 59.41L43.82 56.81C43.82 56.81 50.42 46.89 42.23 40.01C34.04 33.13 9.73 46.44 9.73 46.44L4.09 42.85Z"
+                            fill="#171C61" />
+                      <path id="Vector_16"
+                            d="M70.85 13.08C69.98 11.28 67.81 10.52 66.01 11.39L2.86999 41.87C1.06999 42.74 0.309992 44.91 1.17999 46.71C2.04999 48.51 4.21999 49.27 6.01999 48.4L60.19 22.25L43.81 56.8C42.95 58.61 43.72 60.77 45.53 61.63C47.34 62.49 49.5 61.72 50.36 59.91L70.8 16.77C71.03 16.29 71.13 15.79 71.14 15.29C71.28 14.56 71.2 13.79 70.85 13.08Z"
+                            fill="url(#paint8_linear)" />
+                      <path id="Vector_17"
+                            d="M56.68 22.18L2.63 48.28C3.63 48.86 4.89001 48.95 6.02001 48.4L60.07 22.31C59.06 21.73 57.8 21.64 56.68 22.18Z"
+                            fill="#171C61" />
+                      <path id="Vector_18"
+                            d="M68.88 18.27L48.44 61.4C48.38 61.52 48.35 61.64 48.31 61.77C49.18 61.46 49.94 60.81 50.37 59.91L70.81 16.77C70.87 16.65 70.9 16.53 70.94 16.4C70.06 16.72 69.31 17.36 68.88 18.27Z"
+                            fill="#171C61" />
+                    </g>
+                  </g>
+                  <g id="words">
+                    <path id="Vector_19"
+                          d="M25.14 71.79C24.51 72.17 23.89 72.54 23.25 72.9C22.93 72.59 22.62 72.27 22.3 71.95C24.82 70.57 27.28 69.11 29.68 67.57C30.03 67.91 30.39 68.23 30.75 68.56C29.48 71.14 28.32 73.79 27.26 76.5C26.9 76.2 26.54 75.9 26.19 75.6C26.47 74.91 26.76 74.23 27.06 73.56C26.41 72.99 25.77 72.4 25.14 71.79ZM27.68 72.39C28.52 70.6 29.06 69.55 29.42 68.92C29.42 68.92 29.42 68.92 29.41 68.91C28.77 69.38 27.63 70.15 26.22 71.04C26.7 71.5 27.19 71.95 27.68 72.39Z"
+                          fill="#BE2120" />
+                    <path id="Vector_20"
+                          d="M38.55 80.2C39.23 78.91 39.98 77.52 40.43 76.72C40.42 76.71 40.41 76.71 40.4 76.7C39.43 77.96 37.32 80.27 35.44 82.19C35.12 82 34.8 81.81 34.48 81.62C35.12 79.41 36.24 76.05 36.86 74.58C36.85 74.57 36.84 74.57 36.83 74.56C36.35 75.41 35.44 76.91 34.69 78.12C34.15 78.99 33.6 79.87 33.06 80.75C32.73 80.53 32.39 80.32 32.06 80.09C33.56 77.76 35.06 75.44 36.59 73.13C37.05 73.44 37.52 73.75 37.99 74.05C37.23 76.3 36.34 79.18 35.95 80.31C35.95 80.31 35.96 80.31 35.96 80.32C36.6 79.55 38.87 77.21 40.43 75.5C40.9 75.76 41.36 76.01 41.84 76.26C40.59 78.73 39.35 81.2 38.13 83.68C37.76 83.49 37.4 83.3 37.04 83.1C37.54 82.13 38.04 81.17 38.55 80.2Z"
+                          fill="#181F43" />
+                    <path id="Vector_21"
+                          d="M44.15 77.37C43.02 79.89 41.9 82.42 40.8 84.96C40.41 84.78 40.03 84.6 39.65 84.42C40.81 81.91 41.98 79.4 43.16 76.9C43.48 77.06 43.82 77.22 44.15 77.37Z"
+                          fill="#181F43" />
+                    <path id="Vector_22"
+                          d="M44.7 82.9C44.29 83.97 43.88 85.04 43.47 86.11C43.09 85.96 42.7 85.8 42.32 85.64C43.36 83.07 44.41 80.52 45.47 77.96C46.23 78.28 46.99 78.59 47.76 78.87C48.92 79.3 49.25 80.42 48.87 81.65C48.54 82.7 47.92 83.15 47.36 83.21C47.67 83.49 47.96 84.07 47.52 85.47C47.48 85.59 47.44 85.72 47.4 85.84C47.23 86.38 47.03 87.01 47.01 87.4C46.63 87.27 46.25 87.15 45.88 87.01C45.88 86.63 46.07 86.03 46.34 85.23C46.36 85.19 46.37 85.14 46.39 85.1C46.71 84.15 46.67 83.66 45.67 83.28C45.34 83.15 45.02 83.03 44.7 82.9ZM45.15 81.73C45.52 81.88 45.9 82.03 46.27 82.17C47.03 82.45 47.47 82.17 47.72 81.44C47.96 80.73 47.77 80.22 47.12 79.98C46.74 79.84 46.37 79.69 46 79.54C45.72 80.27 45.43 81 45.15 81.73Z"
+                          fill="#181F43" />
+                    <path id="Vector_23"
+                          d="M49.94 86.09C49.57 86.72 49.2 87.34 48.82 87.97C48.43 87.85 48.03 87.73 47.64 87.61C49.17 85.19 50.62 82.74 51.98 80.25C52.41 80.37 52.85 80.49 53.29 80.6C53.3 83.45 53.44 86.33 53.69 89.2C53.26 89.11 52.83 89.02 52.41 88.92C52.36 88.19 52.32 87.45 52.28 86.72C51.5 86.52 50.72 86.31 49.94 86.09ZM52.31 85.39C52.26 83.42 52.28 82.25 52.32 81.53H52.31C51.98 82.25 51.34 83.46 50.53 84.92C51.12 85.08 51.72 85.24 52.31 85.39Z"
+                          fill="#BE2120" />
+                    <path id="Vector_24"
+                          d="M60.27 87.7C59.88 89.16 58.88 90.18 57.29 89.95C55.23 89.64 54.6 87.58 55.05 85.28C55.49 83.05 56.74 81.24 58.5 81.51C59.93 81.72 60.54 83.01 60.57 84.41C60.2 84.37 59.83 84.33 59.46 84.28C59.39 83.53 59.12 82.85 58.29 82.73C57.19 82.56 56.5 83.9 56.24 85.45C55.99 86.91 56.17 88.53 57.51 88.73C58.45 88.87 58.87 88.14 59.09 87.57C59.48 87.61 59.87 87.66 60.27 87.7Z"
+                          fill="#181F43" />
+                    <path id="Vector_25"
+                          d="M61.87 82.01C62.23 82.04 62.58 82.07 62.94 82.09C62.81 84.42 62.69 86.75 62.58 89.09C63.67 89.16 64.75 89.19 65.84 89.2C65.79 89.63 65.75 90.06 65.7 90.49C64.23 90.48 62.76 90.41 61.29 90.29C61.47 87.53 61.66 84.77 61.87 82.01Z"
+                          fill="#181F43" />
+                    <path id="Vector_26"
+                          d="M70.81 86.63C69.82 86.71 68.82 86.76 67.82 86.79C67.85 87.59 67.88 88.38 67.92 89.18C69.06 89.15 70.21 89.08 71.34 88.99C71.33 89.42 71.33 89.85 71.32 90.29C69.81 90.41 68.29 90.48 66.77 90.5C66.7 87.74 66.65 84.97 66.62 82.21C67.92 82.2 69.23 82.14 70.53 82.04C70.57 82.47 70.61 82.9 70.64 83.32C69.66 83.4 68.68 83.45 67.7 83.48C67.72 84.16 67.75 84.84 67.77 85.52C68.74 85.49 69.72 85.44 70.69 85.37C70.74 85.77 70.77 86.2 70.81 86.63Z"
+                          fill="#181F43" />
+                    <path id="Vector_27"
+                          d="M75.63 81.36C76.41 81.22 77.18 81.06 77.95 80.89C79.22 80.6 80 81.42 80.29 82.48C80.54 83.39 80.34 84.08 79.98 84.42C80.43 84.52 81.15 84.93 81.46 86.02C81.87 87.43 81.27 88.63 79.95 88.93C79.03 89.14 78.11 89.33 77.18 89.5C76.66 86.8 76.13 84.08 75.63 81.36ZM78.57 84.17C79.26 84.01 79.43 83.54 79.27 82.9C79.11 82.27 78.69 81.98 78.15 82.1C77.73 82.19 77.32 82.28 76.9 82.37C77.04 83.06 77.19 83.75 77.33 84.44C77.75 84.35 78.16 84.26 78.57 84.17ZM78.12 88.09C78.57 88 79.01 87.91 79.46 87.81C80.21 87.64 80.51 87.12 80.29 86.3C80.1 85.57 79.63 85.19 78.82 85.38C78.41 85.47 78 85.56 77.59 85.64C77.76 86.45 77.94 87.27 78.12 88.09Z"
+                          fill="#181F43" />
+                    <path id="Vector_28"
+                          d="M83.75 85.74C83.79 86.46 83.82 87.19 83.85 87.92C83.46 88.04 83.07 88.15 82.68 88.26C82.62 85.41 82.48 82.56 82.24 79.73C82.66 79.6 83.08 79.46 83.5 79.31C85.07 81.69 86.75 84.03 88.53 86.3C88.13 86.46 87.72 86.61 87.31 86.76C86.87 86.17 86.43 85.58 86 84.99C85.27 85.25 84.51 85.5 83.75 85.74ZM85.32 83.86C84.21 82.24 83.58 81.25 83.22 80.63H83.21C83.33 81.41 83.46 82.78 83.59 84.43C84.18 84.25 84.75 84.06 85.32 83.86Z"
+                          fill="#BE2120" />
+                    <path id="Vector_29"
+                          d="M92.83 79.73C93.94 81.74 93.97 84.02 92.02 84.94C90.15 85.8 88.4 84.44 87.51 82.24C86.6 80.01 86.84 77.93 88.41 77.2C89.88 76.52 91.61 77.53 92.83 79.73ZM88.6 81.75C89.27 83.29 90.38 84.28 91.51 83.76C92.73 83.19 92.51 81.69 91.77 80.3C91.01 78.84 89.95 77.9 88.91 78.38C87.88 78.86 87.93 80.22 88.6 81.75Z"
+                          fill="#181F43" />
+                    <path id="Vector_30"
+                          d="M91.86 75.58C92.5 75.22 93.13 74.85 93.76 74.47C95.16 73.61 96.97 74.27 98.41 76.27C99.83 78.24 99.88 80.44 98.15 81.51C97.44 81.95 96.72 82.37 95.99 82.78C94.6 80.39 93.22 77.99 91.86 75.58ZM96.41 81.07C96.75 80.87 97.08 80.67 97.41 80.47C98.57 79.75 98.37 78.37 97.41 76.96C96.59 75.76 95.42 74.94 94.36 75.6C94.06 75.78 93.76 75.97 93.45 76.14C94.43 77.79 95.41 79.43 96.41 81.07Z"
+                          fill="#181F43" />
+                    <path id="Vector_31"
+                          d="M101.57 76.61C101.85 77.28 102.12 77.96 102.39 78.63C102.06 78.88 101.72 79.12 101.38 79.36C100.38 76.68 99.29 74.04 98.13 71.45C98.49 71.17 98.85 70.89 99.21 70.6C101.51 72.3 103.9 73.9 106.38 75.4C106.04 75.7 105.7 75.99 105.36 76.28C104.74 75.88 104.12 75.48 103.51 75.07C102.87 75.61 102.23 76.12 101.57 76.61ZM102.47 74.27C100.86 73.13 99.93 72.42 99.38 71.96C99.38 71.96 99.38 71.96 99.37 71.96C99.74 72.66 100.32 73.9 101 75.43C101.49 75.05 101.98 74.67 102.47 74.27Z"
+                          fill="#BE2120" />
+                    <path id="Vector_32"
+                          d="M108.36 67.57C110.1 69.06 110.88 71.24 109.3 72.84C107.78 74.36 105.64 73.7 104.04 71.95C102.43 70.17 101.96 68.11 103.24 66.83C104.44 65.62 106.45 65.93 108.36 67.57ZM104.93 71.08C106.09 72.29 107.49 72.83 108.41 71.91C109.4 70.91 108.69 69.57 107.52 68.51C106.3 67.41 104.96 66.91 104.12 67.75C103.28 68.59 103.77 69.87 104.93 71.08Z"
+                          fill="#181F43" />
+                  </g>
+                </g>
+                <defs>
+                  <linearGradient id="paint0_linear"
+                                  x1="114.138"
+                                  y1="19.0214"
+                                  x2="126.304"
+                                  y2="19.0214"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#171C61" />
+                    <stop offset="1"
+                          stop-color="#2EA7E0" />
+                  </linearGradient>
+                  <linearGradient id="paint1_linear"
+                                  x1="114.528"
+                                  y1="15.0839"
+                                  x2="133.599"
+                                  y2="15.0839"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#171C61" />
+                    <stop offset="1"
+                          stop-color="#2EA7E0" />
+                  </linearGradient>
+                  <linearGradient id="paint2_linear"
+                                  x1="114.58"
+                                  y1="12.0427"
+                                  x2="139.958"
+                                  y2="12.0427"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#171C61" />
+                    <stop offset="1"
+                          stop-color="#2EA7E0" />
+                  </linearGradient>
+                  <linearGradient id="paint3_linear"
+                                  x1="21.7009"
+                                  y1="58.2103"
+                                  x2="35.7889"
+                                  y2="58.2103"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#E4B562" />
+                    <stop offset="1"
+                          stop-color="#CA497A" />
+                  </linearGradient>
+                  <linearGradient id="paint4_linear"
+                                  x1="2.1737"
+                                  y1="37.0746"
+                                  x2="70.3255"
+                                  y2="37.0746"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#E4B562" />
+                    <stop offset="1"
+                          stop-color="#CA497A" />
+                  </linearGradient>
+                  <linearGradient id="paint5_linear"
+                                  x1="12.3874"
+                                  y1="68.5048"
+                                  x2="123.905"
+                                  y2="68.5048"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#171C61" />
+                    <stop offset="1"
+                          stop-color="#2EA7E0" />
+                  </linearGradient>
+                  <linearGradient id="paint6_linear"
+                                  x1="101.033"
+                                  y1="25.1443"
+                                  x2="110.283"
+                                  y2="41.1443"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#171C61" />
+                    <stop offset="1"
+                          stop-color="#2EA7E0" />
+                  </linearGradient>
+                  <linearGradient id="paint7_linear"
+                                  x1="59.2437"
+                                  y1="42.8548"
+                                  x2="103.667"
+                                  y2="42.8548"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#171C61" />
+                    <stop offset="1"
+                          stop-color="#2EA7E0" />
+                  </linearGradient>
+                  <linearGradient id="paint8_linear"
+                                  x1="10.8269"
+                                  y1="58.6909"
+                                  x2="74.3666"
+                                  y2="28.382"
+                                  gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#171C61" />
+                    <stop offset="1"
+                          stop-color="#2EA7E0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="has-reveal reveal-rtl w-full sm:w-3/5 mx-auto">
+              <h1 class="text-5xl gradient-text text-center mx-auto"
+                  style="width:fit-content;">關於我們</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="block md:flex bg-text-blue text-main-white rounded-b-2rem border-b-8 border-main-orange -mx-6">
+          <div class="md:w-1/2 flex-center p-3">
+            <video id="intro_vid"
+                   src="img/intro_vid.mp4"
+                   controls
+                   preload="metadata">
+              影片無法播放
+            </video>
+          </div>
+          <div class="md:w-1/2 p-6">
+            <div class="has-reveal reveal-rtl">
+              <h1 class="text-4xl"
+                  style="text-align:center;">創辦理念</h1>
+            </div>
+            <h6 class="text-lg">現在各行業，無論是科技業、傳統產業、服務業、傳直銷業…等。都圍繞在以下六點：<br />
+              <span class="">&nbsp&nbsp「找人」、「拉人」、「推銷」、「囤貨」、「售後服務」、「帶團隊」</span><br /><br />
+              且高達90~95%的人不喜歡以上六點，只想安逸工作，然而收入增加的速度比不上物價或房價上漲的速度，若想增加收入，
+              就是投資(傳統投資，投資金額大，又有一定風險)或兼職其他工作，用勞力換取金錢，沒有好的生活品質。<br />
+              <span class="">&nbsp&nbsp「寶島奇蹟-粉絲工廠」</span>的成立就是要<span>打破傳統模式</span>，透過自行開發軟體，使一般上班族及退休族也能輕鬆增加收入。</h6>
+          </div>
+
+        </div>
+
+        <div class="flex mt-2 md:mt-4">
+          <div class="w-1/2 md:w-2/5 pl-2 md:pl-4 pt-6 md:pl-24 md:pt-12">
+            <div class="has-reveal reveal-ltr">
+              <h1 class="text-4xl text-left whitespace-no-wrap overflow-visible">創辦人簡介</h1>
+            </div>
+            <ul class="text-lg md:text-2xl mt-8 list-disc">
+              <p>經歷:</p>
+              <li class="">
+                <h6>寶島奇蹟-粉絲工廠 創辦人</h6>
+              </li>
+              <li>
+                <h6>亞洲服務成交天王</h6>
+              </li>
+              <li>
+                <h6>皮指紋分析諮詢師</h6>
+              </li>
+              <li>
+                <h6>NAC神經練調整師</h6>
+              </li>
+              <li>
+                <h6>SID財富系統講師</h6>
+              </li>
+              <li>
+                <h6>兩性關係幸福講師</h6>
+              </li>
+              <li>
+                <h6>青少年兒童發展講師</h6>
+              </li>
+            </ul>
+          </div>
+          <div class="w-1/2 md:w-2/5 overflow-hidden rounded-full md:rounded-lg md:mx-10 mt-auto">
+            <img src="img/feature/founder.jpg"
+                 alt="創辦人"
+                 width="100%">
+          </div>
+        </div>
+
+      </section>
+    </template>
+    <template x-if="active_section === '#service-sec'">
+      <section id="service-sec"
+               class="active sec-height w-full bg-fixed bg-cover bg-center bg-text-blue overflow-auto"
+               style="background-image:url('img/background/lukas-cold-min.png');">
+        <!-- overlay of fixed background -->
+        <div class="min-h-screen w-full bg-main-white-2 flex flex-col">
           <!-- main content -->
-          <div class="has-reveal reveal-ltr w-full sm:w-3/5">
-            <h1 class="text-5xl">聯絡我們</h1>
-          </div>
-          <div>
-            <h4 class="text-lg">想進一步了解寶島奇蹟的服務，或是對寶島奇蹟有任何寶貴意見，都歡迎您與我們聯繫，我們竭誠為您服務！</h4>
-            <div class="w-full h-8 flex my-2">
-              <a href="https://line.me/ti/p/_vXVwriz-F"
-                 target="_blank">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true"
-                     focusable="false"
-                     data-prefix="fab"
-                     data-icon="line"
-                     class="svg-inline--fa fa-line fa-w-14 h-8 hover:text-green-700"
-                     role="img"
-                     viewBox="0 0 448 512">
-                  <path fill="currentColor"
-                        d="M272.1 204.2v71.1c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.1 0-2.1-.6-2.6-1.3l-32.6-44v42.2c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.8 0-3.2-1.4-3.2-3.2v-71.1c0-1.8 1.4-3.2 3.2-3.2H219c1 0 2.1.5 2.6 1.4l32.6 44v-42.2c0-1.8 1.4-3.2 3.2-3.2h11.4c1.8-.1 3.3 1.4 3.3 3.1zm-82-3.2h-11.4c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 1.8 1.4 3.2 3.2 3.2h11.4c1.8 0 3.2-1.4 3.2-3.2v-71.1c0-1.7-1.4-3.2-3.2-3.2zm-27.5 59.6h-31.1v-56.4c0-1.8-1.4-3.2-3.2-3.2h-11.4c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 .9.3 1.6.9 2.2.6.5 1.3.9 2.2.9h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.7-1.4-3.2-3.1-3.2zM332.1 201h-45.7c-1.7 0-3.2 1.4-3.2 3.2v71.1c0 1.7 1.4 3.2 3.2 3.2h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.8-1.4-3.2-3.2-3.2H301v-12h31.1c1.8 0 3.2-1.4 3.2-3.2V234c0-1.8-1.4-3.2-3.2-3.2H301v-12h31.1c1.8 0 3.2-1.4 3.2-3.2v-11.4c-.1-1.7-1.5-3.2-3.2-3.2zM448 113.7V399c-.1 44.8-36.8 81.1-81.7 81H81c-44.8-.1-81.1-36.9-81-81.7V113c.1-44.8 36.9-81.1 81.7-81H367c44.8.1 81.1 36.8 81 81.7zm-61.6 122.6c0-73-73.2-132.4-163.1-132.4-89.9 0-163.1 59.4-163.1 132.4 0 65.4 58 120.2 136.4 130.6 19.1 4.1 16.9 11.1 12.6 36.8-.7 4.1-3.3 16.1 14.1 8.8 17.4-7.3 93.9-55.3 128.2-94.7 23.6-26 34.9-52.3 34.9-81.5z">
-                </svg>
-              </a>
-              <a href="https://www.facebook.com/Fanfactory2019"
-                 target="_blank"
-                 class="ml-3">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true"
-                     focusable="false"
-                     data-prefix="fab"
-                     data-icon="facebook-square"
-                     class="svg-inline--fa fa-facebook-square fa-w-14 h-8 hover:text-main-blue"
-                     role="img"
-                     viewBox="0 0 448 512">
-                  <path fill="currentColor"
-                        d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
-                </svg>
-              </a>
+          <!-- top -->
+          <div class="w-full h-1/2 rounded-br-2rem p-6 pb-8 md:px-10"
+               style="background-color: #D1D2D9e6;box-shadow: 2px 2px 8px #00000066;">
+            <div class="has-reveal reveal-ltr w-3/5">
+              <h1 class="text-5xl">商業模式</h1>
+            </div>
+            <div class="flex flex-wrap w-full">
+              <div class="p-1 flex-grow flex-center flex-col">
+                <object type="image/svg+xml"
+                        data="img/svg/befriend.svg"
+                        class="h-64"
+                        alt="累積粉絲">
+                </object>
+                <p class="text-xl font-semibold text-center mt-2">累積粉絲</p>
+              </div>
+              <div class="p-1 flex-grow flex-center flex-col">
+                <object type="image/svg+xml"
+                        data="img/svg/chat.svg"
+                        class="h-64"
+                        alt="回覆與互動">
+                </object>
+                <p class="text-xl font-semibold text-center mt-2">回覆與互動</p>
+              </div>
+              <div class="p-1 flex-grow flex-center flex-col">
+                <object type="image/svg+xml"
+                        data="img/svg/online_shopping.svg"
+                        class="h-64"
+                        alt="線上商城">
+                </object>
+                <p class="text-xl font-semibold text-center mt-2">線上商城</p>
+              </div>
+              <div class="p-1 flex-grow flex-center flex-col">
+                <object type="image/svg+xml"
+                        data="img/svg/wallet.svg"
+                        class="h-64"
+                        alt="被動收入">
+                </object>
+                <p class="text-xl font-semibold text-center mt-2">被動收入</p>
+              </div>
             </div>
           </div>
+          <!-- bottom -->
+          <div class="w-full h-1/2 bg-text-blue-9 flex-grow rounded-tl-2rem ml-auto p-6 md:px-10"
+               style="box-shadow: -2px -2px 8px #00000066;">
+            <div class="has-reveal reveal-rtl w-3/5 ml-auto">
+              <h1 class="text-5xl text-right text-gray-200">特點價值</h1>
+            </div>
+            <!-- svgs -->
+            <div class="flex flex-wrap">
+              <div class="w-1/2 sm:w-1/3 flex-center px-2 my-2">
+                <object type="image/svg+xml"
+                        data="img/svg/search_people.svg"
+                        class="w-3/4 rounded-lg"
+                        alt="免找人">
+                </object>
+              </div>
+              <div class="w-1/2 sm:w-1/3 flex-center px-2 my-2">
+                <object type="image/svg+xml"
+                        data="img/svg/grab_people.svg"
+                        class="w-3/4 rounded-lg"
+                        alt="免拉人">
+                </object>
+              </div>
+              <div class="w-1/2 sm:w-1/3 flex-center px-2 my-2">
+                <object type="image/svg+xml"
+                        data="img/svg/promotion.svg"
+                        class="w-3/4 rounded-lg"
+                        alt="免推銷">
+                </object>
+              </div>
+              <div class="w-1/2 sm:w-1/3 flex-center px-2 my-2">
+                <object type="image/svg+xml"
+                        data="img/svg/lead.svg"
+                        class="w-3/4 rounded-lg"
+                        alt="免帶團隊">
+                </object>
+              </div>
+              <div class="w-1/2 sm:w-1/3 flex-center px-2 my-2">
+                <object type="image/svg+xml"
+                        data="img/svg/after_sales.svg"
+                        class="w-3/4 rounded-lg"
+                        alt="免售後服務">
+                </object>
+              </div>
+              <div class="w-1/2 sm:w-1/3 flex-center px-2 my-2">
+                <object type="image/svg+xml"
+                        data="img/svg/stock.svg"
+                        class="w-3/4 rounded-lg"
+                        alt="免囤貨">
+                </object>
+              </div>
+            </div>
 
-          <form id="contact-form"
-                class="form text-lg"
-                action=""
-                onsubmit="return validateSubmit()">
-            <div class="flex w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
-                    for="fname">暱稱</span>
-              <input class="form-input border-l-0 rounded-r"
-                     type="text"
-                     name="fname"
-                     placeholder="ex. 小明">
-            </div>
-            <div class="flex w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
-                    for="fmail">信箱</span>
-              <input class="form-input border-l-0 rounded-r"
-                     type="text"
-                     name="fmail"
-                     placeholder="ex. ****@**mail.com">
-            </div>
-            <div class="flex w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
-                    for="fphone">手機</span>
-              <input class="form-input border-l-0 rounded-r"
-                     type="text"
-                     name="fphone"
-                     placeholder="ex. 0912345678">
-            </div>
-            <div class="flex flex-col w-full my-2">
-              <span class="bg-text-blue text-main-white rounded-t text-center px-4 py-1"
-                    for="fmessage">訊息</span>
-              <textarea class="form-input border-t-0 rounded-b"
-                        name="fmessage"></textarea>
-            </div>
-            <div class="text-center">
-              <button class="bg-text-blue hover:bg-main-blue text-main-white text-lg rounded py-2 px-6">送出</button>
-            </div>
-          </form>
-          <!-- end of main content -->
+          </div>
+          <!-- end main content -->
         </div>
-      </div>
-
-      <!-- right -->
-      <div class="min-h-full block relative lg:w-1/2 mt-2 lg:mt-0 lg:ml-2 overflow-hidden">
-        <!-- parallax background -->
-        <img class='rellax-contact absolute object-cover bottom-0'
-             src="img/background/joyce.jpg"
-             alt="background"
-             style="z-index:-1;"
-             data-rellax-speed="-6">
-        <!-- white overlay -->
-        <div class="h-full bg-main-white-4 px-4 pb-4">
-          <!-- main content -->
-          <div class="w-full h-full flex flex-col justify-start lg:justify-end">
-            <div class="has-reveal reveal-rtl w-full sm:w-3/5 ml-auto">
-              <h1 class="text-5xl text-right">公司位置</h1>
-            </div>
-            <div class="text-lg">
-              <div class="flex w-full my-2">
-                <span class="bg-text-blue text-main-white rounded-l px-4 py-1">地址</span>
-                <div class="form-input flex items-center bg-white rounded-r">
-                  <p>台中市南屯區益豐東街186號2樓</p>
+      </section>
+    </template>
+    <template x-if="active_section === '#contact-sec'">
+      <section id="contact-sec"
+               class="active sec-height w-full overflow-auto bg-text-blue"
+               x-data="{}"
+               x-init="
+                 new Rellax('.rellax-contact', {
+                   wrapper: '#contact-sec'
+                 });
+               ">
+        <div class="lg:flex min-h-full p-3 pt-0">
+          <!-- left -->
+          <div class="min-h-full block relative lg:w-1/2 lg:mr-2 overflow-hidden">
+            <!-- parallax background -->
+            <img class='rellax-contact absolute bottom-0'
+                 src="img/background/milkovi.jpg"
+                 alt="background"
+                 style="z-index:-1;"
+                 data-rellax-speed="-6">
+            <!-- white overlay -->
+            <div class="h-full bg-main-white-4 px-4 pb-4">
+              <!-- main content -->
+              <div class="has-reveal reveal-ltr w-full sm:w-3/5">
+                <h1 class="text-5xl">聯絡我們</h1>
+              </div>
+              <div>
+                <h4 class="text-lg">想進一步了解寶島奇蹟的服務，或是對寶島奇蹟有任何寶貴意見，都歡迎您與我們聯繫，我們竭誠為您服務！</h4>
+                <div class="w-full h-8 flex my-2">
+                  <a href="https://line.me/ti/p/_vXVwriz-F"
+                     target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true"
+                         focusable="false"
+                         data-prefix="fab"
+                         data-icon="line"
+                         class="svg-inline--fa fa-line fa-w-14 h-8 hover:text-green-700"
+                         role="img"
+                         viewBox="0 0 448 512">
+                      <path fill="currentColor"
+                            d="M272.1 204.2v71.1c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.1 0-2.1-.6-2.6-1.3l-32.6-44v42.2c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.8 0-3.2-1.4-3.2-3.2v-71.1c0-1.8 1.4-3.2 3.2-3.2H219c1 0 2.1.5 2.6 1.4l32.6 44v-42.2c0-1.8 1.4-3.2 3.2-3.2h11.4c1.8-.1 3.3 1.4 3.3 3.1zm-82-3.2h-11.4c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 1.8 1.4 3.2 3.2 3.2h11.4c1.8 0 3.2-1.4 3.2-3.2v-71.1c0-1.7-1.4-3.2-3.2-3.2zm-27.5 59.6h-31.1v-56.4c0-1.8-1.4-3.2-3.2-3.2h-11.4c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 .9.3 1.6.9 2.2.6.5 1.3.9 2.2.9h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.7-1.4-3.2-3.1-3.2zM332.1 201h-45.7c-1.7 0-3.2 1.4-3.2 3.2v71.1c0 1.7 1.4 3.2 3.2 3.2h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.8-1.4-3.2-3.2-3.2H301v-12h31.1c1.8 0 3.2-1.4 3.2-3.2V234c0-1.8-1.4-3.2-3.2-3.2H301v-12h31.1c1.8 0 3.2-1.4 3.2-3.2v-11.4c-.1-1.7-1.5-3.2-3.2-3.2zM448 113.7V399c-.1 44.8-36.8 81.1-81.7 81H81c-44.8-.1-81.1-36.9-81-81.7V113c.1-44.8 36.9-81.1 81.7-81H367c44.8.1 81.1 36.8 81 81.7zm-61.6 122.6c0-73-73.2-132.4-163.1-132.4-89.9 0-163.1 59.4-163.1 132.4 0 65.4 58 120.2 136.4 130.6 19.1 4.1 16.9 11.1 12.6 36.8-.7 4.1-3.3 16.1 14.1 8.8 17.4-7.3 93.9-55.3 128.2-94.7 23.6-26 34.9-52.3 34.9-81.5z">
+                    </svg>
+                  </a>
+                  <a href="https://www.facebook.com/Fanfactory2019"
+                     target="_blank"
+                     class="ml-3">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true"
+                         focusable="false"
+                         data-prefix="fab"
+                         data-icon="facebook-square"
+                         class="svg-inline--fa fa-facebook-square fa-w-14 h-8 hover:text-main-blue"
+                         role="img"
+                         viewBox="0 0 448 512">
+                      <path fill="currentColor"
+                            d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
+                    </svg>
+                  </a>
                 </div>
               </div>
-              <div class="flex w-full my-2">
-                <span class="bg-text-blue text-main-white rounded-l px-4 py-1">連絡電話</span>
-                <div class="form-input flex items-center bg-white rounded-r">
-                  <p>04-23890131</p>
+
+              <form id="contact-form"
+                    class="form text-lg"
+                    onsubmit="return validateSubmit()">
+                <div class="flex w-full my-2">
+                  <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
+                        for="fname">暱稱</span>
+                  <input class="form-input border-l-0 rounded-r"
+                         type="text"
+                         name="fname"
+                         placeholder="ex. 小明">
                 </div>
-              </div>
-              <div class="w-3/5 ml-auto mr-auto"
-                   style="max-width:350px;">
-                <div class="pt-full relative">
-                  <iframe class="h-full w-full absolute top-0"
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.605451995225!2d120.62680781482341!3d24.150490384393713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693ddce1091e47%3A0xd618fc32db2d67b2!2zNDA45Y-w5Lit5biC5Y2X5bGv5Y2A55uK6LGQ5p2x6KGXMTg26Jmf!5e0!3m2!1szh-TW!2stw!4v1585731004475!5m2!1szh-TW!2stw"
-                          frameborder="0"
-                          style="border:0;"
-                          allowfullscreen=""
-                          aria-hidden="false"
-                          tabindex="0"></iframe>
+                <div class="flex w-full my-2">
+                  <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
+                        for="fmail">信箱</span>
+                  <input class="form-input border-l-0 rounded-r"
+                         type="text"
+                         name="fmail"
+                         placeholder="ex. ****@**mail.com">
                 </div>
-              </div>
-            </div>
-          </div>
-          <!-- end of main content -->
-        </div>
-        <!-- white overlay -->
-      </div>
-
-    </div>
-  </section>
-  <!-- 聯絡我們 end -->
-
-  <!-- 課程與觀看頁data -->
-  <div x-data="{course: course(),
-                watch: watch()}"
-       x-init="course.getClasses();
-               watch.init();">
-    <!-- 課程選擇頁 -->
-    <section id="course-sec"
-             class="inactive w-full sec-height bg-main-white overflow-auto"
-             style="scroll-behavior:smooth;">
-      <div class="h-auto md:h-vh-half overflow-hidden">
-
-        <div class="h-full w-full bg-cover bg-top rellax-course"
-             style="background-image:url('img/background/helloquence.jpg');"
-             data-rellax-speed="-6">
-          <!-- overlay -->
-          <div class="h-full w-full bg-main-white-4 p-6 rellax-course"
-               style="box-shadow:inset 0px -9px 5px rgba(70,70,70,0.3);"
-               data-rellax-speed="-2">
-            <div class="mt-12">
-              <div class="has-reveal reveal-ltr">
-                <h1 class="text-6xl text-center font-medium">寶島知識趣</h1>
-              </div>
-              <div class="has-reveal reveal-ltr">
-                <h1 class="text-3xl w-fit gradient-text text-center font-semibold italic mb-2 mx-auto">Enjoy Knowledge!</h1>
-              </div>
-              <div class="text-center">
-                <p class="text-2xl sm:text-3xl">體驗八大領域，豐富生活點滴</p>
-              </div>
-            </div>
-
-          </div>
-          <!-- overlay end -->
-        </div>
-      </div>
-
-      <!-- 分類欄 -->
-      <div id="course-nav"
-           class="bg-text-blue text-main-white border-main-orange border-b-8 rounded-b-2rem p-2 md:p-4 shadow-md">
-        <h1 class="text-4xl text-center">課程分類</h1>
-        <div class="course-cat flex flex-wrap text-sm sm:text-base md:text-lg">
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(4);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/health.png"
-                   alt="大健康">
-              <p>大健康</p>
-            </div>
-          </div>
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(1);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/children_ed.png"
-                   alt="兒童教育">
-              <p>兒童教育</p>
-            </div>
-          </div>
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(5);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/fortune.png"
-                   alt="風水命理">
-              <p>風水命理</p>
-            </div>
-          </div>
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(6);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/tour.png"
-                   alt="全球旅遊">
-              <p>全球旅遊</p>
-            </div>
-          </div>
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(9);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/success.png"
-                   alt="成功學">
-              <p>成功學</p>
-            </div>
-          </div>
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(8);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/mental.png"
-                   alt="身心靈">
-              <p>身心靈</p>
-            </div>
-          </div>
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(7);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/beauty.png"
-                   alt="美業">
-              <p>美業</p>
-            </div>
-          </div>
-          <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
-            <div class="course-cat-item text-center cursor-pointer"
-                 @click="course.getClasses(10);
-                       course.scrollToResult();">
-              <img data-src="img/catagory/wealth.png"
-                   alt="理財">
-              <p>理財</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 分類欄 end -->
-
-      <!-- 課程框區域 -->
-      <div id="course-results"
-           class="courses p-6">
-        <!-- 課程分區 -->
-        <div class="newest">
-          <!-- 搜尋分類 -->
-          <h2 class="text-4xl italic"
-              x-text="course.boxTitle"></h2>
-          <!-- 預設樣式 -->
-          <div class="pre-template"
-               x-show="!course.searchStatus">
-            <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
-              <div class="box relative bg-white rounded-1rem overflow-hidden">
-                <div class="overlay absolute w-full h-full bg-main-white-2">
-                  <div class="spinner w-full h-full text-6xl"></div>
+                <div class="flex w-full my-2">
+                  <span class="bg-text-blue text-main-white rounded-l px-4 py-1"
+                        for="fphone">手機</span>
+                  <input class="form-input border-l-0 rounded-r"
+                         type="text"
+                         name="fphone"
+                         placeholder="ex. 0912345678">
                 </div>
-                <a class="h-full flex flex-col">
-                  <div class="w-full overflow-y-hidden bg-gray-400"
-                       style="height:13rem;max-height:13rem;">
-                  </div>
-                  <!-- box body -->
-                  <div class="box-body w-full flex flex-grow p-2">
-                    <div class="h-16 w-16 bg-text-blue rounded-full mr-2"></div>
-                    <!-- text area -->
-                    <div class="flex-grow">
-                      <div class="ml-2">
-                        <h1 class="h-20 text-2xl">搜尋中...</h1>
-                      </div>
-                      <div class="ep mt-2">
-                        <h5 class="text-right text-lg text-gray-600">搜尋中...</h5>
-                      </div>
+                <div class="flex flex-col w-full my-2">
+                  <span class="bg-text-blue text-main-white rounded-t text-center px-4 py-1"
+                        for="fmessage">訊息</span>
+                  <textarea class="form-input border-t-0 rounded-b"
+                            name="fmessage"></textarea>
+                </div>
+                <div class="text-center">
+                  <button class="bg-text-blue hover:bg-main-blue text-main-white text-lg rounded py-2 px-6">送出</button>
+                </div>
+              </form>
+              <!-- end of main content -->
+            </div>
+          </div>
+
+          <!-- right -->
+          <div class="min-h-full block relative lg:w-1/2 mt-2 lg:mt-0 lg:ml-2 overflow-hidden">
+            <!-- parallax background -->
+            <img class='rellax-contact absolute object-cover bottom-0'
+                 src="img/background/joyce.jpg"
+                 alt="background"
+                 style="z-index:-1;"
+                 data-rellax-speed="-6">
+            <!-- white overlay -->
+            <div class="h-full bg-main-white-4 px-4 pb-4">
+              <!-- main content -->
+              <div class="w-full h-full flex flex-col justify-start lg:justify-end">
+                <div class="has-reveal reveal-rtl w-full sm:w-3/5 ml-auto">
+                  <h1 class="text-5xl text-right">公司位置</h1>
+                </div>
+                <div class="text-lg">
+                  <div class="flex w-full my-2">
+                    <span class="bg-text-blue text-main-white rounded-l px-4 py-1">地址</span>
+                    <div class="form-input flex items-center bg-white rounded-r">
+                      <p>台中市南屯區益豐東街186號2樓</p>
                     </div>
-                    <!-- end text area -->
                   </div>
-                  <!-- box body end -->
-                </a>
+                  <div class="flex w-full my-2">
+                    <span class="bg-text-blue text-main-white rounded-l px-4 py-1">連絡電話</span>
+                    <div class="form-input flex items-center bg-white rounded-r">
+                      <p>04-23890131</p>
+                    </div>
+                  </div>
+                  <div class="w-3/5 ml-auto mr-auto"
+                       style="max-width:350px;">
+                    <div class="pt-full relative">
+                      <iframe class="h-full w-full absolute top-0"
+                              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.605451995225!2d120.62680781482341!3d24.150490384393713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693ddce1091e47%3A0xd618fc32db2d67b2!2zNDA45Y-w5Lit5biC5Y2X5bGv5Y2A55uK6LGQ5p2x6KGXMTg26Jmf!5e0!3m2!1szh-TW!2stw!4v1585731004475!5m2!1szh-TW!2stw"
+                              frameborder="0"
+                              style="border:0;"
+                              allowfullscreen=""
+                              aria-hidden="false"
+                              tabindex="0"></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end of main content -->
+            </div>
+            <!-- white overlay -->
+          </div>
+
+        </div>
+      </section>
+    </template>
+    <!-- 課程選擇頁 -->
+    <template x-if="active_section === '#course-sec'">
+      <section id="course-sec"
+               class="active w-full sec-height bg-main-white overflow-auto"
+               style="scroll-behavior:smooth;"
+               x-data="course()"
+               x-init="
+                 getClasses();
+                 new Rellax('.rellax-course', {
+                   wrapper: '#course-sec'
+                 });
+               ">
+        <div class="h-auto md:h-vh-half overflow-hidden">
+
+          <div class="h-full w-full bg-cover bg-top rellax-course"
+               style="background-image:url('img/background/helloquence.jpg');"
+               data-rellax-speed="-6">
+            <!-- overlay -->
+            <div class="h-full w-full bg-main-white-4 p-6 rellax-course"
+                 style="box-shadow:inset 0px -9px 5px rgba(70,70,70,0.3);"
+                 data-rellax-speed="-2">
+              <div class="mt-12">
+                <div class="has-reveal reveal-ltr">
+                  <h1 class="text-6xl text-center font-medium">寶島知識趣</h1>
+                </div>
+                <div class="has-reveal reveal-ltr">
+                  <h1 class="text-3xl w-fit gradient-text text-center font-semibold italic mb-2 mx-auto">Enjoy Knowledge!</h1>
+                </div>
+                <div class="text-center">
+                  <p class="text-2xl sm:text-3xl">體驗八大領域，豐富生活點滴</p>
+                </div>
+              </div>
+
+            </div>
+            <!-- overlay end -->
+          </div>
+        </div>
+
+        <!-- 分類欄 -->
+        <div id="course-nav"
+             class="bg-text-blue text-main-white border-main-orange border-b-8 rounded-b-2rem p-2 md:p-4 shadow-md">
+          <h1 class="text-4xl text-center">課程分類</h1>
+          <div class="course-cat flex flex-wrap text-sm sm:text-base md:text-lg">
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(4);
+                           scrollToResult();">
+                <img src="img/catagory/health.png"
+                     alt="大健康">
+                <p>大健康</p>
+              </div>
+            </div>
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(1);
+                           scrollToResult();">
+                <img src="img/catagory/children_ed.png"
+                     alt="兒童教育">
+                <p>兒童教育</p>
+              </div>
+            </div>
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(5);
+                           scrollToResult();">
+                <img src="img/catagory/fortune.png"
+                     alt="風水命理">
+                <p>風水命理</p>
+              </div>
+            </div>
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(6);
+                           scrollToResult();">
+                <img src="img/catagory/tour.png"
+                     alt="全球旅遊">
+                <p>全球旅遊</p>
+              </div>
+            </div>
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(9);
+                           scrollToResult();">
+                <img src="img/catagory/success.png"
+                     alt="成功學">
+                <p>成功學</p>
+              </div>
+            </div>
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(8);
+                           scrollToResult();">
+                <img src="img/catagory/mental.png"
+                     alt="身心靈">
+                <p>身心靈</p>
+              </div>
+            </div>
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(7);
+                           scrollToResult();">
+                <img src="img/catagory/beauty.png"
+                     alt="美業">
+                <p>美業</p>
+              </div>
+            </div>
+            <div class="flex-wrapper w-1/4 md:w-1/8 px-4 lg:px-6 xl:px-8 py-2">
+              <div class="course-cat-item fill-x text-center cursor-pointer hover:text-text-blue hover:font-semibold"
+                   @click="getClasses(10);
+                           scrollToResult();">
+                <img src="img/catagory/wealth.png"
+                     alt="理財">
+                <p>理財</p>
               </div>
             </div>
           </div>
-          <!-- 無結果顯示 -->
-          <div x-show="!course.errorStatus && course.searchStatus && course.boxInfo.length === 0">
-            <h1 class="text-2xl">尚未推出，敬請期待...</h1>
-          </div>
-          <!-- 錯誤顯示 -->
-          <div class="bg-red-400 border-l-4 border-red-700 text-red-900 text-xl px-4 py-2"
-               role="alert"
-               x-show="course.errorStatus && course.errorMessage != ''">
-            <h1 x-text="course.errorMessage"></h1>
-          </div>
-          <!-- 分區課程列表 -->
-          <div class="flex flex-wrap"
-               x-show="course.searchStatus">
+        </div>
+        <!-- 分類欄 end -->
 
-            <template x-for="courseBox in course.boxInfo"
-                      :key="courseBox.id">
-              <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3"
-                   :classId="courseBox.id">
-                <div class="box bg-white rounded-1rem overflow-hidden shadow-md">
-                  <a class=" h-full flex flex-col"
-                     href="#watch-sec"
-                     @click="setQuery('class_id', courseBox.id);
-                     watch.setClass(courseBox.id);">
-                    <div class="w-full relative pt-16:9 flex-center">
-                      <img class="h-full absolute top-0 mx-auto"
-                           :src="courseBox.thumbnail_url"
-                           :alt="courseBox.title">
-                      <div class="thumbnail-mask w-full h-full absolute top-0 left-0"
-                           style="background: linear-gradient(to top , #4d4d4d1a , transparent 15%);"></div>
+        <!-- 課程框區域 -->
+        <div id="course-results"
+             class="courses p-6">
+          <!-- 課程分區 -->
+          <div class="newest">
+            <!-- 搜尋分類 -->
+            <h2 class="text-4xl italic"
+                x-text="boxTitle"></h2>
+            <!-- 預設樣式 -->
+            <div class="pre-template"
+                 x-show="!searchStatus">
+              <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3">
+                <div class="box relative bg-white rounded-1rem overflow-hidden">
+                  <div class="overlay absolute w-full h-full bg-main-white-2">
+                    <div class="spinner w-full h-full text-6xl"></div>
+                  </div>
+                  <a class="h-full flex flex-col">
+                    <div class="w-full overflow-y-hidden bg-gray-400"
+                         style="height:13rem;max-height:13rem;">
                     </div>
                     <!-- box body -->
                     <div class="box-body w-full flex flex-grow p-2">
-                      <img class="h-16 w-16 rounded-full mr-2"
-                           :src="courseBox.teacher_url"
-                           alt="老師">
+                      <div class="h-16 w-16 bg-text-blue rounded-full mr-2"></div>
                       <!-- text area -->
-                      <div class="flex-col flex-grow">
-                        <div class="flex-grow ml-2">
-                          <h5 class="h-20 w-full text-2xl"
-                              x-text="courseBox.title"></h5>
+                      <div class="flex-grow">
+                        <div class="ml-2">
+                          <h1 class="h-20 text-2xl">搜尋中...</h1>
                         </div>
                         <div class="ep mt-2">
-                          <h5 class="text-right text-lg text-gray-600">共
-                            <span class="text-gray-900 mx-1"
-                                  x-text="courseBox.total"></span>集</h5>
+                          <h5 class="text-right text-lg text-gray-600">搜尋中...</h5>
                         </div>
                       </div>
                       <!-- end text area -->
@@ -1530,108 +1648,198 @@
                   </a>
                 </div>
               </div>
-            </template>
+            </div>
+            <!-- 無結果顯示 -->
+            <div x-show="!errorStatus && searchStatus && boxInfo.length === 0">
+              <h1 class="text-2xl">尚未推出，敬請期待...</h1>
+            </div>
+            <!-- 錯誤顯示 -->
+            <div class="bg-red-400 border-l-4 border-red-700 text-red-900 text-xl px-4 py-2"
+                 role="alert"
+                 x-show="errorStatus && errorMessage != ''">
+              <h1 x-text="errorMessage"></h1>
+            </div>
 
+            <!-- 分區課程列表 -->
+            <div class="flex flex-wrap"
+                 x-show="searchStatus">
+              <!-- 課程框 template -->
+              <template x-for="courseBox in boxInfo"
+                        :key="courseBox.id">
+                <div class="box-container w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-0 sm:p-3 mb-3"
+                     :classId="courseBox.id">
+                  <div class="box bg-white rounded-1rem overflow-hidden shadow-md">
+                    <a class=" h-full flex flex-col"
+                       href="#watch-sec"
+                       @click="setQuery('class_id', courseBox.id);">
+                      <div class="w-full relative pt-16:9 flex-center">
+                        <img class="h-full absolute top-0 mx-auto"
+                             :src="courseBox.thumbnail_url"
+                             :alt="courseBox.title">
+                        <div class="thumbnail-mask w-full h-full absolute top-0 left-0"
+                             style="background: linear-gradient(to top , #4d4d4d1a , transparent 15%);"></div>
+                      </div>
+                      <!-- box body -->
+                      <div class="box-body w-full flex flex-grow p-2">
+                        <img class="h-16 w-16 rounded-full mr-2"
+                             :src="courseBox.teacher_url"
+                             alt="老師">
+                        <!-- text area -->
+                        <div class="flex-col flex-grow">
+                          <div class="flex-grow ml-2">
+                            <h5 class="h-20 w-full text-2xl"
+                                x-text="courseBox.title"></h5>
+                          </div>
+                          <div class="ep mt-2">
+                            <h5 class="text-right text-lg text-gray-600">共
+                              <span class="text-gray-900 mx-1"
+                                    x-text="courseBox.total"></span>集</h5>
+                          </div>
+                        </div>
+                        <!-- end text area -->
+                      </div>
+                      <!-- box body end -->
+                    </a>
+                  </div>
+                </div>
+              </template>
+
+            </div>
           </div>
         </div>
-      </div>
-      <!-- 課程框區域 end -->
+        <!-- 課程框區域 end -->
 
-    </section>
+      </section>
+    </template>
     <!-- 課程選擇頁 end -->
 
     <!-- 觀看課程頁 -->
-    <section id="watch-sec"
-             class="inactive w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 pt-1 sm:p-6 sm:pt-1">
-      <!-- left -->
-      <div class="w-full lg:w-4/6">
-        <div class="w-full mt-2">
-          <!-- 未購買時顯示 -->
-          <div class="w-full pt-16:9 relative bg-gray-700"
-               x-show="watch.video_url === ''">
-            <div class="w-full h-full absolute top-0 left-0 flex-center flex-col"
-                 style="box-shadow:inset 0px 0px 15px 4px rgba(0, 0, 0, 0.7);">
-              <p class="text-2xl">接下來的課程需要您的支持!</p>
-              <p class="text-2xl">請先登入並購買，感謝您!</p>
-              <a class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
-                 href="https://baodao7.com/user/login">登入</a>
+    <template x-if="active_section === '#watch-sec'">
+      <section id="watch-sec"
+               class="active w-full sec-height flex flex-col lg:flex-row bg-text-blue text-main-white overflow-auto p-3 pt-1 sm:p-6 sm:pt-1"
+               x-data="watch()"
+               x-init="init();">
+        <!-- left -->
+        <div class="w-full lg:w-4/6">
+          <div class="w-full mt-2">
+            <!-- 未購買時顯示 -->
+            <div class="w-full pt-16:9 relative bg-gray-700"
+                 x-show="video_url === ''">
+              <div class="w-full h-full absolute top-0 left-0 flex-center flex-col"
+                   style="box-shadow:inset 0px 0px 15px 4px rgba(0, 0, 0, 0.7);">
+                <p class="text-2xl">接下來的課程需要您的支持!</p>
+                <p class="text-2xl">請先登入並購買，感謝您!</p>
+                <a class="bg-main-orange hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
+                   href="https://baodao7.com/user/login">登入</a>
+              </div>
+            </div>
+            <!-- 影片 -->
+            <div class="w-full pt-16:9 relative"
+                 x-show="video_url != ''">
+              <video class="w-full h-full absolute top-0 left-0"
+                     :src="video_url"
+                     controls>
+              </video>
             </div>
           </div>
-          <!-- 影片 -->
-          <div class="w-full pt-16:9 relative"
-               x-show="watch.video_url != ''">
-            <video class="w-full h-full absolute top-0 left-0"
-                   :src="watch.video_url"
-                   controls>
-            </video>
-          </div>
-        </div>
-        <div class="text-box p-3">
-          <div class="vid-title border-b border-main-orange pb-3">
-            <h1 class="text-3xl"
-                x-text="watch.lesson_title"></h1>
-          </div>
-          <div class="description py-3">
-            <p class="text-lg"
-               x-text="watch.lesson_description"></p>
-          </div>
-          <div class="buy-btns flex flex-col sm:flex-row">
-            <a class="bg-main-orange flex-center hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
-               href="https://baodao7.com/user/login"
-               x-show="watch.lesson_price != 0">購買此集
-              <p class="cur-cost"
-                 x-text="watch.lesson_price">&nbsp</p>點</a>
-            <a class="bg-main-orange flex-center hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
-               href="https://baodao7.com/user/login">購買完整課程
-              <p class="all-cost"
-                 x-text="watch.class_price">&nbsp</p>點</a>
-          </div>
-        </div>
-      </div>
-      <!-- right -->
-      <div class="w-full flex-grow lg:w-2/6 px-2 lg:pl-4 lg:pr-0">
-        <div class="eps-box text-xl">
-          <template x-for="(item, index) in watch.lessons"
-                    :key="index">
-            <div class="eps-item relative flex hover:bg-main-blue rounded-full cursor-pointer p-3 transition-colors duration-300 ease-out"
-                 @click="watch.setLesson(item.id)"
-                 :class="{'bg-main-blue': watch.lesson_id === item.id}">
-              <span class="status-icon flex-center mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true"
-                     focusable="false"
-                     data-prefix="fas"
-                     data-icon="lock"
-                     height="1em"
-                     role="img"
-                     viewBox="0 0 448 512"
-                     x-show="item.price != 0">
-                  <path fill="currentColor"
-                        d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z" /></svg>
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true"
-                     focusable="false"
-                     data-prefix="fas"
-                     data-icon="play-circle"
-                     class="svg-inline--fa fa-play-circle fa-w-16"
-                     height="1em"
-                     role="img"
-                     viewBox="0 0 512 512"
-                     x-show="item.price === 0">
-                  <path fill="currentColor"
-                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z" /></svg>
-              </span>
-              <span x-text="index+1 +'.&nbsp' "></span>
-              <p class="title flex-grow truncate"
-                 x-text="item.title"></p>
-              <!-- <p class="duration flex-grow text-right">5:04</p> -->
+          <div class="text-box p-3">
+            <div class="vid-title border-b border-main-orange pb-3">
+              <h1 class="text-3xl"
+                  x-text="lesson_title"></h1>
             </div>
-          </template>
+            <div class="description py-3">
+              <p class="text-lg"
+                 x-text="lesson_description"></p>
+            </div>
+            <div class="buy-btns flex flex-col sm:flex-row">
+              <a class="bg-main-orange flex-center hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
+                 href="https://baodao7.com/user/login"
+                 x-show="lesson_price != 0">購買此集
+                <p class="cur-cost"
+                   x-text="lesson_price">&nbsp</p>點</a>
+              <a class="bg-main-orange flex-center hover:bg-orange-400 text-text-blue sm:text-lg font-bold py-2 px-4 m-2 ml-0 rounded shadow-lg"
+                 href="https://baodao7.com/user/login">購買完整課程
+                <p class="all-cost"
+                   x-text="class_price">&nbsp</p>點</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+        <!-- right -->
+        <div class="w-full flex-grow lg:w-2/6 px-2 lg:pl-4 lg:pr-0">
+          <div class="eps-box text-xl">
+            <template x-for="(item, index) in lessons"
+                      :key="index">
+              <div class="eps-item relative flex hover:bg-main-blue rounded-full cursor-pointer p-3 transition-colors duration-300 ease-out"
+                   @click="setLesson(item.id)"
+                   :class="{'bg-main-blue': lesson_id === item.id}">
+                <span class="status-icon flex-center mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       aria-hidden="true"
+                       focusable="false"
+                       data-prefix="fas"
+                       data-icon="lock"
+                       height="1em"
+                       role="img"
+                       viewBox="0 0 448 512"
+                       x-show="item.price != 0">
+                    <path fill="currentColor"
+                          d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       aria-hidden="true"
+                       focusable="false"
+                       data-prefix="fas"
+                       data-icon="play-circle"
+                       class="svg-inline--fa fa-play-circle fa-w-16"
+                       height="1em"
+                       role="img"
+                       viewBox="0 0 512 512"
+                       x-show="item.price === 0">
+                    <path fill="currentColor"
+                          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z" /></svg>
+                </span>
+                <span x-text="index+1 +'.&nbsp' "></span>
+                <p class="title flex-grow truncate"
+                   x-text="item.title"></p>
+                <!-- <p class="duration flex-grow text-right">5:04</p> -->
+              </div>
+            </template>
+          </div>
+        </div>
+      </section>
+    </template>
     <!-- 觀看課程頁 end -->
-  </div>
+
+    <div class="mask absolute top-0 left-0 w-full h-full bg-blue-800 hidden"></div>
+  </section>
+
+  <section id="curtain"
+           class="flex flex-col h-screen w-screen hidden">
+    <div class="flex flex-grow">
+      <div class="curt_in-left"
+           style="background-color: #3b3b93;"></div>
+      <div class="curt_in-right"
+           style="background-color: #3b3b93;"></div>
+    </div>
+    <div class="flex flex-grow">
+      <div class="curt_in-left"
+           style="background-color: #425c7d;"></div>
+      <div class="curt_in-right"
+           style="background-color: #425c7d;"></div>
+    </div>
+    <div class="flex flex-grow">
+      <div class="curt_in-left"
+           style="background-color: #157966;"></div>
+      <div class="curt_in-right"
+           style="background-color: #157966;"></div>
+    </div>
+    <div class="flex flex-grow">
+      <div class="curt_in-left"
+           style="background-color: #30ac61;"></div>
+      <div class="curt_in-right"
+           style="background-color: #30ac61;"></div>
+    </div>
+  </section>
 
 
   <script src="js/courseBoxCompatible.js?ver1.0"></script>
@@ -1649,17 +1857,11 @@
   <script src="js/rellax.min.js"></script>
   <script>
     var urlParams = new URLSearchParams(location.search);
-    var rellaxCourse = new Rellax('.rellax-course', {
-      wrapper: '#course-sec'
-    });
-    var rellaxContact = new Rellax('.rellax-contact', {
-      wrapper: '#contact-sec'
-    });
+
     const watcher = new IntersectionObserver(onEnterView)
     const lazyImages = document.querySelectorAll('img[data-src]')
 
     $(document).ready(function() {
-      window.addEventListener("hashchange", showSec(location.hash), false);
 
       for (let image of lazyImages) {
         watcher.observe(image) // lazy load observe
@@ -1678,32 +1880,32 @@
       }
     }
 
-    // 首頁選單
-    function toggleMenu() {
-      $('#phone-menu').toggleClass('active');
-      $('.center-menu').toggleClass('active');
-    }
-
     // sidebar menu
     function sideNav() {
       return [{
         href: '#course-sec',
         text: '知識趣',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 19h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm0 2h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm.25 2h-4.5l1.188.782c.154.138.38.218.615.218h.895c.234 0 .461-.08.615-.218l1.187-.782zm3.75-13.799c0 3.569-3.214 5.983-3.214 8.799h-1.989c-.003-1.858.87-3.389 1.721-4.867.761-1.325 1.482-2.577 1.482-3.932 0-2.592-2.075-3.772-4.003-3.772-1.925 0-3.997 1.18-3.997 3.772 0 1.355.721 2.607 1.482 3.932.851 1.478 1.725 3.009 1.72 4.867h-1.988c0-2.816-3.214-5.23-3.214-8.799 0-3.723 2.998-5.772 5.997-5.772 3.001 0 6.003 2.051 6.003 5.772zm4-.691v1.372h-2.538c.02-.223.038-.448.038-.681 0-.237-.017-.464-.035-.69h2.535zm-10.648-6.553v-1.957h1.371v1.964c-.242-.022-.484-.035-.726-.035-.215 0-.43.01-.645.028zm-3.743 1.294l-1.04-1.94 1.208-.648 1.037 1.933c-.418.181-.822.401-1.205.655zm10.586 1.735l1.942-1.394.799 1.115-2.054 1.473c-.191-.43-.423-.827-.687-1.194zm-3.01-2.389l1.038-1.934 1.208.648-1.041 1.941c-.382-.254-.786-.473-1.205-.655zm-10.068 3.583l-2.054-1.472.799-1.115 1.942 1.393c-.264.366-.495.763-.687 1.194zm13.707 6.223l2.354.954-.514 1.271-2.425-.982c.21-.397.408-.812.585-1.243zm-13.108 1.155l-2.356 1.06-.562-1.251 2.34-1.052c.173.433.371.845.578 1.243zm-1.178-3.676h-2.538v-1.372h2.535c-.018.226-.035.454-.035.691 0 .233.018.458.038.681z"/></svg>'
       }, {
         href: 'https://baodao7.com/mall',
         text: '寶島商城',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-4v-3c0-2.209-1.791-4-4-4s-4 1.791-4 4v3h-4l-2 17h20l-2-17zm-11-3c0-1.654 1.346-3 3-3s3 1.346 3 3v3h-6v-3zm-4.751 18l1.529-13h2.222v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h2.222l1.529 13h-15.502z"/></svg>'
       }, {
         href: '#about-sec',
         text: '關於我們',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5.495 2h16.505v-2h-17c-1.656 0-3 1.343-3 3v18c0 1.657 1.344 3 3 3h17v-20h-16.505c-1.376 0-1.376-2 0-2zm.505 4h14v16h-14v-16zm5.211 11.365c.464-1.469 1.342-3.229 1.496-3.675.225-.646-.174-.934-1.429.171l-.278-.525c1.432-1.559 4.381-1.91 3.378.504-.627 1.508-1.075 2.525-1.331 3.31-.374 1.144.569.68 1.493-.173.127.206.167.271.294.508-2.054 1.953-4.331 2.125-3.623-.12zm3.895-6.71c-.437.372-1.084.364-1.446-.018-.361-.382-.302-.992.135-1.364.438-.372 1.084-.363 1.446.018.362.382.302.993-.135 1.364z"/></svg>'
       }, {
         href: '#service-sec',
         text: '商業模式',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.496 20h2.633l-3.42 4h-2.627l3.414-4zm9.504-14h-8v1h8v-1zm-6 18h2v-4h-2v4zm2.855-4l3.42 4h2.627l-3.414-4h-2.633zm.145-8h-5v1h5v-1zm3-2h-8v1h8v-1zm0-2h-8v1h8v-1zm6-5h-1v8c0 1.625-5 7-7 7h-13v-15h-1v-3h22v3zm-3 0h-16v13h10.682c2.077 0 1.318-4 1.318-4s4 .825 4-1.229v-7.771zm-12 3h-1v1h1v-1zm0 2h-1v1h1v-1zm0 2h-1v1h1v-1zm0 2h-1v1h1v-1z"/></svg>'
       }, {
         href: '#contact-sec',
         text: '聯絡我們',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>'
       }, {
         href: 'https://baodao7.com/user/login',
-        text: '登入/註冊',
+        text: '會員中心',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"/></svg>'
       }];
     }
 
@@ -1712,34 +1914,40 @@
       location.hash = hash;
     }
 
-    //show target section
-    function showSec(secId) {
-      let showDelay = 500;
-
-      var secId = location.hash;
-      // temp solution for logo animation in
-      if (secId === "#about-sec") {
-        animateLogo();
-      }
-      // 沒標籤時導向首頁，且不開啟 navbar
-      if (secId != '')
-        $('.navbar').removeClass('inactive');
-      else {
-        secId = '#main-sec';
-        $('.navbar').addClass('inactive');
-      }
-
-      setTitle(secId);
-
-      closeActive(); // close active section
-      // show target section
-      var targetSec = $(secId);
-      setTimeout(function() {
-        targetSec.addClass('active').addClass('flashIn').removeClass('inactive');
-        setTimeout(function() {
-          targetSec.removeClass('flashIn');
-        }, 1000);
-      }, showDelay);
+    // fire when active_section has changed
+    function pageTransit() {
+      let animationend = "webkitAnimationEnd oanimationend msAnimationEnd animationend";
+      //spin main container
+      let main_container = $('#main-container');
+      main_container.find('.mask').removeClass('hidden');
+      $(main_container).css('animation', 'spinScreen linear 1.5s');
+      $(main_container).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(event) {
+        $(main_container).css('animation', 'none');
+        main_container.find('.mask').addClass('hidden');
+      });
+      // curtain animation
+      $('#curtain').removeClass('hidden');
+      $('.curt_in-left').each(function(index, item) {
+        let delay = 0 + index * 0.2 + "s";
+        $(item).css('animation', "curt-in 1.7s ease " + delay);
+        if (index != 3) {
+          $(item).one(animationend, function(event) {
+            $(item).css('animation', 'none');
+          });
+        } else {
+          $(item).one(animationend, function(event) {
+            $(item).css('animation', 'none');
+            $('#curtain').addClass('hidden');
+          });
+        }
+      });
+      $('.curt_in-right').each(function(index, item) {
+        let delay = 0 + index * 0.2 + "s";
+        $(item).css('animation', "curt-in 1.7s ease " + delay);
+        $(item).one(animationend, function(event) {
+          $(item).css('animation', 'none');
+        });
+      });
     }
 
     // close active section
@@ -1772,16 +1980,16 @@
     }
 
     function animateLogo() {
-      var logo_plane = $('#AMBLOGO #plane');
-      logo_plane.css('animation', "fly-in 1.3s 1.3s forwards ease-out");
+      var logo_plane = $('.jumbo-logo #plane');
+      logo_plane.css('animation', "fly-in 1s 1.2s forwards ease-out");
 
-      var logo_words = $('#AMBLOGO #words path');
+      var logo_words = $('.jumbo-logo #words path');
       logo_words.each((i, word) => {
         let delay = 2.3 + 0.1 * i + "s";
         $(word).css('animation', "bounce-up .4s forwards cubic-bezier(0.35, 0.35, 0.43, 1) " + delay);
       });
 
-      var logo_wifi = $('#AMBLOGO #wifi path');
+      var logo_wifi = $('.jumbo-logo #wifi path');
       logo_wifi.each((i, item) => {
         let delay = 3.5 + 0.2 * i + "s";
         $(item).css('animation', "fade-in-3 3s forwards " + delay);

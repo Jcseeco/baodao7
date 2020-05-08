@@ -47,7 +47,7 @@ var AjaxHandler = /*#__PURE__*/ function() {
     value: async function getClasses() {
       var cat_id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var teacher_id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var order_column = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'updated_at';
+      var order_column = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'created_at';
       var order_type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'desc';
       var offset = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
       var data = {
@@ -83,8 +83,7 @@ var AjaxHandler = /*#__PURE__*/ function() {
         class_id: class_id,
         order_column: order_column,
         order_type: order_type,
-        offset: offset,
-        limit: limit
+        offset: offset
       };
       var response = await this.postRequest(this.lessionsUrl, data);
       return response.data;
