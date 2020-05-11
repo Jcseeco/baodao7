@@ -8,10 +8,10 @@
   <title>寶島奇蹟</title>
   <link rel="icon"
         href="img/logo_icon.png">
-  <!-- <link rel="stylesheet"
-        href="css/style.min.css?ver1.1"> -->
   <link rel="stylesheet"
-        href="css/style.css?ver1.0">
+        href="css/style.min.css?ver1.2">
+  <!-- <link rel="stylesheet"
+        href="css/style.css?ver1.0"> -->
   <style>
     body {
       -webkit-tap-highlight-color: transparent;
@@ -563,7 +563,7 @@
       style="background-image:url('img/background/stardust.png');">
 
   <section id="main-container"
-           class="active h-full w-full"
+           class="active h-screen w-screen top-0 left-0"
            x-data="{active_section: '',
            menu_active: false,
            topbar_active: false,
@@ -799,9 +799,9 @@
     </header>
 
     <template x-if="active_section === '#main-sec'">
-      <section id="main-sec"
-               class="w-full h-screen overflow-auto">
-        <div class="h-screen w-full bg-cover bg-no-repeat"
+      <section class="w-full h-screen overflow-auto">
+        <div id="main-sec"
+             class="h-screen w-full bg-cover bg-no-repeat"
              style="background-image: url(' img/background/101bright-min.png');">
           <div id="main-sec-content"
                class="h-full w-full flex flex-col items-center"
@@ -834,7 +834,7 @@
                    style="max-width: 100px;"
                    x-show="!menu_active"
                    @click="menu_active = !menu_active;">
-              <img class="absolute"
+              <img class="absolute select-none"
                    src="img/feature/phone-income.png"
                    alt="選單"
                    style="max-width: 100px;top:50vh;left:50vw;transform:translate(-50%, -50%);"
@@ -853,7 +853,7 @@
             <!-- menu display on home page -->
             <div class="center-menu flex-center w-screen h-screen text-main-white text-xl font-semibold"
                  :class="{'active': menu_active}"
-                 @click="menu_active = !menu_active;">
+                 @click="menu_active = false;">
               <ul class="menu-list flex-center">
                 <li class="menu-item flex-center cursor-pointer"
                     :class="{'active': menu_active}">
@@ -907,41 +907,72 @@
             </div>
           </div>
         </div>
-        <!-- 商城介紹區 -->
-        <div class="w-full bg-main-white p-6"
-             style="box-shadow:0px -8px 10px 3px #21212166">
-          <div class="w-full block sm:flex flex-row-reverse">
-            <div class="sm:w-3/5 sm:pl-4">
-              <img class="rounded-lg"
-                   src="img/feature/watch.jpg"
-                   alt="寶島知識趣"
-                   style="box-shadow:3px 3px 9px 1px rgba(0, 0, 0, 0.5)"></div>
-            <div class="sm:w-2/5 flex-center flex-col sm:pl-8">
-              <div class="text-left">
-                <h1 class="relative inline-block text-5xl text-left border-4 border-text-blue border-b-0 border-double px-2 pb-2 mb-6">
-                  寶島知識趣
-                  <div class="absolute top-0 left-0 w-1/3 h-full border-b-4 border-double border-text-blue"></div>
-                  <div class="absolute top-0 right-0 w-1/3 h-full border-b-4 border-double border-text-blue"></div>
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                       class="absolute"
-                       height="2.5rem"
-                       viewBox="0 0 24 24"
-                       fill="currentColor"
-                       style="bottom:0px;left:50%;transform:translate(-50%, 50%);">
-                    <path
-                          d="M14 19h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm0 2h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm.25 2h-4.5l1.188.782c.154.138.38.218.615.218h.895c.234 0 .461-.08.615-.218l1.187-.782zm3.75-13.799c0 3.569-3.214 5.983-3.214 8.799h-1.989c-.003-1.858.87-3.389 1.721-4.867.761-1.325 1.482-2.577 1.482-3.932 0-2.592-2.075-3.772-4.003-3.772-1.925 0-3.997 1.18-3.997 3.772 0 1.355.721 2.607 1.482 3.932.851 1.478 1.725 3.009 1.72 4.867h-1.988c0-2.816-3.214-5.23-3.214-8.799 0-3.723 2.998-5.772 5.997-5.772 3.001 0 6.003 2.051 6.003 5.772zm4-.691v1.372h-2.538c.02-.223.038-.448.038-.681 0-.237-.017-.464-.035-.69h2.535zm-10.648-6.553v-1.957h1.371v1.964c-.242-.022-.484-.035-.726-.035-.215 0-.43.01-.645.028zm-3.743 1.294l-1.04-1.94 1.208-.648 1.037 1.933c-.418.181-.822.401-1.205.655zm10.586 1.735l1.942-1.394.799 1.115-2.054 1.473c-.191-.43-.423-.827-.687-1.194zm-3.01-2.389l1.038-1.934 1.208.648-1.041 1.941c-.382-.254-.786-.473-1.205-.655zm-10.068 3.583l-2.054-1.472.799-1.115 1.942 1.393c-.264.366-.495.763-.687 1.194zm13.707 6.223l2.354.954-.514 1.271-2.425-.982c.21-.397.408-.812.585-1.243zm-13.108 1.155l-2.356 1.06-.562-1.251 2.34-1.052c.173.433.371.845.578 1.243zm-1.178-3.676h-2.538v-1.372h2.535c-.018.226-.035.454-.035.691 0 .233.018.458.038.681z" />
-                  </svg>
-                </h1>
-                <p class="text-xl font-semibold">大健康、兒童教育、風水命理、全球旅遊、成功學、身心靈、美容、理財</p>
-                <p class="text-xl mb-2">八大領域專業的講解，這些實用的知識講豐富我們生活點滴!</p>
-                <div class="text-center">
-                  <a class="inline-block border-2 border-main-orange hover:border-orange-300 rounded-lg text-lg sm:text-xl font-semibold bg-main-orange text-text-blue hover:text-main-white transform hover:scale-110 shadow-md hover:shadow-2xl transitions-colors duration-300 px-3 py-2"
-                     href="#course-sec">前往體驗</a>
+        <div class="nav-intro bg-main-white pt-6"
+             style="box-shadow:0px -8px 3px 3px #21212166">
+          <!-- 知識趣介紹區 -->
+          <div class="w-full p-2 md:p-6 mb-16 lg:mb-vh-1/4">
+            <div class="w-full block md:flex flex-row-reverse">
+              <div class="w-full md:w-3/5 lg:w-2/3 pl-0 md:pl-8 mb-6 md:mb-0">
+                <img class="rounded-lg"
+                     src="img/feature/watch.jpg"
+                     alt="寶島知識趣"
+                     style="box-shadow:6px 6px 15px 1px rgba(0, 0, 0, 0.5)"></div>
+              <div class="w-full md:w-2/5 lg:w-1/3 xl:w-1/4 flex-center flex-col pl-0 md:pl-8 md:ml-auto">
+                <div class="text-center md:text-left">
+                  <div class="title-box flex-center md:justify-start mb-4">
+                    <div class="sec-title title-blue border-text-blue">
+                      <h1 class="text-4xl lg:tex-5xl">寶島知識趣</h1>
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           class="title-svg"
+                           viewBox="0 0 24 24">
+                        <path
+                              d="M14 19h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm0 2h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm.25 2h-4.5l1.188.782c.154.138.38.218.615.218h.895c.234 0 .461-.08.615-.218l1.187-.782zm3.75-13.799c0 3.569-3.214 5.983-3.214 8.799h-1.989c-.003-1.858.87-3.389 1.721-4.867.761-1.325 1.482-2.577 1.482-3.932 0-2.592-2.075-3.772-4.003-3.772-1.925 0-3.997 1.18-3.997 3.772 0 1.355.721 2.607 1.482 3.932.851 1.478 1.725 3.009 1.72 4.867h-1.988c0-2.816-3.214-5.23-3.214-8.799 0-3.723 2.998-5.772 5.997-5.772 3.001 0 6.003 2.051 6.003 5.772zm4-.691v1.372h-2.538c.02-.223.038-.448.038-.681 0-.237-.017-.464-.035-.69h2.535zm-10.648-6.553v-1.957h1.371v1.964c-.242-.022-.484-.035-.726-.035-.215 0-.43.01-.645.028zm-3.743 1.294l-1.04-1.94 1.208-.648 1.037 1.933c-.418.181-.822.401-1.205.655zm10.586 1.735l1.942-1.394.799 1.115-2.054 1.473c-.191-.43-.423-.827-.687-1.194zm-3.01-2.389l1.038-1.934 1.208.648-1.041 1.941c-.382-.254-.786-.473-1.205-.655zm-10.068 3.583l-2.054-1.472.799-1.115 1.942 1.393c-.264.366-.495.763-.687 1.194zm13.707 6.223l2.354.954-.514 1.271-2.425-.982c.21-.397.408-.812.585-1.243zm-13.108 1.155l-2.356 1.06-.562-1.251 2.34-1.052c.173.433.371.845.578 1.243zm-1.178-3.676h-2.538v-1.372h2.535c-.018.226-.035.454-.035.691 0 .233.018.458.038.681z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <p class="text-lg md:text-xl font-semibold">大健康、兒童教育、風水命理、全球旅遊、成功學、身心靈、美容、理財</p>
+                  <p class="text-lg md:text-xl mb-6">八大領域專業的講解，這些實用的知識將豐富我們生活點滴!</p>
+                  <div class="text-center md:text-left">
+                    <a class="inline-block border-2 border-main-orange hover:border-orange-300 rounded-lg text-lg sm:text-xl font-semibold bg-main-orange text-text-blue hover:text-main-white transform hover:scale-110 shadow-md hover:shadow-2xl transitions-colors duration-300 px-3 py-2"
+                       href="#course-sec">前往體驗</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <!-- 商城介紹區 -->
+          <div class="w-full p-2 md:p-6 pb-16">
+            <div class="w-full block md:flex">
+              <div class="w-full md:w-3/5 lg:w-2/3 pr-0 md:pr-8 mb-6 md:mb-0">
+                <img class="rounded-lg"
+                     src="img/feature/mall.jpg"
+                     alt="寶島知識趣"
+                     style="box-shadow:6px 6px 15px 1px rgba(0, 0, 0, 0.5)"></div>
+              <div class="w-full md:w-2/5 lg:w-1/3 xl:w-1/4 flex-center flex-col md:mr-auto">
+                <div class="text-center md:text-left">
+                  <div class="title-box flex-center md:justify-start mb-4">
+                    <div class="sec-title title-blue border-text-blue">
+                      <h1 class="text-4xl lg:tex-5xl">寶島商城</h1>
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           class="title-svg"
+                           viewBox="0 0 24 24">
+                        <path
+                              d="M20 7h-4v-3c0-2.209-1.791-4-4-4s-4 1.791-4 4v3h-4l-2 17h20l-2-17zm-11-3c0-1.654 1.346-3 3-3s3 1.346 3 3v3h-6v-3zm-4.751 18l1.529-13h2.222v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h2.222l1.529 13h-15.502z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <p class="text-lg md:text-xl font-semibold">各式各樣特色商品任你選購!</p>
+                  <p class="text-lg md:text-xl font-semibold">消費更享高額回饋金!</p>
+                  <p class="text-lg md:text-xl mb-6">來自品質保證店家，各種優質好物，讓我們一起過上高品質幸福生活。</p>
+                  <div class="text-center md:text-left">
+                    <a class="inline-block border-2 border-main-orange hover:border-orange-300 rounded-lg text-lg sm:text-xl font-semibold bg-main-orange text-text-blue hover:text-main-white transform hover:scale-110 shadow-md hover:shadow-2xl transitions-colors duration-300 px-3 py-2"
+                       href="https://baodao7.com/mall"
+                       target="_blank">前往瀏覽</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
     </template>
 
@@ -952,7 +983,7 @@
                x-init="animateLogo()">
         <div class="bg-fixed bg-cover bg-bottom overflow-hidden -mx-6 -mt-3"
              style="background-image:url('img/background/maddison.jpg');">
-          <div class="w-full h-full bg-main-white-4">
+          <div class="w-full h-full bg-main-white-6">
             <div class="jumbo-logo h-64 relative flex-center bg-cover bg-center overflow-visible">
               <svg xmlns="http://www.w3.org/2000/svg"
                    height="95%"
@@ -1184,9 +1215,17 @@
             </video>
           </div>
           <div class="md:w-1/2 p-6">
-            <div class="has-reveal reveal-rtl">
-              <h1 class="text-4xl"
-                  style="text-align:center;">創辦理念</h1>
+            <div class="flex-center md:justify-start mb-2">
+              <div class="sec-title title-white border-main-white">
+                <h1 class="text-4xl lg:text-5xl">創辦理念</h1>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="title-svg"
+                     viewBox="0 0 24 24"
+                     clip-rule="evenodd">
+                  <path
+                        d="M16.086 24h-2.165c-1.278-3.005-1.458-5.067.182-7 .553-.651 1.417-1.479 1.804-1.877.952-.982 2.405-1.063 3.089-.23v-3.304c.035-1.578 1.16-2.589 2.457-2.589 1.41 0 2.455.999 2.546 2.486l.001 4.842c-.022.987-.129 1.435-.647 2.404-.828 1.515-1.832 3.17-2.099 5.268h-2.011c.307-3.069 2.075-5.58 2.545-6.606.18-.397.204-.592.213-1.015v-4.812c0-.723-1.006-.723-1.006.001v3.888c-.034.786-.334 1.251-.85 1.858-.5.587-1.796 2.07-2.36 2.686-.817.895-2.095-.22-1.367-1.219.153-.21 1.248-1.362 1.453-1.624.439-.557-.119-1.007-.629-.515-.724.723-1.505 1.561-1.75 1.828-1.284 1.399.11 4.383.594 5.53zm-6.007 0c1.278-3.005 1.458-5.067-.182-7-.553-.651-1.417-1.479-1.804-1.877-.952-.982-2.405-1.063-3.089-.23v-3.304c-.035-1.578-1.16-2.589-2.457-2.589-1.41 0-2.455.999-2.546 2.486l-.001 4.842c.022.987.129 1.435.647 2.404.828 1.515 1.832 3.171 2.099 5.268h2.011c-.307-3.069-2.075-5.58-2.545-6.606-.18-.397-.204-.592-.213-1.015v-4.812c0-.723 1.006-.723 1.006.001v3.888c.034.786.334 1.251.85 1.858.5.587 1.796 2.07 2.36 2.686.817.895 2.095-.22 1.367-1.219-.153-.21-1.248-1.362-1.453-1.624-.439-.557.119-1.007.629-.515.724.723 1.505 1.561 1.75 1.828 1.284 1.4-.11 4.383-.594 5.53h2.165zm2.21-8h-.596c-.156 0-.307-.053-.41-.145l-.792-.522h3l-.792.522c-.102.092-.253.145-.41.145zm1.23-1.333h-3.038c-.184 0-.334-.149-.334-.334 0-.184.15-.333.334-.333h3.038c.184 0 .334.149.334.333 0 .185-.149.333-.334.334zm-1.763-1.315h-1.886c-.017-3.426-1.87-3.837-1.87-6.196 0-2.26 1.77-3.802 4-3.802h.026c2.218.012 3.974 1.551 3.974 3.802 0 2.359-1.855 2.77-1.872 6.196h-1.886c0-3.647 1.758-4.819 1.758-6.201 0-1.141-.925-1.778-2-1.798h-.025c-1.064.03-1.975.666-1.975 1.798 0 1.382 1.756 2.554 1.756 6.201zm-4.915-4.838c.116.443.277.841.48 1.247l-1.471.676-.551-1.214 1.542-.709zm10.318 0l1.488.687-.551 1.215-1.419-.656c.2-.4.366-.81.482-1.246zm2.174-1.181h-2.002c.014-.446-.026-.896-.123-1.333h2.125v1.333zm-12.664 0h-2.002v-1.333h2.124c-.095.436-.135.884-.122 1.33v.003zm9.36-3.618l1.656-1.176.772 1.088-1.67 1.184c-.194-.388-.446-.754-.758-1.096zm-8.058-.001c-.307.335-.558.7-.759 1.097l-1.669-1.184.772-1.088 1.656 1.175zm5.912-1.395l.885-1.793 1.195.59-.884 1.793c-.372-.244-.774-.442-1.196-.59zm-3.767-.001c-.421.147-.824.344-1.196.589l-.884-1.791 1.196-.59.884 1.792zm2.551-.277c-.446-.052-.873-.055-1.334-.002v-2.039h1.334v2.041z" />
+                </svg>
+              </div>
             </div>
             <h6 class="text-lg">現在各行業，無論是科技業、傳統產業、服務業、傳直銷業…等。都圍繞在以下六點：<br />
               <span class="">&nbsp&nbsp「找人」、「拉人」、「推銷」、「囤貨」、「售後服務」、「帶團隊」</span><br /><br />
@@ -1197,12 +1236,74 @@
 
         </div>
 
+        <!-- bottom part -->
+        <!-- title on md or below screen -->
+        <div class="flex-center md:justify-start mt-8 md:hidden">
+          <div class="sec-title title-blue">
+            <h1 class="text-4xl lg:text-5xl text-left">創辦人簡介</h1>
+            <svg class="title-svg"
+                 viewBox="0 0 33 58"
+                 xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16.5"
+                      cy="12.5"
+                      r="12.5"
+                      fill="currentColor" />
+              <path d="M29.2076 52.8107L32.0713 31.8107C32.5625 28.2081 29.7622 25 26.1263 25H6.87371C3.23779 25 0.437468 28.2081 0.928729 31.8107L3.79237 52.8107C4.19776 55.7836 6.73692 58 9.73735 58H23.2627C26.2631 58 28.8022 55.7836 29.2076 52.8107Z"
+                    fill="currentColor" />
+              <path d="M16.5 41L9.13878 25.25H23.8612L16.5 41Z"
+                    fill="white" />
+              <mask id="maskTie0"
+                    mask-type="alpha"
+                    maskUnits="userSpaceOnUse"
+                    x="9"
+                    y="25"
+                    width="15"
+                    height="17">
+                <path d="M16.5 40L10.0048 25.75H22.9952L16.5 40Z"
+                      fill="#C4C4C4"
+                      stroke="black" />
+              </mask>
+              <g mask="url(#maskTie0)">
+                <path d="M16.5 25L26.4593 45.25H6.54071L16.5 25Z"
+                      fill="#F5A1A1" />
+              </g>
+            </svg>
+          </div>
+        </div>
         <div class="flex mt-2 md:mt-4">
-          <div class="w-1/2 md:w-2/5 pl-2 md:pl-4 pt-6 md:pl-24 md:pt-12">
-            <div class="has-reveal reveal-ltr">
-              <h1 class="text-4xl text-left whitespace-no-wrap overflow-visible">創辦人簡介</h1>
+          <div class="w-1/2 sm:w-1/3 md:w-2/5 pl-2 sm:pl-8 pt-0 md:pt-12 md:ml-auto">
+            <div class="sec-title title-blue border-text-blue hidden md:inline-block">
+              <h1 class="text-4xl lg:text-5xl text-left">創辦人簡介</h1>
+              <svg viewBox="0 0 33 58"
+                   xmlns="http://www.w3.org/2000/svg"
+                   class="title-svg">
+                <circle cx="16.5"
+                        cy="12.5"
+                        r="12.5"
+                        fill="currentColor" />
+                <path d="M29.2076 52.8107L32.0713 31.8107C32.5625 28.2081 29.7622 25 26.1263 25H6.87371C3.23779 25 0.437468 28.2081 0.928729 31.8107L3.79237 52.8107C4.19776 55.7836 6.73692 58 9.73735 58H23.2627C26.2631 58 28.8022 55.7836 29.2076 52.8107Z"
+                      fill="currentColor" />
+                <path d="M16.5 41L9.13878 25.25H23.8612L16.5 41Z"
+                      fill="white" />
+                <mask id="maskTie"
+                      mask-type="alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="9"
+                      y="25"
+                      width="15"
+                      height="17">
+                  <path d="M16.5 40L10.0048 25.75H22.9952L16.5 40Z"
+                        fill="#C4C4C4"
+                        stroke="black" />
+                </mask>
+                <g mask="url(#maskTie)">
+                  <path d="M16.5 25L26.4593 45.25H6.54071L16.5 25Z"
+                        fill="#F5A1A1" />
+                </g>
+              </svg>
+
             </div>
-            <ul class="text-lg md:text-2xl mt-8 list-disc">
+            <ul class="text-lg sm:text-2xl list-disc mt-4">
               <p>經歷:</p>
               <li class="">
                 <h6>寶島奇蹟-粉絲工廠 創辦人</h6>
@@ -1227,13 +1328,13 @@
               </li>
             </ul>
           </div>
-          <div class="w-1/2 md:w-2/5 overflow-hidden rounded-full md:rounded-lg md:mx-10 mt-auto">
+          <div class="w-1/2 ml-2 sm:pl-4 mt-auto">
             <img src="img/feature/founder.jpg"
                  alt="創辦人"
-                 width="100%">
+                 class="w-full md:w-4/5 rounded-full md:rounded-lg">
           </div>
         </div>
-
+        <!-- bottom part end -->
       </section>
     </template>
     <template x-if="active_section === '#service-sec'">
@@ -1650,8 +1751,10 @@
               </div>
             </div>
             <!-- 無結果顯示 -->
-            <div x-show="!errorStatus && searchStatus && boxInfo.length === 0">
-              <h1 class="text-2xl">尚未推出，敬請期待...</h1>
+            <div class="bg-blue-400 border-l-4 border-blue-700 text-blue-900 text-xl px-4 py-2"
+                 role="alert"
+                 x-show="!errorStatus && searchStatus && boxInfo.length === 0">
+              <h1 class="text-2xl">哦喔!課程尚未推出，敬請期待...</h1>
             </div>
             <!-- 錯誤顯示 -->
             <div class="bg-red-400 border-l-4 border-red-700 text-red-900 text-xl px-4 py-2"
