@@ -3,6 +3,7 @@
 function watch() {
   return {
     ajax: new AjaxHandler(),
+    client: new Client(),
     class_id: null,
     lesson_id: null, // 當前分集id
     video_url: "",
@@ -24,37 +25,45 @@ function watch() {
     },
     async setLessons(class_id) {
       var lessons = await this.ajax.getLessons(class_id).then(data => {
-        var ret_array = [];
-        for (var i in data) {
-          var id = data[i].id;
-          var title = data[i].info;
-          var price = Math.round(data[i].price_market);
-
-          ret_array.push({
+        let lessonMap = new Map();
+        let index = 1; // entry of the lesson object in Map
+        for (let lesson of data) {
+          let id = lesson.id;
+          let title = lesson.title;
+          let info = lesson.info;
+          let price = Math.round(lesson.price_market);
+          let obj = {
+            index: index,
             id: id,
             title: title,
+            info: info,
             price: price
-          });
+          };
+          lessonMap.set(id, obj);
+          index++;
         }
-        return ret_array;
+        return lessonMap;
       });
       this.lessons = lessons;
-      this.setLesson(lessons[0].id);
+      this.setLesson(lessons.values().next().value.id);
       this.setPrice(class_id);
     },
     async setLesson(id) {
-      var data = await this.ajax.getLesson(id);
-      this.lesson_id = data.id;
-      this.lesson_title = data.title;
-      this.lesson_description = data.info;
-      this.lesson_price = Math.round(data.price_market);
-      if (this.lesson_price === 0) {
+      let lesson = this.lessons.get(id);
+      this.lesson_id = lesson.id;
+      this.lesson_title = lesson.title;
+      this.lesson_description = lesson.info;
+      this.lesson_price = lesson.price;
+
+      let record = await this.client.verifyPurchase([id]);
+      if (record && record[0].purchased) {
+        var data = await this.ajax.getLesson(id);
         var date_ym = data.updated_at.split("-")[0] + "_" + data.updated_at.split("-")[1];
         this.video_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data.filename;
       } else {
         this.video_url = "";
+        return null;
       }
-
     },
     async setPrice(class_id) {
       var data = await this.ajax.getClass(class_id);

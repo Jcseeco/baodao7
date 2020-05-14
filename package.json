@@ -9,14 +9,20 @@
     "build:css": "tailwind build src/style.css -o css/style.css",
     "postcss": "postcss css/style.css -o css/style.min.css",
     "pack": "webpack --mode=development",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=webpack.config.js"
+    "clean": "rm -rf dist",
+    "build:js": "npm run clean && mkdir dist && babel js -s -d dist",
+    "production": "npm run build:js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.6",
     "css-loader": "^3.5.3",
     "mini-css-extract-plugin": "^0.9.0",
     "purgecss-webpack-plugin": "^2.1.2",

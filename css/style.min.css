@@ -50,6 +50,12 @@ h1 {
  * 2. Show the overflow in Edge and IE.
  */
 
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
@@ -194,6 +200,11 @@ textarea {
  * 2. Remove the padding in IE 10.
  */
 
+[type="checkbox"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
@@ -264,9 +275,11 @@ template {
 
 h1,
 h2,
+h3,
 h4,
 h5,
 h6,
+hr,
 p {
   margin: 0;
 }
@@ -349,6 +362,10 @@ html {
  * Ensure horizontal rules are visible by default
  */
 
+hr {
+  border-top-width: 1px;
+}
+
 /**
  * Undo the `border-style: none` reset that Normalize applies to images so that
  * our `border-{width}` utilities have the expected effect.
@@ -395,6 +412,7 @@ button,
 
 h1,
 h2,
+h3,
 h4,
 h5,
 h6 {
@@ -616,6 +634,12 @@ section {
   outline: none;
 }
 
+.appearance-none {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 .bg-fixed {
   background-attachment: fixed;
 }
@@ -744,6 +768,12 @@ section {
   background-size: cover;
 }
 
+.border-gray-400 {
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+}
+
 .border-red-700 {
   --border-opacity: 1;
   border-color: #c53030;
@@ -784,6 +814,10 @@ section {
   --border-opacity: 1;
   border-color: #ff9d33;
   border-color: rgba(255, 157, 51, var(--border-opacity));
+}
+
+.rounded-sm {
+  border-radius: 0.125rem;
 }
 
 .rounded {
@@ -839,6 +873,10 @@ section {
   border-width: 2px;
 }
 
+.border {
+  border-width: 1px;
+}
+
 .border-t-0 {
   border-top-width: 0;
 }
@@ -857,6 +895,10 @@ section {
 
 .border-b-8 {
   border-bottom-width: 8px;
+}
+
+.border-t {
+  border-top-width: 1px;
 }
 
 .border-b {
@@ -899,6 +941,10 @@ section {
   flex-wrap: wrap;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -929,6 +975,10 @@ section {
 
 .hover\:font-semibold:hover {
   font-weight: 600;
+}
+
+.h-6 {
+  height: 1.5rem;
 }
 
 .h-8 {
@@ -963,6 +1013,10 @@ section {
   height: 100vh;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
 }
@@ -995,6 +1049,10 @@ section {
   font-size: 4rem;
 }
 
+.leading-tight {
+  line-height: 1.25;
+}
+
 .list-disc {
   list-style-type: disc;
 }
@@ -1007,8 +1065,8 @@ section {
   margin: 0.5rem;
 }
 
-.m-4 {
-  margin: 1rem;
+.m-3 {
+  margin: 0.75rem;
 }
 
 .mx-1 {
@@ -1045,6 +1103,10 @@ section {
   margin-left: 0;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -1059,6 +1121,10 @@ section {
 
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
 }
 
 .mb-3 {
@@ -1126,6 +1192,14 @@ section {
   object-fit: cover;
 }
 
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
 .focus\:outline-none:focus {
   outline: 0;
 }
@@ -1168,6 +1242,10 @@ section {
 
 .p-3 {
   padding: 0.75rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .p-6 {
@@ -1242,6 +1320,10 @@ section {
   padding-bottom: 0.75rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
 .pb-4 {
   padding-bottom: 1rem;
 }
@@ -1294,6 +1376,10 @@ section {
   left: 0;
 }
 
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 .shadow-md {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
@@ -1302,8 +1388,16 @@ section {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+.hover\:shadow-sm:hover {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
 .hover\:shadow-2xl:hover {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.focus\:shadow-outline:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
 .text-left {
@@ -1318,6 +1412,12 @@ section {
   text-align: right;
 }
 
+.text-white {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
 .text-gray-200 {
   --text-opacity: 1;
   color: #edf2f7;
@@ -1330,16 +1430,34 @@ section {
   color: rgba(113, 128, 150, var(--text-opacity));
 }
 
+.text-gray-700 {
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+}
+
 .text-gray-900 {
   --text-opacity: 1;
   color: #1a202c;
   color: rgba(26, 32, 44, var(--text-opacity));
 }
 
+.text-red-500 {
+  --text-opacity: 1;
+  color: #f56565;
+  color: rgba(245, 101, 101, var(--text-opacity));
+}
+
 .text-red-900 {
   --text-opacity: 1;
   color: #742a2a;
   color: rgba(116, 42, 42, var(--text-opacity));
+}
+
+.text-blue-500 {
+  --text-opacity: 1;
+  color: #4299e1;
+  color: rgba(66, 153, 225, var(--text-opacity));
 }
 
 .text-blue-900 {
@@ -1364,6 +1482,12 @@ section {
   --text-opacity: 1;
   color: #2f855a;
   color: rgba(47, 133, 90, var(--text-opacity));
+}
+
+.hover\:text-blue-800:hover {
+  --text-opacity: 1;
+  color: #2c5282;
+  color: rgba(44, 82, 130, var(--text-opacity));
 }
 
 .hover\:text-main-blue:hover {
@@ -1395,6 +1519,10 @@ section {
   user-select: none;
 }
 
+.align-baseline {
+  vertical-align: baseline;
+}
+
 .visible {
   visibility: visible;
 }
@@ -1407,6 +1535,10 @@ section {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.w-6 {
+  width: 1.5rem;
 }
 
 .w-16 {
@@ -1451,6 +1583,10 @@ section {
   z-index: 10;
 }
 
+.z-20 {
+  z-index: 20;
+}
+
 .z-40 {
   z-index: 40;
 }
@@ -1466,9 +1602,34 @@ section {
   transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
 }
 
+.scale-75 {
+  --transform-scale-x: .75;
+  --transform-scale-y: .75;
+}
+
+.scale-90 {
+  --transform-scale-x: .9;
+  --transform-scale-y: .9;
+}
+
+.scale-100 {
+  --transform-scale-x: 1;
+  --transform-scale-y: 1;
+}
+
+.scale-110 {
+  --transform-scale-x: 1.1;
+  --transform-scale-y: 1.1;
+}
+
 .hover\:scale-110:hover {
   --transform-scale-x: 1.1;
   --transform-scale-y: 1.1;
+}
+
+.hover\:scale-125:hover {
+  --transform-scale-x: 1.25;
+  --transform-scale-y: 1.25;
 }
 
 .hover\:translate-x-3:hover {
@@ -1483,12 +1644,20 @@ section {
   transition-property: background-color, border-color, color, fill, stroke;
 }
 
+.ease-in {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-200 {
+  transition-duration: 200ms;
 }
 
 .duration-300 {
@@ -1500,6 +1669,10 @@ section {
 }
 
 @media (min-width: 640px) {
+
+  .sm\:block {
+    display: block;
+  }
 
   .sm\:flex-row {
     flex-direction: row;
@@ -1540,6 +1713,16 @@ section {
 
   .sm\:p-6 {
     padding: 1.5rem;
+  }
+
+  .sm\:py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .sm\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .sm\:pt-1 {
