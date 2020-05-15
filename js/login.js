@@ -14,6 +14,11 @@ function loginHandler() {
       let user = localStorage.getItem("username");
       return (user === null) ? false : user;
     },
+    getLoginUrl() {
+      let tk = new TokenHandler();
+
+      return "https://baodao7.com/user/login?accesstoken=" + tk.getToken();
+    },
     async login() {
       let user = $("#login_username").val();
       user = user.replace(/[^\w]/gi, ''); // filter string
