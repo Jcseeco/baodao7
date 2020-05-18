@@ -55,11 +55,10 @@ function watch() {
       this.lesson_description = lesson.info;
       this.lesson_price = lesson.price;
 
-      let record = await this.client.verifyPurchase([id]);
+      let record = await this.client.verifyPurchase([id]); // 確認購買
       if (record && record[0].purchased) {
-        var data = await this.ajax.getLesson(id);
-        var date_ym = data.updated_at.split("-")[0] + "_" + data.updated_at.split("-")[1];
-        this.video_url = "https://image.baodao7.com/upload/" + date_ym + "/" + data.filename;
+        var url = await this.client.getLessonUrl(id); // 取得課程詳情
+        this.video_url = url;
       } else {
         this.video_url = "";
         return null;
@@ -68,16 +67,6 @@ function watch() {
     async setPrice(class_id) {
       var data = await this.ajax.getClass(class_id);
       this.class_price = Math.round(data.price_market);
-    },
-    validateLesson(id) {
-      return fetch('php/lessonValidate.php', {
-        body: JSON.stringify({
-          id: id
-        }),
-        method: 'POST'
-      }).then(response => response.text()).catch(function(error) {
-        console.log('There has been a problem: ', error.message);
-      });
     }
   };
 }

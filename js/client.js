@@ -59,8 +59,8 @@ function Client() {
       'content-type': 'application/x-www-form-urlencoded'
     };
     // set header according to token
-    // let accessToken = tk.getToken();
-    let accessToken = "be39d275203a10f3d30cb26828799af7";
+    let accessToken = tk.getToken();
+    // let accessToken = "be39d275203a10f3d30cb26828799af7";
     if (accessToken) {
       header["Access-Token"] = accessToken;
     }
@@ -75,5 +75,27 @@ function Client() {
 
     if (!response.success) return null;
     return response.data;
+  }
+
+  this.getLessonUrl = async function(id) {
+    var tk = new TokenHandler();
+
+    // set header
+    let header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    };
+    let accessToken = tk.getToken();
+    if (accessToken) {
+      header["Access-Token"] = accessToken;
+    }
+    // data
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("id", id);
+
+    // assemble video src url if success
+    let response = await tk.ajax('https://api.baodao7.com/web/class_details', header, urlencoded);
+    if (!response.success) return null;
+    var date_ym = response.data.updated_at.split("-")[0] + "_" + response.data.updated_at.split("-")[1];
+    return "https://image.baodao7.com/upload/" + date_ym + "/" + response.data.filename;
   }
 }
